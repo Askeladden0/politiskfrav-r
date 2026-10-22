@@ -1,0 +1,18 @@
+# Brukes av Supabase CLI (`supabase functions deploy`, `supabase test db`).
+# Funksjonene gjør selv autentiseringen (se _shared/felles.ts), så JWT-verifisering er slått av.
+project_id = "politisk-fravaer"
+
+[functions.sok]
+verify_jwt = false
+[functions.status]
+verify_jwt = false
+[functions.pdf]
+verify_jwt = false
+[functions.send-fravaer]
+verify_jwt = false
+[functions.avsla]
+verify_jwt = false
+[functions.gmail-connect]
+verify_jwt = false
+[functions.gmail-callback]
+verify_jwt = false

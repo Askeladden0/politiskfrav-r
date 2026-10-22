@@ -18,7 +18,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null)
   const [laster, setLaster] = useState(true)
   const [mineOrg, setMineOrg] = useState<MinOrg[]>([])
-  const [lasterOrg, setLasterOrg] = useState(false)
+  // Hvilken bruker mineOrg er hentet for. «Laster» utledes herfra, så det aldri finnes et mellomrom
+  // der innloggingen er klar men organisasjonslisten ennå ikke er hentet.
+  const [orgFor, setOrgFor] = useState<string | null>(null)
+  const lasterOrg = !!session && orgFor !== session.user.id
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
@@ -32,17 +35,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!session) {
       setMineOrg([])
+      setOrgFor(null)
       return
     }
+    const brukerId = session.user.id
     let avbrutt = false
-    setLasterOrg(true)
     ;(async () => {
       // Knytter innloggingen til attestantrader med samme e-post (første innlogging).
       await supabase.rpc('koble_innlogget_bruker')
       const { data } = await supabase.rpc('mine_organisasjoner')
       if (!avbrutt) {
         setMineOrg((data as MinOrg[]) ?? [])
-        setLasterOrg(false)
+        setOrgFor(brukerId)
       }
     })()
     return () => {
