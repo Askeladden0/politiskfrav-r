@@ -1,0 +1,710 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Fraværsmal</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Schibsted+Grotesk:wght@400;500;700;800&display=swap">
+<style id="app-style">
+/* Layout: arbeidsbenk i to kolonner — skjema til venstre, A4-forhåndsvisning som følger med til høyre; innstillingsskuff fra høyre kant (kun for de som kan redigere). Fargene kommer fra sidens oppsett og settes av skriptet. */
+:root{
+  --bg:#EEF1F6; --fg:#121826; --accent:#3346D3; --on-accent:#ffffff; --accent-ink:#3346D3;
+  --surface:#FBFCFD; --soft:#E1E5EC; --line:#C3CAD6; --muted:#4F5869;
+  --ok:#1F7A4D; --warn:#B4441A; --paper:#ffffff; --paper-ink:#111111; --mark:#FFE7A3;
+  --font:"Schibsted Grotesk",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --sig:"Caveat","Segoe Script","Bradley Hand",cursive;
+}
+html{background:var(--bg)}
+body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:16px;line-height:1.45;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--accent-ink)}
+:focus-visible{outline:2.5px solid var(--accent-ink);outline-offset:2px}
+.wrap{max-width:1280px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top{border-bottom:1px solid var(--line)}
+.top-in{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:16px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px;min-width:0;font-weight:700;font-size:15px}
+.brand img{height:34px;width:auto;max-width:180px;object-fit:contain;display:block}
+.main{padding-block:clamp(28px,5vw,56px) 80px}
+.intro{max-width:760px;margin-bottom:40px;display:flex;flex-direction:column;gap:12px}
+h1{margin:0;font-size:clamp(38px,6.5vw,68px);line-height:.96;font-weight:800;letter-spacing:-.025em;text-wrap:balance}
+.intro p{margin:0;font-size:19px;color:var(--muted);max-width:62ch;text-wrap:pretty}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:48px;align-items:start}
+.col{display:flex;flex-direction:column;gap:44px;min-width:0}
+section{display:flex;flex-direction:column;gap:16px;min-width:0}
+.sh{display:flex;align-items:baseline;gap:12px;border-bottom:2px solid var(--fg);padding-bottom:10px}
+.sh h2{margin:0;font-size:23px;font-weight:700;flex:1;text-wrap:balance}
+.sh .meta{font-size:14px;font-weight:600;color:var(--muted);font-variant-numeric:tabular-nums}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px}
+.fld{display:flex;flex-direction:column;gap:6px;min-width:0}
+.fld>span,.lbl{font-size:13px;font-weight:600}
+.opt{font-weight:400;color:var(--muted)}
+.in{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:6px;font-size:16px;background:var(--surface);outline:none}
+.in:focus{border-color:var(--accent-ink)}
+textarea.in{resize:vertical;line-height:1.5}
+.ro{padding:12px 14px;border:1.5px dashed var(--line);border-radius:6px;color:var(--muted);font-size:15px}
+.seg{display:grid;grid-auto-columns:1fr;grid-auto-flow:column;gap:4px;padding:4px;background:var(--soft);border-radius:9px}
+.seg button{border:0;cursor:pointer;padding:11px 12px;border-radius:6px;font-size:15px;font-weight:600;background:transparent;white-space:nowrap}
+.seg button[aria-pressed="true"]{background:var(--surface);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.seg.sm button{padding:8px 12px;font-size:13.5px}
+.box{display:flex;flex-direction:column;gap:14px;padding:16px;background:var(--soft);border-radius:10px}
+.hint{font-size:13px;color:var(--muted);line-height:1.45}
+.btn{border:0;border-radius:7px;padding:11px 16px;font-size:15px;font-weight:600;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.btn.dark{background:var(--fg);color:var(--bg)}
+.btn.acc{background:var(--accent);color:var(--on-accent)}
+.btn.line{background:transparent;border:1.5px solid var(--fg)}
+.btn.line:hover{background:var(--fg);color:var(--bg)}
+.btn.ghost{background:transparent;border:1.5px solid var(--line)}
+.btn.ghost:hover{border-color:var(--fg)}
+.btn.dash{background:transparent;border:1.5px dashed var(--line);align-self:flex-start}
+.btn.dash:hover{border-color:var(--accent-ink)}
+.btn.link{background:transparent;padding:11px 10px;color:var(--muted)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.self{align-self:flex-start}
+.people{display:flex;flex-direction:column;gap:6px}
+.prow{display:grid;grid-template-columns:28px minmax(0,1fr) 44px;gap:8px;align-items:start;padding:6px;border-radius:8px}
+.prow.sel{background:var(--soft)}
+.prow .n{border:0;background:transparent;cursor:pointer;font-size:13px;font-weight:700;color:var(--muted);height:44px;padding:0;font-variant-numeric:tabular-nums}
+.prow.sel .n{color:var(--accent-ink)}
+.pfs{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:6px;min-width:0}
+.pfs .in{padding:11px 12px;font-size:15px}
+.x{width:44px;height:44px;border:0;border-radius:6px;background:transparent;cursor:pointer;font-size:22px;line-height:1;color:var(--muted)}
+.x:hover{background:var(--soft);color:var(--fg)}
+.drop{display:flex;justify-content:space-between;align-items:center;gap:12px;border:1.5px dashed var(--line);background:var(--surface);border-radius:8px;padding:14px 16px;cursor:pointer}
+.drop:hover{border-color:var(--accent-ink)}
+.imp-prev{display:flex;flex-direction:column;background:var(--surface);border:1.5px solid var(--line);border-radius:8px;overflow:hidden}
+.imp-prev div{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding:9px 12px;font-size:13px;border-bottom:1px solid var(--soft)}
+.imp-prev div span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.imp-prev>span{padding:9px 12px;font-size:13px;color:var(--muted)}
+.chk{display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer}
+.chk input{width:18px;height:18px;accent-color:var(--accent);margin:0}
+.sigbox{position:relative;background:var(--paper);border:1.5px solid var(--line);border-radius:8px;height:170px;overflow:hidden;color:var(--paper-ink)}
+.sigbox input{position:absolute;left:24px;right:24px;bottom:30px;border:0;outline:none;background:transparent;font-family:var(--sig);font-weight:600;font-size:52px;line-height:1.2;color:var(--paper-ink);padding:0;width:calc(100% - 48px)}
+.sigbox canvas{display:block;width:100%;height:100%;touch-action:none;cursor:crosshair}
+.sigbox .base{position:absolute;left:24px;right:24px;bottom:36px;border-bottom:1px solid #C9CDD3;pointer-events:none}
+.sigbox .cap{position:absolute;left:24px;bottom:12px;font-size:12px;color:#6B7280;pointer-events:none}
+.side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 20px);display:flex;flex-direction:column;gap:14px;min-width:0}
+.pvhead{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.pvname{display:flex;flex-direction:column;gap:2px;min-width:0}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.pvname b{font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pager{display:flex;gap:6px}
+.pager button{width:44px;height:44px;border:1.5px solid var(--line);background:var(--surface);border-radius:6px;cursor:pointer;font-size:18px}
+.pager button:hover{border-color:var(--fg)}
+.paper-wrap{container-type:inline-size;width:100%;max-width:560px}
+.paper{aspect-ratio:210/297;max-width:100%;background:var(--paper);color:var(--paper-ink);box-shadow:0 1px 2px rgba(0,0,0,.08),0 14px 40px rgba(0,0,0,.12);padding:7.1cqw 11.9cqw 0;display:flex;flex-direction:column;overflow:hidden;font-family:Helvetica,Arial,sans-serif}
+.p-head{display:flex;justify-content:space-between;align-items:flex-start;gap:4cqw;min-height:9.5cqw}
+.p-head img{max-width:26.2cqw;max-height:9.5cqw;object-fit:contain;object-position:left top;display:block}
+.p-org{font-weight:700;font-size:3.1cqw}
+.p-date{font-size:1.9cqw;color:#555;white-space:nowrap;padding-top:1cqw}
+.p-title{margin-top:7.6cqw;font-size:2.35cqw;font-weight:700;line-height:1.2}
+.p-body{margin-top:3.6cqw;font-size:1.93cqw;line-height:1.4;display:flex;flex-direction:column;gap:1.66cqw}
+.p-body p{margin:0;white-space:pre-line}
+.p-sign{display:flex;flex-direction:column;margin-top:1cqw}
+.p-sig{height:8.6cqw;display:flex;align-items:flex-end}
+.p-sig span{font-family:var(--sig);font-weight:600;font-size:5.6cqw;line-height:1.1;white-space:nowrap}
+.p-sig img{max-height:7.6cqw;max-width:31cqw;display:block}
+mark{background:var(--mark);color:inherit;padding:0 .2em;border-radius:2px}
+.mail{background:var(--surface);border:1.5px solid var(--line);border-radius:10px;overflow:hidden;max-width:560px}
+.mail dl{margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 14px;padding:14px 16px;border-bottom:1px solid var(--soft);font-size:14px}
+.mail dt{color:var(--muted);font-weight:600}
+.mail dd{margin:0;overflow-wrap:anywhere}
+.mail pre{margin:0;padding:16px;font:inherit;font-size:15px;white-space:pre-wrap;overflow-wrap:anywhere}
+.att{display:flex;align-items:center;gap:10px;margin:0 16px 16px;padding:10px 12px;border:1.5px solid var(--line);border-radius:8px;font-size:13.5px;font-weight:600}
+.att i{font-style:normal;font-size:11px;font-weight:800;background:var(--warn);color:#fff;border-radius:3px;padding:3px 5px}
+.stack{display:flex;flex-direction:column;gap:10px;max-width:560px}
+.note{font-size:14px;line-height:1.5;padding:12px 14px;background:var(--soft);border-radius:8px}
+.note b{font-weight:700}
+.note.warn{color:var(--warn);background:var(--surface);border:1.5px solid var(--warn)}
+.note.ok{color:var(--ok);background:var(--surface);border:1.5px solid var(--ok)}
+.send{border:0;background:var(--accent);color:var(--on-accent);border-radius:8px;padding:16px 20px;font-size:17px;font-weight:700;cursor:pointer;text-align:left;display:flex;justify-content:space-between;gap:12px}
+.send[disabled]{opacity:.45;cursor:not-allowed}
+.confirm{display:flex;flex-direction:column;gap:12px;padding:14px;border:2px solid var(--accent-ink);border-radius:10px;background:var(--surface);font-size:14.5px}
+.confirm .acts{display:flex;gap:8px;flex-wrap:wrap}
+.dls{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px}
+.dls .btn{justify-content:space-between;font-size:14px;padding:12px 14px}
+.list{display:flex;flex-direction:column;background:var(--surface);border:1.5px solid var(--line);border-radius:8px;overflow:hidden}
+.list>button{border:0;background:transparent;cursor:pointer;padding:13px 14px;font-size:14px;font-weight:600;display:flex;justify-content:space-between;gap:12px;text-align:left}
+.lrows{display:flex;flex-direction:column;border-top:1px solid var(--line);max-height:360px;overflow:auto}
+.lrow{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:4px;align-items:center;padding:6px 6px 6px 14px;border-bottom:1px solid var(--soft)}
+.lrow b{font-size:14px;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lrow small{font-size:12px;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--muted)}
+.lrow small.ok{color:var(--ok)} .lrow small.warn{color:var(--warn)}
+.lrow button{height:40px;padding:0 10px;border:0;border-radius:6px;background:transparent;cursor:pointer;font-size:13px;font-weight:600}
+.lrow button:hover{background:var(--soft)}
+.foot{font-size:13px;color:var(--muted)}
+/* Innstillingsskuff */
+.scrim{position:fixed;inset:0;background:rgba(10,12,18,.42);z-index:40}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(560px,100%);background:var(--bg);z-index:41;display:flex;flex-direction:column;box-shadow:-20px 0 60px rgba(0,0,0,.22);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);padding-right:env(safe-area-inset-right,0px)}
+.dh{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 22px;border-bottom:1px solid var(--line)}
+.dh h2{margin:0;font-size:21px;font-weight:800}
+.db{flex:1;overflow:auto;padding:22px;display:flex;flex-direction:column;gap:34px}
+.db section{gap:14px}
+.db .sh h2{font-size:18px}
+.colors{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+.color{display:flex;flex-direction:column;gap:6px}
+.color div{display:flex;gap:6px;align-items:center}
+.color input[type=color]{width:46px;height:46px;border:1.5px solid var(--line);border-radius:6px;padding:3px;background:var(--surface);cursor:pointer;flex:none}
+.color .in{padding:11px 10px;font-size:14px;font-family:ui-monospace,Menlo,monospace;text-transform:uppercase}
+.logo-pick{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.logo-pick .thumb{width:150px;height:64px;border:1.5px dashed var(--line);border-radius:8px;display:flex;align-items:center;justify-content:center;background:var(--surface);padding:6px;font-size:12px;color:var(--muted)}
+.logo-pick .thumb img{max-width:100%;max-height:100%;object-fit:contain}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips code{font-family:ui-monospace,Menlo,monospace;font-size:12.5px;background:var(--soft);border-radius:4px;padding:3px 6px}
+.df{border-top:1px solid var(--line);padding:16px 22px;display:flex;flex-direction:column;gap:10px;background:var(--bg)}
+.df .acts{display:flex;gap:8px;flex-wrap:wrap}
+.dirty{font-size:13px;font-weight:600;color:var(--muted)}
+.dirty.on{color:var(--warn)}
+@media (prefers-reduced-motion:no-preference){.drawer{animation:slide .22s ease-out}@keyframes slide{from{transform:translateX(24px);opacity:.6}to{transform:none;opacity:1}}}
+</style>
+<div id="app"><div id="page"></div><div id="drawer-root"></div></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script type="application/json" id="site-config">{"siteId":"mal-001","siteName":"Fraværsmal","orgName":"Din organisasjon","pageTitle":"Politisk fravær","intro":"Lag dokumentasjon på politisk fravær for alle deltakerne på et arrangement, og send hver deltaker sitt eget skjema på e-post.","logo":"","logoW":0,"logoH":0,"colors":{"bg":"#EEF1F6","fg":"#121826","accent":"#3346D3"},"pdf":{"title":"Dokumentasjon av politisk fravær","body":"Elever i videregående skole kan ha fravær fra undervisning uten at dette påvirker fraværsgrensen på 10 prosent for å få sluttvurdering i fag dersom eleven kan dokumentere at årsaken til fraværet er politisk arbeid (jf. forskrift til opplæringslova, § 3-3, siste ledd).\n\nDet er ingen grense for hvor mange timer fravær som kan unntas dersom det er dokumentert. Elever har også krav på at inntil 10 dagers fravær i året fjernes fra vitnemålet dersom fraværet skyldes politisk arbeid (jf. forskrift til opplæringslova, § 3-47, femte ledd, bokstav c).\n\nPolitisk fravær «kan dokumenteres av en politisk organisasjon» (rundskriv Udir-3-2016).\n\n{navn} {deltar} {arrangement} {tid} i regi av {arrangør}. Dette kan regnes som politisk arbeid etter forskriftene til opplæringslova.","greeting":"Vennlig hilsen,","fileName":"Politisk fravær - {navn}","showLogo":true},"mail":{"fromName":"","fromEmail":"","ccSender":true,"mode":"send","subject":"Dokumentasjon av politisk fravær – {arrangement}","body":"Hei {navn}!\n\nVedlagt ligger dokumentasjon på politisk fravær for {arrangement} {tid}. Lever den til kontaktlæreren din eller den som fører fravær på skolen din.\n\nTa kontakt hvis noe er uklart.\n\nVennlig hilsen\n{avsender}\n{organisasjon}"},"arrangorer":""}</script>
+<script id="app-script">
+(() => {
+'use strict';
+const CFG_EL = document.getElementById('site-config');
+let cfg = JSON.parse(CFG_EL.textContent);
+let savedJSON = JSON.stringify(cfg);
+const IN_CLAUDE = !!window.claude;
+const MONTHS = ['januar','februar','mars','april','mai','juni','juli','august','september','oktober','november','desember'];
+const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const hasMail = p => EMAIL.test(((p && p.email) || '').trim());
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const today = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); };
+const fmtD = iso => { if (!iso) return ''; const [y,m,d] = iso.split('-').map(Number); return d + '. ' + MONTHS[m-1] + ' ' + y; };
+const getPath = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : a[k]), o);
+const setPath = (o, p, v) => { const ks = p.split('.'); let t = o; ks.slice(0,-1).forEach(k => { t = t[k] = t[k] || {}; }); t[ks[ks.length-1]] = v; };
+
+/* ---------- Farger ---------- */
+const hex = h => { h = String(h||'').trim().replace('#',''); if (h.length === 3) h = h.split('').map(c => c+c).join(''); return /^[0-9a-f]{6}$/i.test(h) ? h : null; };
+const rgb = h => { h = hex(h) || '000000'; return [0,2,4].map(i => parseInt(h.slice(i,i+2),16)); };
+const toHex = a => '#' + a.map(v => Math.round(Math.max(0,Math.min(255,v))).toString(16).padStart(2,'0')).join('');
+const mix = (a, b, t) => { const x = rgb(a), y = rgb(b); return toHex(x.map((v,i) => v + (y[i]-v)*t)); };
+const lum = h => { const [r,g,b] = rgb(h).map(v => { v /= 255; return v <= .03928 ? v/12.92 : Math.pow((v+.055)/1.055, 2.4); }); return .2126*r + .7152*g + .0722*b; };
+const contrast = (a, b) => { const x = lum(a), y = lum(b); return (Math.max(x,y)+.05)/(Math.min(x,y)+.05); };
+function applyTheme() {
+  const c = cfg.colors, bg = '#' + (hex(c.bg) || 'EEF1F6'), fg = '#' + (hex(c.fg) || '121826'), ac = '#' + (hex(c.accent) || '3346D3');
+  const dark = lum(bg) < .3, r = document.documentElement.style;
+  const v = {
+    '--bg': bg, '--fg': fg, '--accent': ac,
+    '--on-accent': contrast(ac,'#ffffff') >= contrast(ac,'#111111') ? '#ffffff' : '#111111',
+    '--accent-ink': contrast(ac, bg) >= 3 ? ac : fg,
+    '--surface': dark ? mix(bg,'#ffffff',.07) : mix(bg,'#ffffff',.75),
+    '--soft': mix(bg, fg, dark ? .12 : .07), '--line': mix(bg, fg, .22), '--muted': mix(fg, bg, .3),
+    '--ok': dark ? '#5FD39A' : '#1F7A4D', '--warn': dark ? '#FF9B73' : '#B4441A', '--mark': dark ? '#7A5D10' : '#FFE7A3'
+  };
+  Object.keys(v).forEach(k => r.setProperty(k, v[k]));
+  r.setProperty('color-scheme', dark ? 'dark' : 'light');
+}
+
+/* ---------- Skjematilstand (lagres bare i denne nettleseren) ---------- */
+const KEY = 'fravaer-skjema-' + cfg.siteId;
+const blank = () => ({ name: '', school: '', email: '' });
+const base = () => ({ mode: 'past', ev: { arr: '', name: '', from: '', to: '', place: '' }, people: [blank()],
+  att: { name: '', verv: '', phone: '', email: '', date: today(), sig: '' }, sigMode: 'text', sigImg: null,
+  sel: 0, addMode: 'paste', bulk: '', imp: null, impHeader: true, showList: false, pv: 'pdf', confirming: false, sending: false, progress: '', msg: null, drawer: false });
+let S = (() => { const b = base(); try { const s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s) return { ...b, ...s, ev: { ...b.ev, ...s.ev }, att: { ...b.att, ...s.att }, imp: null, confirming: false, sending: false, progress: '', msg: null, drawer: false, bulk: '' }; } catch (e) {} return b; })();
+const persist = () => { try { const { imp, confirming, sending, progress, msg, drawer, bulk, ...rest } = S; localStorage.setItem(KEY, JSON.stringify(rest)); } catch (e) {} };
+
+let canEdit = !IN_CLAUDE;
+
+/* ---------- Innhold ---------- */
+const arrList = () => String(cfg.arrangorer || '').split('\n').map(l => l.trim()).filter(Boolean).map(l => { const c = l.split(/;|\|/).map(x => x.trim()); return { name: c[0] || '', leader: c[1] || '', phone: c[2] || '', email: c[3] || '' }; }).filter(a => a.name);
+const valid = () => S.people.filter(p => p.name.trim());
+const fill = (tpl, v) => String(tpl || '').replace(/\{([^{}\s]+)\}/g, (m, k) => Object.prototype.hasOwnProperty.call(v, k.toLowerCase()) ? v[k.toLowerCase()] : m);
+function vars(p) {
+  const ev = S.ev, a = S.att;
+  const ph = (x, l) => (x && String(x).trim()) ? String(x).trim() : '[' + l + ']';
+  const from = ev.from.trim(), to = ev.to.trim();
+  const tid = !from ? 'den [tid]' : to ? 'fra ' + from + ' til ' + to : (/^\d/.test(from) ? 'den ' + from : from);
+  return {
+    navn: ph(p && p.name, 'Navn'), skole: ph(p && p.school, 'skole'), epost: (p && p.email || '').trim(),
+    arrangement: ph(ev.name, 'arrangement'), tid, sted: ph(ev.place, 'sted'),
+    'arrangør': ev.arr.trim() || cfg.orgName, arrangor: ev.arr.trim() || cfg.orgName,
+    organisasjon: cfg.orgName, deltar: S.mode === 'past' ? 'deltok på' : 'skal delta på',
+    dato: fmtD(a.date), attestant: ph(a.name, 'attestant'), verv: a.verv.trim(),
+    avsender: (cfg.mail.fromName || '').trim() || a.name.trim() || cfg.orgName
+  };
+}
+function buildDoc(p) {
+  const v = vars(p), a = S.att, phone = a.phone.trim(), email = a.email.trim();
+  return {
+    title: fill(cfg.pdf.title, v),
+    paras: String(cfg.pdf.body || '').split(/\n\s*\n/).map(t => t.trim()).filter(Boolean).map(t => fill(t, v)),
+    greeting: fill(cfg.pdf.greeting, v), date: v.dato,
+    signer: a.name.trim() || '[Navn på attestant]',
+    role: [a.verv.trim(), v['arrangør']].filter(Boolean).join(', '),
+    contact: [phone && 'Tlf: ' + phone, email && 'E-post: ' + email].filter(Boolean).join(', ')
+  };
+}
+function missing() {
+  const m = [];
+  if (arrList().length && !S.ev.arr) m.push('arrangør');
+  if (!S.ev.name.trim()) m.push('navn på arrangement');
+  if (!S.ev.from.trim()) m.push('tidspunkt');
+  if (!valid().length) m.push('minst én deltaker');
+  if (!S.att.name.trim()) m.push('navnet ditt');
+  if (S.sigMode === 'draw' ? !S.sigImg : !(S.att.sig || '').trim()) m.push('signatur');
+  return m;
+}
+const fileName = p => (fill(cfg.pdf.fileName || 'Politisk fravær - {navn}', vars(p)).replace(/[\\/:*?"<>|]/g, '').trim() || 'Fravær') + '.pdf';
+const markPh = s => esc(s).replace(/\[[^\]]+\]/g, m => '<mark>' + m + '</mark>');
+
+/* ---------- Filer ---------- */
+const abToB64 = buf => { const b = new Uint8Array(buf); let s = ''; for (let i = 0; i < b.length; i += 32768) s += String.fromCharCode.apply(null, b.subarray(i, i + 32768)); return btoa(s); };
+async function saveFile(name, data) {
+  const dl = IN_CLAUDE ? await claude.use('downloads') : null;
+  if (dl) {
+    try { await dl.save({ filename: name, data }); return true; }
+    catch (e) { if (e && e.code !== 'declined') flash('warn', 'Kunne ikke lagre filen (' + (e.code || 'ukjent feil') + ').'); return false; }
+  }
+  if (IN_CLAUDE) { flash('warn', 'Nedlasting er ikke tilgjengelig i denne visningen.'); return false; }
+  const blob = data instanceof Blob ? data : new Blob([data]);
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000); return true;
+}
+
+/* ---------- PDF ---------- */
+let SIG = null;
+async function textSig() {
+  const text = (S.att.sig || '').trim(); if (!text) return null;
+  try { await document.fonts.load('600 160px Caveat'); } catch (e) {}
+  const c = document.createElement('canvas'), ctx = c.getContext('2d');
+  ctx.font = '600 160px Caveat, cursive'; const w = Math.ceil(ctx.measureText(text).width) + 40;
+  c.width = w; c.height = 220; ctx.font = '600 160px Caveat, cursive'; ctx.fillStyle = '#111'; ctx.fillText(text, 20, 165);
+  return { src: c.toDataURL('image/png'), w, h: 220 };
+}
+async function prepSig() { SIG = S.sigMode === 'draw' ? S.sigImg : await textSig(); }
+const newPdf = () => new window.jspdf.jsPDF({ unit: 'mm', format: 'a4' });
+function drawPage(pdf, p) {
+  const d = buildDoc(p), L = 25, R = 185, W = 160, top = 15;
+  if (cfg.pdf.showLogo && cfg.logo && cfg.logoW) {
+    let w = 55, h = w * cfg.logoH / cfg.logoW; if (h > 20) { h = 20; w = h * cfg.logoW / cfg.logoH; }
+    try { pdf.addImage(cfg.logo, 'PNG', L, top, w, h); } catch (e) {}
+  } else { pdf.setFont('helvetica', 'bold'); pdf.setFontSize(15); pdf.setTextColor(0); pdf.text(cfg.orgName, L, top + 8); }
+  pdf.setFont('helvetica', 'normal'); pdf.setFontSize(10); pdf.setTextColor(85); pdf.text(d.date, R, top + 5, { align: 'right' });
+  pdf.setTextColor(0);
+  let y = 52; pdf.setFont('helvetica', 'bold'); pdf.setFontSize(14); pdf.text(d.title, L, y);
+  y += 10; pdf.setFont('helvetica', 'normal'); pdf.setFontSize(11.5);
+  const lh = 11.5 * 0.3528 * 1.4;
+  d.paras.forEach(t => {
+    t.split('\n').forEach((line, li, arr) => {
+      const lines = pdf.splitTextToSize(line, W);
+      if (y + lines.length * lh > 282) { pdf.addPage(); y = 25; }
+      pdf.text(lines, L, y, { lineHeightFactor: 1.4 }); y += lines.length * lh;
+    });
+    y += 3.6;
+  });
+  if (y > 240) { pdf.addPage(); y = 25; }
+  pdf.text(d.greeting, L, y + 1);
+  if (SIG && SIG.src) { const h0 = 16; let w = Math.min(65, h0 * SIG.w / SIG.h); const h = w * SIG.h / SIG.w; try { pdf.addImage(SIG.src, 'PNG', L, y + 3 + (h0 - h), w, h); } catch (e) {} }
+  y += 25;
+  pdf.text(d.signer, L, y); y += lh;
+  if (d.role) { pdf.text(pdf.splitTextToSize(d.role, W), L, y); y += lh; }
+  if (d.contact) pdf.text(pdf.splitTextToSize(d.contact, W), L, y);
+}
+function guard() {
+  const m = missing(); if (m.length) { flash('warn', 'Fyll inn ' + m.join(', ') + ' først.'); return false; }
+  if (!window.jspdf) { flash('warn', 'PDF-verktøyet laster fortsatt. Prøv igjen om et øyeblikk.'); return false; }
+  return true;
+}
+async function dlOne(i) { const p = S.people[i]; if (!p || !p.name.trim() || !guard()) return; await prepSig(); const pdf = newPdf(); drawPage(pdf, p); saveFile(fileName(p), pdf.output('blob')); }
+async function dlAll() { if (!guard()) return; await prepSig(); const pdf = newPdf(); valid().forEach((p, i) => { if (i) pdf.addPage(); drawPage(pdf, p); }); saveFile(fill(cfg.pdf.title, vars()) + ' - ' + S.ev.name.trim() + ' (samlet).pdf', pdf.output('blob')); }
+async function dlZip() {
+  if (!guard()) return; await prepSig(); const ppl = valid();
+  if (ppl.length === 1 || !window.JSZip) { const pdf = newPdf(); drawPage(pdf, ppl[0]); return saveFile(fileName(ppl[0]), pdf.output('blob')); }
+  const zip = new window.JSZip(), used = {};
+  ppl.forEach(p => { const pdf = newPdf(); drawPage(pdf, p); let n = fileName(p); if (used[n]) n = n.replace(/\.pdf$/, ' (' + (++used[n]) + ').pdf'); else used[n] = 1; zip.file(n, pdf.output('arraybuffer')); });
+  saveFile(S.ev.name.trim() + ' - fraværsskjemaer.zip', await zip.generateAsync({ type: 'blob' }));
+}
+
+/* ---------- E-post via Gmail ---------- */
+const mailTargets = () => { const all = S.people.map((p, i) => ({ p, i })).filter(({ p }) => p.name.trim() && hasMail(p)); const unsent = all.filter(({ p }) => !p.sent); return { all, todo: unsent.length ? unsent : all, resend: !unsent.length && all.length > 0 }; };
+function mailErr(e) {
+  const c = e && e.code;
+  if (c === 'server_not_connected' || c === 'selection_required' || c === 'server_not_found') return 'Gmail er ikke koblet til. Legg til Gmail under Innstillinger → Koblinger i claude.ai, og prøv igjen.';
+  if (c === 'needs_reauth') return 'Gmail-tilkoblingen har gått ut. Koble til Gmail på nytt under Innstillinger → Koblinger i claude.ai.';
+  if (c === 'not_in_manifest' || c === 'approval_required' || c === 'not_granted' || c === 'consent_required') return 'Siden fikk ikke lov til å bruke Gmail. Trykk Send igjen og godta tilgangen når Claude spør.';
+  if (c === 'blocked_by_policy') return 'Organisasjonen din har sperret sending fra Gmail i Claude.';
+  if (c === 'tool_error') return 'Gmail avviste e-posten: ' + (e.message || 'ukjent grunn') + '.';
+  if (c === 'server_unavailable' || c === 'upstream_error') return 'Gmail svarte ikke. Sjekk Sendt-mappen før du prøver igjen, så ingen får e-posten to ganger.';
+  return 'Utsendingen stoppet (' + (c || 'ukjent feil') + ').';
+}
+async function doSend() {
+  const { todo } = mailTargets(); S.confirming = false;
+  const mcp = IN_CLAUDE ? await claude.use('mcp') : null;
+  if (!mcp) { S.msg = { kind: 'warn', text: 'E-postutsending virker bare når siden er åpnet i Claude og Gmail er koblet til. Last ned PDF-ene i stedet.' }; return renderSide(); }
+  S.sending = true; S.msg = null; renderSide();
+  await prepSig();
+  const tool = cfg.mail.mode === 'draft' ? 'create_draft' : 'send_message';
+  let done = 0, fail = null;
+  for (const { p, i } of todo) {
+    S.progress = (cfg.mail.mode === 'draft' ? 'Lager utkast ' : 'Sender ') + (done + 1) + ' av ' + todo.length + ' …'; renderSide();
+    const pdf = newPdf(); drawPage(pdf, p);
+    const v = vars(p);
+    const input = { to: [p.email.trim()], subject: fill(cfg.mail.subject, v), body: fill(cfg.mail.body, v), attachments: [{ content: abToB64(pdf.output('arraybuffer')), filename: fileName(p), mimeType: 'application/pdf' }] };
+    if (cfg.mail.ccSender && EMAIL.test((cfg.mail.fromEmail || '').trim())) input.cc = [cfg.mail.fromEmail.trim()];
+    try { await mcp.callTool('Gmail', tool, input); S.people[i] = { ...S.people[i], sent: { at: new Date().toISOString(), mode: cfg.mail.mode } }; done++; persist(); }
+    catch (e) { fail = e; break; }
+  }
+  S.sending = false; S.progress = '';
+  const word = cfg.mail.mode === 'draft' ? 'utkast laget i Gmail' : 'e-poster sendt';
+  if (fail) S.msg = { kind: 'warn', text: (done ? done + ' ' + word + '. ' : '') + mailErr(fail) };
+  else S.msg = { kind: 'ok', text: done + ' ' + word + (cfg.mail.mode === 'draft' ? '. Åpne Utkast i Gmail for å sende dem.' : '.') };
+  persist(); renderSide();
+}
+
+/* ---------- Visning: siden ---------- */
+const page = document.getElementById('page'), droot = document.getElementById('drawer-root');
+const fld = (label, id, f, val, extra) => `<label class="fld" for="${id}"><span>${label}</span><input class="in" id="${id}" data-f="${f}" value="${esc(val)}" ${extra || ''}></label>`;
+function secEvent() {
+  const arrs = arrList();
+  const arr = arrs.length
+    ? `<label class="fld" for="f-arr"><span>Arrangør</span><select class="in" id="f-arr" data-f="ev.arr"><option value="">Velg arrangør</option>${arrs.map(a => `<option ${a.name === S.ev.arr ? 'selected' : ''} value="${esc(a.name)}">${esc(a.name)}</option>`).join('')}</select></label>`
+    : fld('Arrangør <span class="opt">(tomt = ' + esc(cfg.orgName) + ')</span>', 'f-arr', 'ev.arr', S.ev.arr, 'placeholder="' + esc(cfg.orgName) + '"');
+  return `<section aria-labelledby="h-ev"><div class="sh"><h2 id="h-ev">Arrangementet</h2></div>
+    ${arr}
+    ${fld('Navn på arrangement', 'f-evname', 'ev.name', S.ev.name, 'placeholder="F.eks. Høstmøtet 2026"')}
+    <div class="row">${fld('Fra', 'f-from', 'ev.from', S.ev.from, 'placeholder="F.eks. 12. november kl. 09.00"')}${fld('Til <span class="opt">(valgfritt)</span>', 'f-to', 'ev.to', S.ev.to, 'placeholder="F.eks. 14. november kl. 16.00"')}</div>
+    ${fld('Sted <span class="opt">(valgfritt)</span>', 'f-place', 'ev.place', S.ev.place, 'placeholder="F.eks. Bergen"')}
+    <div class="fld"><span class="lbl">Skjemaet gjelder et arrangement som</span>
+      <div class="seg" role="group"><button data-act="mode" data-v="past" aria-pressed="${S.mode === 'past'}">Har vært</button><button data-act="mode" data-v="future" aria-pressed="${S.mode === 'future'}">Skal være</button></div></div>
+  </section>`;
+}
+function impBlock() {
+  if (!S.imp) return `<label class="drop" for="imp-file"><span style="display:flex;flex-direction:column;gap:2px;min-width:0"><b style="font-size:15px">Last opp regneark</b><span class="hint">.xlsx, .xls, .ods eller .csv. Første ark brukes.</span></span><b style="font-size:14px">Velg fil</b><input type="file" id="imp-file" accept=".xlsx,.xls,.ods,.csv" hidden></label>`;
+  const im = S.imp, w = Math.max(...im.grid.map(r => r.length));
+  const cols = Array.from({ length: w }, (_, i) => ({ v: String(i), l: String.fromCharCode(65 + i % 26) + (S.impHeader && String(im.grid[0][i] || '').trim() ? ' · ' + String(im.grid[0][i]).trim() : '') }));
+  const sel = (k, none) => `<label class="fld" for="imp-${k}"><span>${{ name: 'Navn', school: 'Skole', email: 'E-post' }[k]}</span><select class="in" id="imp-${k}" data-imp="${k}">${none ? `<option value="">Ingen</option>` : ''}${cols.map(c => `<option value="${c.v}" ${im.map[k] === c.v ? 'selected' : ''}>${esc(c.l)}</option>`).join('')}</select></label>`;
+  const list = impPeople();
+  return `<div style="display:flex;flex-direction:column;gap:12px"><div class="hint"><b>${esc(im.file)}</b></div>
+    <label class="chk"><input type="checkbox" id="imp-head" ${S.impHeader ? 'checked' : ''}> Første rad er overskrifter</label>
+    <div class="row">${sel('name')}${sel('school', 1)}${sel('email', 1)}</div>
+    <div class="imp-prev">${list.slice(0, 3).map(p => `<div><span><b>${esc(p.name)}</b></span><span>${esc(p.school || '–')}</span><span>${esc(p.email || '–')}</span></div>`).join('')}<span>${list.length > 3 ? '+ ' + (list.length - 3) + ' til' : list.length ? 'Forhåndsvisning' : 'Ingen rader med navn. Sjekk kolonnevalget.'}</span></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn dark" data-act="imp-add" ${list.length ? '' : 'disabled'}>Legg til ${list.length} ${list.length === 1 ? 'person' : 'personer'}</button><button class="btn link" data-act="imp-cancel">Avbryt</button></div></div>`;
+}
+function impPeople() {
+  const im = S.imp; if (!im) return [];
+  const cell = (r, k) => im.map[k] === '' ? '' : String(r[+im.map[k]] == null ? '' : r[+im.map[k]]).trim();
+  return im.grid.slice(S.impHeader ? 1 : 0).map(r => ({ name: cell(r, 'name'), school: cell(r, 'school'), email: cell(r, 'email') })).filter(p => p.name);
+}
+function secPeople() {
+  const n = valid().length, sel = Math.min(S.sel, S.people.length - 1);
+  const bc = S.bulk.split('\n').filter(l => l.trim()).length;
+  return `<section aria-labelledby="h-pp"><div class="sh"><h2 id="h-pp">Deltakere</h2><span class="meta" id="count">${n} ${n === 1 ? 'person' : 'personer'}</span></div>
+    <div class="box"><div style="display:flex;flex-direction:column;gap:4px"><b style="font-size:15px">Legg til mange på en gang</b><span class="hint">Med e-post får hver deltaker skjemaet sitt tilsendt direkte.</span></div>
+      <div class="seg sm" role="group"><button data-act="addmode" data-v="paste" aria-pressed="${S.addMode === 'paste'}">Lim inn tekst</button><button data-act="addmode" data-v="file" aria-pressed="${S.addMode === 'file'}">Excel / CSV</button></div>
+      ${S.addMode === 'paste' ? `<div style="display:flex;flex-direction:column;gap:8px"><label class="hint" for="bulk">Én person per linje: navn, skole og e-post, skilt med komma, semikolon eller tab. E-post kjennes igjen uansett rekkefølge.</label>
+        <textarea class="in" id="bulk" rows="4" placeholder="Kari Nordmann, Bergen katedralskole, kari@epost.no&#10;Ola Hansen, Amalie Skram vgs, ola@epost.no">${esc(S.bulk)}</textarea>
+        <button class="btn dark self" data-act="add-bulk" id="bulk-btn">${bc ? 'Legg til ' + bc + ' ' + (bc === 1 ? 'person' : 'personer') : 'Legg til fra listen'}</button></div>` : impBlock()}
+    </div>
+    <div class="people">${S.people.map((p, i) => `<div class="prow${i === sel ? ' sel' : ''}">
+        <button class="n" data-act="sel" data-i="${i}" title="Forhåndsvis" aria-label="Forhåndsvis deltaker ${i + 1}">${i + 1}</button>
+        <div class="pfs"><input class="in" aria-label="Fullt navn" data-p="name" data-i="${i}" value="${esc(p.name)}" placeholder="Fullt navn"><input class="in" aria-label="Skole" data-p="school" data-i="${i}" value="${esc(p.school)}" placeholder="Skole"><input class="in" aria-label="E-post" type="email" data-p="email" data-i="${i}" value="${esc(p.email)}" placeholder="E-post"></div>
+        <button class="x" data-act="rm" data-i="${i}" title="Fjern" aria-label="Fjern deltaker ${i + 1}">×</button></div>`).join('')}</div>
+    <button class="btn dash" data-act="add-row">+ Legg til deltaker</button>
+  </section>`;
+}
+function secAtt() {
+  const a = S.att, draw = S.sigMode === 'draw';
+  return `<section aria-labelledby="h-at"><div class="sh"><h2 id="h-at">Attestant og signatur</h2></div>
+    <div class="row">${fld('Ditt navn', 'a-name', 'att.name', a.name, 'placeholder="Fullt navn" autocomplete="name"')}${fld('Verv', 'a-verv', 'att.verv', a.verv, 'placeholder="F.eks. Leder" list="verv-list"')}</div>
+    <datalist id="verv-list"><option value="Leder"><option value="Nestleder"><option value="Fylkesleder"><option value="Lokallagsleder"><option value="Styremedlem"><option value="Daglig leder"></datalist>
+    <div class="row">${fld('Telefon', 'a-phone', 'att.phone', a.phone, 'inputmode="tel" placeholder="900 00 000"')}${fld('E-post', 'a-email', 'att.email', a.email, 'type="email" placeholder="navn@organisasjon.no"')}</div>
+    <div class="row">${fld('Dato på skjemaet', 'a-date', 'att.date', a.date, 'type="date"')}<div></div></div>
+    <div class="fld"><div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap"><span class="lbl">Signatur <span class="opt">– brukes på alle skjemaene</span></span>
+      <div class="seg sm" role="group"><button data-act="sigmode" data-v="text" aria-pressed="${!draw}">Skrevet</button><button data-act="sigmode" data-v="draw" aria-pressed="${draw}">Tegn selv</button></div></div>
+      <div class="sigbox" ${draw ? 'hidden' : ''}><input id="a-sig" data-f="att.sig" value="${esc(a.sig)}" placeholder="Skriv signaturen din" autocomplete="off" aria-label="Signatur"><div class="base"></div><span class="cap">Skriv inn signaturen din</span></div>
+      <div class="sigbox" ${draw ? '' : 'hidden'}><canvas id="pad" aria-label="Tegn signaturen her"></canvas><div class="base"></div><span class="cap" id="pad-cap">${S.sigImg ? 'Signatur lagret' : 'Signer her med mus eller finger'}</span></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap" ${draw ? '' : 'hidden'}><button class="btn ghost" data-act="sig-clear">Tøm signatur</button><label class="btn ghost" for="sig-file">Last opp bilde av signatur<input type="file" id="sig-file" accept="image/*" hidden></label></div>
+    </div>
+  </section>`;
+}
+function renderPage() {
+  const sx = window.scrollX, sy = window.scrollY;
+  page.innerHTML = `<header class="top"><div class="wrap top-in"><div class="brand">${cfg.logo ? `<img src="${cfg.logo}" alt="">` : ''}<span>${esc(cfg.orgName)}</span></div>${canEdit ? '<button class="btn ghost" data-act="open-cfg">Tilpass nettsiden</button>' : ''}</div></header>
+  <main class="wrap main"><div class="intro"><h1>${esc(cfg.pageTitle)}</h1>${cfg.intro ? `<p>${esc(cfg.intro)}</p>` : ''}</div>
+    <div class="grid"><div class="col">${secEvent()}${secPeople()}${secAtt()}</div><aside class="side" id="side" aria-label="Forhåndsvisning og utsending"></aside></div></main>`;
+  renderSide();
+  if (S.sigMode === 'draw') requestAnimationFrame(setupPad);
+  window.scrollTo(sx, sy);
+}
+function paperHTML(p) {
+  const d = buildDoc(p);
+  const head = cfg.pdf.showLogo && cfg.logo ? `<img src="${cfg.logo}" alt="">` : `<span class="p-org">${esc(cfg.orgName)}</span>`;
+  const sigText = (S.att.sig || '').trim();
+  const sig = S.sigMode === 'draw' ? (S.sigImg ? `<img src="${S.sigImg.src}" alt="Signatur">` : '') : (sigText ? `<span>${esc(sigText)}</span>` : '');
+  return `<div class="paper-wrap"><div class="paper" role="img" aria-label="Forhåndsvisning av skjemaet"><div class="p-head">${head}<span class="p-date">${esc(d.date)}</span></div>
+    <div class="p-title">${markPh(d.title)}</div><div class="p-body">${d.paras.map(t => `<p>${markPh(t)}</p>`).join('')}
+    <div class="p-sign"><span>${esc(d.greeting)}</span><div class="p-sig">${sig}</div><span>${markPh(d.signer)}</span>${d.role ? `<span>${esc(d.role)}</span>` : ''}${d.contact ? `<span>${esc(d.contact)}</span>` : ''}</div></div></div></div>`;
+}
+function mailHTML(p) {
+  const v = vars(p), m = cfg.mail;
+  const from = [(m.fromName || '').trim(), (m.fromEmail || '').trim() && '&lt;' + esc(m.fromEmail.trim()) + '&gt;'].filter(Boolean).join(' ') || '<span class="opt">Ikke satt (endres under Tilpass)</span>';
+  const to = p && hasMail(p) ? esc(p.email.trim()) : '<mark>[e-post mangler]</mark>';
+  return `<div class="mail"><dl><dt>Fra</dt><dd>${from}</dd><dt>Til</dt><dd>${to}</dd>${m.ccSender && EMAIL.test((m.fromEmail || '').trim()) ? `<dt>Kopi</dt><dd>${esc(m.fromEmail.trim())}</dd>` : ''}<dt>Emne</dt><dd><b>${markPh(fill(m.subject, v))}</b></dd></dl>
+    <pre>${markPh(fill(m.body, v))}</pre><div class="att"><i>PDF</i><span>${esc(fileName(p || {}))}</span></div></div>`;
+}
+function renderSide() {
+  const side = document.getElementById('side'); if (!side) return;
+  const n = S.people.length, sel = Math.min(S.sel, n - 1), p = S.people[sel];
+  const miss = missing(), nValid = valid().length, mt = mailTargets(), noMail = nValid - mt.all.length;
+  const draft = cfg.mail.mode === 'draft';
+  const sendLabel = S.sending ? S.progress || 'Sender …' : !mt.all.length ? (draft ? 'Lag utkast i Gmail' : 'Send på e-post') : (draft ? 'Lag ' + mt.todo.length + ' utkast i Gmail' : (mt.resend ? 'Send på nytt til ' : 'Send til ') + mt.todo.length + ' på e-post');
+  const fromTxt = (cfg.mail.fromEmail || '').trim();
+  side.innerHTML = `<div class="pvhead"><div class="pvname"><span class="eyebrow">Forhåndsvisning · ${sel + 1} av ${n}</span><b>${esc((p && p.name.trim()) || 'Uten navn')}</b></div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><div class="seg sm" role="group"><button data-act="pv" data-v="pdf" aria-pressed="${S.pv === 'pdf'}">Skjema</button><button data-act="pv" data-v="mail" aria-pressed="${S.pv === 'mail'}">E-post</button></div>
+      <div class="pager"><button data-act="prev" aria-label="Forrige">‹</button><button data-act="next" aria-label="Neste">›</button></div></div></div>
+    <div id="pv">${S.pv === 'pdf' ? paperHTML(p) : mailHTML(p)}</div>
+    <div class="stack">
+      ${miss.length ? `<div class="note">Mangler: <b>${esc(miss.join(', '))}</b></div>` : ''}
+      ${S.confirming ? `<div class="confirm" role="alertdialog" aria-label="Bekreft utsending"><span>${draft ? 'Det lages <b>' + mt.todo.length + ' utkast</b> i Gmail-kontoen din, ett per deltaker, med skjemaet som vedlegg.' : '<b>' + mt.todo.length + ' e-poster</b> sendes fra Gmail-kontoen du er logget inn med i Claude' + (fromTxt ? ' (skal være ' + esc(fromTxt) + ')' : '') + ', én per deltaker med skjemaet som vedlegg.'}</span>
+          <div class="acts"><button class="btn acc" data-act="send-go">${draft ? 'Lag utkast' : 'Send nå'}</button><button class="btn link" data-act="send-no">Avbryt</button></div></div>`
+        : `<button class="send" data-act="send" ${S.sending || miss.length || !mt.all.length ? 'disabled' : ''}><span>${esc(sendLabel)}</span><span aria-hidden="true">→</span></button>`}
+      ${nValid > 0 && noMail > 0 ? `<span class="hint" style="color:var(--warn)">${noMail} ${noMail === 1 ? 'deltaker mangler' : 'deltakere mangler'} e-post og får ikke skjemaet tilsendt. Last ned under.</span>` : ''}
+      ${S.msg ? `<div class="note ${S.msg.kind}" role="status">${esc(S.msg.text)}</div>` : ''}
+      <div class="dls"><button class="btn line" data-act="dl-zip" ${miss.length ? 'disabled' : ''}><span>${nValid > 1 ? 'Last ned alle (zip)' : 'Last ned PDF'}</span><span aria-hidden="true">↓</span></button><button class="btn line" data-act="dl-all" ${miss.length ? 'disabled' : ''}><span>Samlet PDF til utskrift</span><span aria-hidden="true">↓</span></button></div>
+      <div class="list"><button data-act="list" aria-expanded="${S.showList}"><span>Alle skjemaer (${nValid})</span><span aria-hidden="true">${S.showList ? '▴' : '▾'}</span></button>
+        ${S.showList ? `<div class="lrows">${S.people.map((q, i) => ({ q, i })).filter(({ q }) => q.name.trim()).map(({ q, i }) => {
+          const st = q.sent ? (q.sent.mode === 'draft' ? 'Utkast laget til ' : 'Sendt til ') + q.email.trim() : hasMail(q) ? q.email.trim() : 'Mangler e-post';
+          return `<div class="lrow"><div style="min-width:0"><b>${esc(q.name.trim())}</b><small class="${q.sent ? 'ok' : hasMail(q) ? '' : 'warn'}">${esc(st)}</small></div><button data-act="sel" data-i="${i}">Vis</button><button data-act="dl-one" data-i="${i}">PDF ↓</button></div>`; }).join('')}</div>` : ''}</div>
+      <span class="foot">Skjemaet huskes i nettleseren din, så du kan fortsette senere.</span>
+    </div>`;
+}
+function refreshLight() {
+  const c = document.getElementById('count'); if (c) { const n = valid().length; c.textContent = n + ' ' + (n === 1 ? 'person' : 'personer'); }
+  renderSide();
+}
+let flashT;
+function flash(kind, text) { S.msg = { kind, text }; renderSide(); clearTimeout(flashT); }
+
+/* ---------- Signaturfelt ---------- */
+function setupPad() {
+  const c = document.getElementById('pad'); if (!c) return;
+  const dpr = window.devicePixelRatio || 1, r = c.getBoundingClientRect(); if (!r.width) return;
+  c.width = Math.round(r.width * dpr); c.height = Math.round(r.height * dpr);
+  const ctx = c.getContext('2d');
+  const style = () => { ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = '#111'; ctx.fillStyle = '#111'; ctx.lineWidth = 2.6 * dpr; };
+  style(); let drawing = false, last = null;
+  const pos = e => { const b = c.getBoundingClientRect(); return [(e.clientX - b.left) * dpr, (e.clientY - b.top) * dpr]; };
+  c.onpointerdown = e => { drawing = true; c.setPointerCapture(e.pointerId); last = pos(e); style(); ctx.beginPath(); ctx.arc(last[0], last[1], ctx.lineWidth / 2, 0, 7); ctx.fill(); };
+  c.onpointermove = e => { if (!drawing) return; const q = pos(e); ctx.beginPath(); ctx.moveTo(last[0], last[1]); ctx.lineTo(q[0], q[1]); ctx.stroke(); last = q; };
+  c.onpointerup = c.onpointercancel = () => { if (!drawing) return; drawing = false; saveSig(c); };
+  if (S.sigImg) drawImg(c, S.sigImg.src, false);
+}
+function drawImg(c, src, save) {
+  const img = new Image();
+  img.onload = () => { const ctx = c.getContext('2d'); ctx.clearRect(0, 0, c.width, c.height); const pad = c.height * .12, k = Math.min((c.width - pad * 2) / img.width, c.height * .7 / img.height), w = img.width * k, h = img.height * k; ctx.drawImage(img, (c.width - w) / 2, c.height * .78 - h, w, h); if (save) saveSig(c); };
+  img.src = src;
+}
+function saveSig(c) {
+  const ctx = c.getContext('2d'), w = c.width, h = c.height, d = ctx.getImageData(0, 0, w, h).data;
+  let x0 = w, y0 = h, x1 = -1, y1 = -1;
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if (d[(y * w + x) * 4 + 3] > 10) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+  if (x1 < 0) { S.sigImg = null; } else {
+    const p = 6, cw = x1 - x0 + 1 + p * 2, ch = y1 - y0 + 1 + p * 2, out = document.createElement('canvas'); out.width = cw; out.height = ch;
+    out.getContext('2d').drawImage(c, x0 - p, y0 - p, cw, ch, 0, 0, cw, ch); S.sigImg = { src: out.toDataURL('image/png'), w: cw, h: ch };
+  }
+  const cap = document.getElementById('pad-cap'); if (cap) cap.textContent = S.sigImg ? 'Signatur lagret' : 'Signer her med mus eller finger';
+  persist(); renderSide();
+}
+
+/* ---------- Hendelser: siden ---------- */
+page.addEventListener('input', e => {
+  const t = e.target;
+  if (t.dataset.f) { setPath(S, t.dataset.f, t.value); if (t.dataset.f === 'ev.arr' && t.tagName === 'SELECT') return; persist(); refreshLight(); }
+  else if (t.dataset.p) { const i = +t.dataset.i; S.people[i] = { ...S.people[i], [t.dataset.p]: t.value, sent: null }; S.sel = i; persist(); refreshLight(); document.querySelectorAll('.prow').forEach((r, j) => r.classList.toggle('sel', j === i)); }
+  else if (t.id === 'bulk') { S.bulk = t.value; const n = S.bulk.split('\n').filter(l => l.trim()).length; const b = document.getElementById('bulk-btn'); if (b) b.textContent = n ? 'Legg til ' + n + ' ' + (n === 1 ? 'person' : 'personer') : 'Legg til fra listen'; }
+});
+page.addEventListener('change', async e => {
+  const t = e.target;
+  if (t.id === 'f-arr' && t.tagName === 'SELECT') {
+    S.ev.arr = t.value; const a = arrList().find(x => x.name === t.value);
+    if (a) S.att = { ...S.att, name: a.leader || S.att.name, phone: a.phone || S.att.phone, email: a.email || S.att.email };
+    persist(); renderPage(); return;
+  }
+  if (t.id === 'imp-file') {
+    const f = t.files && t.files[0]; t.value = ''; if (!f) return;
+    if (!window.XLSX) return flash('warn', 'Regnearkleseren laster fortsatt. Prøv igjen om et øyeblikk.');
+    let grid; try { const wb = window.XLSX.read(await f.arrayBuffer(), { type: 'array' }); grid = window.XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { header: 1, defval: '', raw: false }).filter(r => r.some(c => String(c).trim())); }
+    catch (err) { return flash('warn', 'Kunne ikke lese filen. Lagre den som .xlsx eller .csv og prøv igjen.'); }
+    if (!grid.length) return flash('warn', 'Fant ingen rader i filen.');
+    const head = grid[0].map(c => String(c)), guess = re => { const i = head.findIndex(x => re.test(x)); return i < 0 ? '' : String(i); };
+    let email = guess(/e-?post|mail/i);
+    if (email === '') { const w = Math.max(...grid.map(r => r.length)); for (let c = 0; c < w; c++) if (grid.slice(0, 10).some(r => EMAIL.test(String(r[c] || '').trim()))) { email = String(c); break; } }
+    S.imp = { file: f.name, grid, map: { name: guess(/navn|name/i) || '0', school: guess(/skole|skule|school/i), email } }; S.impHeader = !head.some(c => EMAIL.test(c.trim()));
+    renderPage(); return;
+  }
+  if (t.dataset.imp) { S.imp.map[t.dataset.imp] = t.value; renderPage(); return; }
+  if (t.id === 'imp-head') { S.impHeader = t.checked; renderPage(); return; }
+  if (t.id === 'sig-file') { const f = t.files && t.files[0]; t.value = ''; if (!f) return; const r = new FileReader(); r.onload = () => { const c = document.getElementById('pad'); if (c) drawImg(c, r.result, true); }; r.readAsDataURL(f); }
+});
+page.addEventListener('click', e => {
+  const b = e.target.closest('[data-act]'); if (!b || b.disabled) return;
+  const a = b.dataset.act, i = +b.dataset.i, n = S.people.length;
+  const keep = () => S.people.filter(p => p.name.trim() || p.school.trim() || (p.email || '').trim());
+  switch (a) {
+    case 'mode': S.mode = b.dataset.v; break;
+    case 'addmode': S.addMode = b.dataset.v; break;
+    case 'sigmode': S.sigMode = b.dataset.v; break;
+    case 'pv': S.pv = b.dataset.v; persist(); return renderSide();
+    case 'sel': S.sel = i; break;
+    case 'prev': S.sel = (Math.min(S.sel, n - 1) - 1 + n) % n; persist(); return renderPage();
+    case 'next': S.sel = (Math.min(S.sel, n - 1) + 1) % n; persist(); return renderPage();
+    case 'rm': { const ppl = S.people.filter((_, j) => j !== i); S.people = ppl.length ? ppl : [blank()]; S.sel = Math.max(0, Math.min(S.sel, S.people.length - 1)); break; }
+    case 'add-row': S.people = [...S.people, blank()]; S.sel = S.people.length - 1; break;
+    case 'add-bulk': {
+      const add = S.bulk.split('\n').map(l => l.trim()).filter(Boolean).map(l => { const cells = l.split(/\t|,|;/).map(c => c.trim()).filter(Boolean); const email = cells.find(c => EMAIL.test(c)) || ''; const rest = cells.filter(c => c !== email); return { name: rest[0] || '', school: rest.slice(1).join(', '), email }; }).filter(p => p.name);
+      if (!add.length) return; const k = keep(); S.people = [...k, ...add]; S.sel = k.length; S.bulk = ''; break;
+    }
+    case 'imp-add': { const list = impPeople(); if (!list.length) return; const k = keep(); S.people = [...k, ...list]; S.sel = k.length; S.imp = null; break; }
+    case 'imp-cancel': S.imp = null; break;
+    case 'sig-clear': S.sigImg = null; break;
+    case 'list': S.showList = !S.showList; persist(); return renderSide();
+    case 'send': S.confirming = true; S.msg = null; return renderSide();
+    case 'send-no': S.confirming = false; return renderSide();
+    case 'send-go': return doSend();
+    case 'dl-one': return dlOne(i);
+    case 'dl-all': return dlAll();
+    case 'dl-zip': return dlZip();
+    case 'open-cfg': S.drawer = true; return renderDrawer();
+    default: return;
+  }
+  persist(); renderPage();
+});
+window.addEventListener('resize', () => { if (S.sigMode === 'draw') { clearTimeout(window.__padT); window.__padT = setTimeout(setupPad, 150); } });
+
+/* ---------- Tilpass nettsiden ---------- */
+const PLACEHOLDERS = ['{navn}', '{skole}', '{arrangement}', '{tid}', '{sted}', '{arrangør}', '{deltar}', '{dato}', '{attestant}', '{verv}', '{organisasjon}', '{avsender}'];
+const dfld = (label, key, extra, hint) => `<label class="fld" for="c-${key}"><span>${label}</span><input class="in" id="c-${key}" data-c="${key}" value="${esc(getPath(cfg, key))}" ${extra || ''}>${hint ? `<span class="hint">${hint}</span>` : ''}</label>`;
+const darea = (label, key, rows, hint) => `<label class="fld" for="c-${key}"><span>${label}</span><textarea class="in" id="c-${key}" data-c="${key}" rows="${rows}">${esc(getPath(cfg, key))}</textarea>${hint ? `<span class="hint">${hint}</span>` : ''}</label>`;
+const colorFld = (label, key) => { const v = '#' + (hex(cfg.colors[key]) || '000000').toUpperCase(); return `<div class="color"><span class="lbl">${label}</span><div><input type="color" aria-label="${label}" data-color="${key}" value="${v.toLowerCase()}"><input class="in" aria-label="${label} (hex)" data-hex="${key}" value="${v}" maxlength="7"></div></div>`; };
+function contrastNote() {
+  const c = cfg.colors, bg = '#' + (hex(c.bg) || 'ffffff'), fg = '#' + (hex(c.fg) || '000000');
+  const r = contrast(bg, fg); return r < 4.5 ? `<span class="hint" style="color:var(--warn)">Teksten er vanskelig å lese mot bakgrunnen (kontrast ${r.toFixed(1)}:1, bør være minst 4,5:1).</span>` : `<span class="hint">Kontrast mellom tekst og bakgrunn: ${r.toFixed(1)}:1.</span>`;
+}
+function isDirty() { return JSON.stringify(cfg) !== savedJSON; }
+function renderDrawer() {
+  if (!S.drawer) { droot.innerHTML = ''; return; }
+  droot.innerHTML = `<div class="scrim" data-dact="close"></div><div class="drawer" role="dialog" aria-modal="true" aria-labelledby="dh-t">
+    <div class="dh"><h2 id="dh-t">Tilpass nettsiden</h2><button class="x" data-dact="close" aria-label="Lukk">×</button></div>
+    <div class="db">
+      <section><div class="sh"><h2>Utseende</h2></div>
+        ${dfld('Navn på organisasjonen', 'orgName')}
+        ${dfld('Overskrift på siden', 'pageTitle')}
+        ${darea('Ingress', 'intro', 3)}
+        ${dfld('Navn i nettleserfanen', 'siteName', '', 'Vises når siden lagres eller deles.')}
+        <div class="fld"><span class="lbl">Logo</span><div class="logo-pick"><div class="thumb">${cfg.logo ? `<img src="${cfg.logo}" alt="Logo">` : 'Ingen logo'}</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap"><label class="btn ghost" for="c-logo">Last opp logo<input type="file" id="c-logo" accept="image/*" hidden></label>${cfg.logo ? '<button class="btn link" data-dact="logo-rm">Fjern</button>' : ''}</div></div>
+          <span class="hint">PNG eller SVG med gjennomsiktig bakgrunn blir finest. Brukes i toppen av siden og på skjemaet.</span></div>
+        <div class="colors">${colorFld('Bakgrunn', 'bg')}${colorFld('Tekst', 'fg')}${colorFld('Aksent', 'accent')}</div>
+        <div id="c-contrast">${contrastNote()}</div>
+      </section>
+      <section><div class="sh"><h2>PDF-mal for politisk fravær</h2></div>
+        ${dfld('Tittel', 'pdf.title')}
+        ${darea('Brødtekst', 'pdf.body', 14, 'Tom linje lager nytt avsnitt.')}
+        <div class="fld"><span class="lbl">Felter du kan bruke i PDF og e-post</span><div class="chips">${PLACEHOLDERS.map(p => `<code>${esc(p)}</code>`).join('')}</div><span class="hint">{deltar} blir «deltok på» eller «skal delta på». {tid} blir «den 12. november» eller «fra … til …».</span></div>
+        ${dfld('Hilsen over signaturen', 'pdf.greeting')}
+        ${dfld('Filnavn', 'pdf.fileName', '', '.pdf legges til automatisk.')}
+        <label class="chk"><input type="checkbox" data-cb="pdf.showLogo" ${cfg.pdf.showLogo ? 'checked' : ''}> Vis logoen øverst på skjemaet</label>
+      </section>
+      <section><div class="sh"><h2>E-post</h2></div>
+        <div class="row">${dfld('Sendes fra (navn)', 'mail.fromName', 'placeholder="F.eks. Kari Nordmann"')}${dfld('Sendes fra (e-post)', 'mail.fromEmail', 'type="email" placeholder="navn@organisasjon.no"')}</div>
+        <span class="hint">E-posten går ut fra Gmail-kontoen til den som trykker Send, og den kontoen må være koblet til Claude. Bruk samme adresse her, så stemmer avsender og kopi.</span>
+        <label class="chk"><input type="checkbox" data-cb="mail.ccSender" ${cfg.mail.ccSender ? 'checked' : ''}> Send kopi til avsenderadressen</label>
+        <div class="fld"><span class="lbl">Når noen trykker Send</span><div class="seg sm" role="group"><button data-dact="mailmode" data-v="send" aria-pressed="${cfg.mail.mode === 'send'}">Send med en gang</button><button data-dact="mailmode" data-v="draft" aria-pressed="${cfg.mail.mode === 'draft'}">Lag utkast i Gmail</button></div></div>
+        ${dfld('Emne', 'mail.subject')}
+        ${darea('Tekst i e-posten', 'mail.body', 10)}
+      </section>
+      <section><div class="sh"><h2>Arrangører</h2></div>
+        ${darea('Liste over arrangører <span class="opt">(valgfritt)</span>', 'arrangorer', 5, 'Én per linje: Navn; kontaktperson; telefon; e-post. Når listen har innhold, velger man arrangør fra en meny, og attestantfeltene fylles ut automatisk.')}
+      </section>
+    </div>
+    <div class="df"><span class="dirty" id="c-dirty"></span><div class="acts" id="c-acts"></div><span class="hint" id="c-hint"></span></div>
+  </div>`;
+  updateDrawerFoot();
+  const first = droot.querySelector('#c-orgName'); if (first) first.focus({ preventScroll: true });
+}
+function updateDrawerFoot() {
+  const d = document.getElementById('c-dirty'), a = document.getElementById('c-acts'), h = document.getElementById('c-hint'); if (!d) return;
+  const dirty = isDirty(); d.className = 'dirty' + (dirty ? ' on' : ''); d.textContent = dirty ? 'Ulagrede endringer. Bare du ser dem nå.' : 'Alt er lagret.';
+  a.innerHTML = `${IN_CLAUDE ? `<button class="btn acc" data-dact="save" ${dirty ? '' : 'disabled'}>Lagre for alle</button>` : ''}<button class="btn line" data-dact="export">Last ned som ny nettside</button>${dirty ? '<button class="btn link" data-dact="revert">Forkast endringer</button>' : ''}`;
+  h.textContent = IN_CLAUDE ? '«Last ned som ny nettside» gir deg en egen kopi med dette oppsettet, som kan publiseres som en ny side.' : 'Lagre ved å laste ned siden som en ny fil.';
+}
+function cfgChanged(full) {
+  applyTheme(); renderPage(); updateDrawerFoot();
+  const cn = document.getElementById('c-contrast'); if (cn) cn.innerHTML = contrastNote();
+  if (full) renderDrawer();
+}
+droot.addEventListener('input', e => {
+  const t = e.target;
+  if (t.dataset.c) { setPath(cfg, t.dataset.c, t.value); cfgChanged(); }
+  else if (t.dataset.color) { cfg.colors[t.dataset.color] = t.value.toUpperCase(); const hx = droot.querySelector(`[data-hex="${t.dataset.color}"]`); if (hx) hx.value = t.value.toUpperCase(); cfgChanged(); }
+  else if (t.dataset.hex) { const h = hex(t.value); if (h) { cfg.colors[t.dataset.hex] = '#' + h.toUpperCase(); const cp = droot.querySelector(`[data-color="${t.dataset.hex}"]`); if (cp) cp.value = '#' + h.toLowerCase(); cfgChanged(); } }
+});
+droot.addEventListener('change', e => {
+  const t = e.target;
+  if (t.dataset.cb) { setPath(cfg, t.dataset.cb, t.checked); cfgChanged(); }
+  if (t.id === 'c-logo') {
+    const f = t.files && t.files[0]; t.value = ''; if (!f) return;
+    const r = new FileReader(); r.onload = () => { const img = new Image(); img.onload = () => {
+      const k = Math.min(1, 800 / img.width, 320 / img.height), w = Math.max(1, Math.round(img.width * k)), h = Math.max(1, Math.round(img.height * k));
+      const c = document.createElement('canvas'); c.width = w; c.height = h; c.getContext('2d').drawImage(img, 0, 0, w, h);
+      cfg.logo = c.toDataURL('image/png'); cfg.logoW = w; cfg.logoH = h; cfgChanged(true);
+    }; img.onerror = () => flash('warn', 'Kunne ikke lese bildet. Prøv PNG, JPG eller SVG.'); img.src = r.result; }; r.readAsDataURL(f);
+  }
+});
+droot.addEventListener('click', async e => {
+  const b = e.target.closest('[data-dact]'); if (!b || b.disabled) return;
+  const a = b.dataset.dact;
+  if (a === 'close') { S.drawer = false; renderDrawer(); return; }
+  if (a === 'logo-rm') { cfg.logo = ''; cfg.logoW = 0; cfg.logoH = 0; return cfgChanged(true); }
+  if (a === 'mailmode') { cfg.mail.mode = b.dataset.v; return cfgChanged(true); }
+  if (a === 'revert') { cfg = JSON.parse(savedJSON); return cfgChanged(true); }
+  if (a === 'export') {
+    const copy = JSON.parse(JSON.stringify(cfg)); copy.siteId = 'side-' + Math.random().toString(36).slice(2, 10);
+    const name = (copy.siteName || copy.orgName || 'fravaersside').replace(/[\\/:*?"<>|]/g, '').trim() || 'fravaersside';
+    return saveFile(name + '.html', new Blob([buildDocument(copy)], { type: 'text/html' }));
+  }
+  if (a === 'save') {
+    const h = document.getElementById('c-hint'), art = await claude.use('artifact');
+    if (!art) { h.textContent = 'Lagring er ikke tilgjengelig i denne visningen. Last ned som ny nettside i stedet.'; return; }
+    b.disabled = true; b.textContent = 'Lagrer …'; persist();
+    try { await art.publish(buildDocument(cfg)); savedJSON = JSON.stringify(cfg); h.textContent = 'Lagret. Siden lastes inn på nytt.'; }
+    catch (err) {
+      const c = err && err.code;
+      h.textContent = c === 'conflict' ? 'Noen andre lagret siden samtidig. Siden lastes inn på nytt med deres versjon, så endringene dine må gjøres igjen.'
+        : (c === 'not_writer' || c === 'not_granted' || c === 'consent_required') ? 'Du har ikke redigeringstilgang til denne siden. Last ned som ny nettside i stedet.'
+        : c === 'too_large' ? 'Siden ble for stor. Prøv en mindre logo.'
+        : c === 'rate_limited' ? 'Du har lagret mange ganger på kort tid. Vent litt og prøv igjen.'
+        : 'Lagringen feilet (' + (c || 'ukjent feil') + '). Prøv igjen om litt.';
+      updateDrawerFoot();
+    }
+  }
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && S.drawer) { S.drawer = false; renderDrawer(); } });
+
+/* ---------- Bygg en komplett side av oppsettet ---------- */
+function buildDocument(c) {
+  const RESET = ':root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px/1.4 system-ui,-apple-system,sans-serif}img{max-width:100%}[hidden]{display:none!important}';
+  const css = document.getElementById('app-style').textContent, js = document.getElementById('app-script').textContent;
+  const json = JSON.stringify(c).replace(/</g, '\\u003c');
+  const S1 = '<scr' + 'ipt', S2 = '</scr' + 'ipt>';
+  return '<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>' + RESET + '</style></head><body>'
+    + '<title>' + esc(c.siteName || c.orgName || 'Politisk fravær') + '</title>\n<meta name="claude:viewport-fit-sides" content="cover">\n'
+    + '<link rel="preconnect" href="https://fonts.googleapis.com">\n<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Schibsted+Grotesk:wght@400;500;700;800&display=swap">\n'
+    + '<style id="app-style">' + css + '</style>\n<div id="app"><div id="page"></div><div id="drawer-root"></div></div>\n'
+    + S1 + ' src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">' + S2 + '\n'
+    + S1 + ' src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js">' + S2 + '\n'
+    + S1 + ' src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js">' + S2 + '\n'
+    + S1 + ' type="application/json" id="site-config">' + json + S2 + '\n'
+    + S1 + ' id="app-script">' + js + S2 + '\n</body></html>';
+}
+
+/* ---------- Start ---------- */
+applyTheme(); renderPage();
+if (IN_CLAUDE) claude.use('user').then(async u => { if (!u) return; try { canEdit = !!(await Promise.resolve(u.canEdit())); } catch (e) { canEdit = false; } if (canEdit) renderPage(); }).catch(() => {});
+})();
+</script>
+
+</body></html>
