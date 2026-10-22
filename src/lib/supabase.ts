@@ -1,9 +1,12 @@
 import { createClient } from '@supabase/supabase-js'
 
-export const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string
-const ANON = import.meta.env.VITE_SUPABASE_ANON_KEY as string
+export const SUPABASE_URL = (import.meta.env.VITE_SUPABASE_URL as string | undefined) ?? ''
+const ANON = (import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined) ?? ''
 
-export const supabase = createClient(SUPABASE_URL, ANON, {
+/** Sann hvis miljøvariablene mangler da appen ble bygget (vises som tydelig feilmelding i stedet for blank side). */
+export const MANGLER_KONFIG = !SUPABASE_URL || !ANON
+
+export const supabase = createClient(SUPABASE_URL || 'http://konfigurasjon-mangler.invalid', ANON || 'mangler', {
   auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true },
 })
 
