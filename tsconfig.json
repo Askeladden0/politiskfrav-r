@@ -13,5 +13,5 @@
     "resolveJsonModule": true,
     "types": ["vite/client"]
   },
-  "include": ["src", "tests", "supabase/functions/_shared", "vite.config.ts"]
+  "include": ["src", "tests", "supabase/functions/_shared/mal.ts", "supabase/functions/_shared/pdf.ts", "vite.config.ts"]
 }
