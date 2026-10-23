@@ -44,11 +44,17 @@ export function OrgLayout() {
   const logo = logoUrl(org.profil.logo)
   return (
     <>
-      <header className="border-b border-line">
-        <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-4 py-4">
+      <header>
+        <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-5 py-3.5">
           <Link to={`/${org.slug}`} className="flex min-w-0 items-center gap-3 font-bold text-fg no-underline">
-            {logo && <img src={logo} alt="" className="h-[34px] max-w-[180px] object-contain" />}
-            <span>{org.navn}</span>
+            {logo ? (
+              <img src={logo} alt="" className="h-10 max-w-[180px] object-contain" />
+            ) : (
+              <span aria-hidden="true" className="flex size-10 flex-none items-center justify-center rounded-[10px] bg-accent text-[15px] font-extrabold text-on-accent">
+                {org.navn.split(/\s+/).map((w) => w[0]).join('').slice(0, 2).toUpperCase()}
+              </span>
+            )}
+            <span className="text-[17px] leading-tight">{org.navn}</span>
           </Link>
           <nav aria-label="Hovedmeny" className="flex items-center gap-4 text-sm font-semibold">
             {session ? (

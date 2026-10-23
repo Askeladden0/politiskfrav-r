@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ApiFeil, funksjon } from '../lib/supabase'
 import { EPOST_RE } from '../../supabase/functions/_shared/mal'
-import { Felt, Knapp, Overskrift, Segment, Tekstomrade, Varsel, Velg } from '../ui'
+import { FeilMelding, Felt, Knapp, Overskrift, Segment, Tekstomrade, Valgkort, Velg } from '../ui'
 import { TYPE_ETIKETT } from '../lib/types'
 import { useOrg } from './OrgLayout'
 
@@ -44,6 +44,8 @@ export function Soknad() {
   const [feil, setFeil] = useState<Record<string, string>>({})
   const [toppfeil, setToppfeil] = useState('')
   const [jobber, setJobber] = useState(false)
+  const [kopiSkole, setKopiSkole] = useState(false) // visuell prototype, sendes ikke ennå
+  const [skoleEpost, setSkoleEpost] = useState('')
   const [token, setToken] = useState('')
   const turnstileEl = useRef<HTMLDivElement>(null)
 
@@ -99,14 +101,25 @@ export function Soknad() {
   const p = org.profil
   const skalVaere = s.har_vaert === 'nei'
   return (
-    <main className="mx-auto max-w-2xl px-4 pb-24 pt-8">
-      <h1 className="text-[clamp(34px,7vw,60px)] font-extrabold leading-[0.98] tracking-tight [text-wrap:balance]">
-        {p.pageTitle || 'Politisk fravær'}
+    <main className="mx-auto max-w-xl px-5 pt-4">
+      <h1 className="text-[clamp(34px,8vw,48px)] font-black leading-none tracking-tight [text-wrap:balance]">
+        {p.pageTitle || 'Søk om politisk fravær'}
       </h1>
-      {p.intro && <p className="mt-3 max-w-[62ch] text-lg text-muted">{p.intro}</p>}
+      <p className="mt-3 max-w-[62ch] text-base text-muted">
+        {p.intro || 'Den som bekrefter sjekker søknaden og sender deg erklæringen på e-post.'}
+      </p>
 
-      <form onSubmit={send} noValidate className="mt-10 flex flex-col gap-10">
-        <section aria-labelledby="h-deg" className="flex flex-col gap-4">
+      <form onSubmit={send} noValidate className="mt-6 flex flex-col gap-4">
+        {toppfeil && (
+          <div role="alert" className="flex flex-col gap-1.5 rounded-xl border-2 border-warn bg-surface p-3.5 text-warn">
+            <strong className="text-[17px]">{toppfeil}</strong>
+            {Object.entries(feil).filter(([, v]) => v).map(([k, v]) => (
+              <a key={k} href={`#felt-${k}`} className="text-[15px] font-semibold text-warn"
+                onClick={(e) => { e.preventDefault(); document.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus() }}>{v}</a>
+            ))}
+          </div>
+        )}
+        <section aria-labelledby="h-deg" className="flex flex-col gap-4 pt-2">
           <Overskrift><span id="h-deg">Om deg</span></Overskrift>
           <Felt label="Navn" autoComplete="name" value={s.navn} onChange={(e) => sett('navn', e.target.value)} feil={feil.navn} />
           <Felt label="Skole" autoComplete="organization" value={s.skole} onChange={(e) => sett('skole', e.target.value)} feil={feil.skole} />
@@ -115,32 +128,32 @@ export function Soknad() {
           <Felt label="Telefon" type="tel" autoComplete="tel" inputMode="tel" valgfri value={s.telefon} onChange={(e) => sett('telefon', e.target.value)} />
         </section>
 
-        <section aria-labelledby="h-arr" className="flex flex-col gap-4">
+        <section aria-labelledby="h-arr" className="flex flex-col gap-4 pt-3">
           <Overskrift><span id="h-arr">Arrangementet</span></Overskrift>
           <Velg label="Arrangør" value={s.arrangor_id} onChange={(e) => sett('arrangor_id', e.target.value)} feil={feil.arrangor_id}>
             <option value="">Velg arrangør</option>
             {org.arrangorer.map((a) => <option key={a.id} value={a.id}>{a.navn}</option>)}
           </Velg>
-          <Velg label="Type arrangement" value={s.type_arrangement} onChange={(e) => sett('type_arrangement', e.target.value)} feil={feil.type_arrangement}>
-            <option value="">Velg type</option>
-            {Object.entries(TYPE_ETIKETT).map(([v, l]) => <option key={v} value={v}>{l}</option>)}
-          </Velg>
+          <Valgkort label="Type" navn="type_arrangement" valgt={s.type_arrangement}
+            onChange={(v) => sett('type_arrangement', v)}
+            verdier={Object.entries(TYPE_ETIKETT).map(([v, l]) => ({ v, l }))} />
+          {feil.type_arrangement && <FeilMelding>{feil.type_arrangement}</FeilMelding>}
           <Felt label="Navn eller beskrivelse av arrangementet" value={s.arrangement} onChange={(e) => sett('arrangement', e.target.value)}
             feil={feil.arrangement} placeholder="F.eks. Skolebesøk på Eksempel vgs" />
           <div className="flex flex-col gap-1.5">
-            <span className="text-[13px] font-semibold" id="l-tidsform">Arrangementet</span>
+            <span className="font-semibold" id="l-tidsform">Når</span>
             <div aria-labelledby="l-tidsform">
               <Segment label="Har arrangementet vært?" valgt={s.har_vaert} onChange={(v) => sett('har_vaert', v)}
                 verdier={[{ v: 'ja', l: 'Har vært' }, { v: 'nei', l: 'Skal være' }]} />
             </div>
           </div>
           <fieldset className="m-0 grid grid-cols-2 gap-3 border-0 p-0">
-            <legend className="mb-1.5 text-[13px] font-semibold">Fra {skalVaere ? '(planlagt)' : ''}</legend>
+            <legend className="mb-1.5 font-semibold">Fra {skalVaere ? '(planlagt)' : ''}</legend>
             <Felt label="Dato" type="date" value={s.dato_fra} onChange={(e) => sett('dato_fra', e.target.value)} feil={feil.dato_fra} />
             <Felt label="Klokkeslett" type="time" value={s.tid_fra} onChange={(e) => sett('tid_fra', e.target.value)} feil={feil.tid_fra} />
           </fieldset>
           <fieldset className="m-0 grid grid-cols-2 gap-3 border-0 p-0">
-            <legend className="mb-1.5 text-[13px] font-semibold">Til</legend>
+            <legend className="mb-1.5 font-semibold">Til</legend>
             <Felt label="Dato" type="date" value={s.dato_til} min={s.dato_fra || undefined} onChange={(e) => sett('dato_til', e.target.value)} feil={feil.dato_til} />
             <Felt label="Klokkeslett" type="time" value={s.tid_til} onChange={(e) => sett('tid_til', e.target.value)} feil={feil.tid_til} />
           </fieldset>
@@ -154,9 +167,16 @@ export function Soknad() {
         </div>
         {SITE_KEY && <div ref={turnstileEl} />}
 
-        <div className="flex flex-col gap-3">
-          {toppfeil && <Varsel type="warn">{toppfeil}</Varsel>}
-          <Knapp type="submit" disabled={jobber} className="!min-h-14 !text-lg">{jobber ? 'Sender …' : 'Søk'}</Knapp>
+        <label className="flex min-h-11 cursor-pointer items-center gap-3 font-semibold">
+          <input type="checkbox" checked={kopiSkole} onChange={(e) => setKopiSkole(e.target.checked)} className="m-0 size-6 flex-none accent-[var(--accent)]" />
+          Send kopi til skolen
+        </label>
+        {kopiSkole && (
+          <Felt label="Skolens e-post" type="email" valgfri placeholder="post@eksempel.vgs.no" value={skoleEpost} onChange={(e) => setSkoleEpost(e.target.value)} />
+        )}
+
+        <div className="sticky bottom-0 -mx-5 bg-bg px-5 pb-6 pt-3">
+          <Knapp type="submit" disabled={jobber} className="!min-h-[58px] w-full !text-xl !font-extrabold">{jobber ? 'Sender …' : 'Send søknaden'}</Knapp>
         </div>
       </form>
     </main>

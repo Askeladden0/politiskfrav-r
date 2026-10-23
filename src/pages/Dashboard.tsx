@@ -101,7 +101,7 @@ export function Dashboard() {
   return (
     <main className="mx-auto max-w-6xl px-4 pb-24 pt-8">
       <div className="flex flex-wrap items-end justify-between gap-3">
-        <h1 className="text-[clamp(32px,5vw,48px)] font-extrabold leading-none tracking-tight">Søknader</h1>
+        <h1 className="text-[clamp(28px,5vw,44px)] font-black leading-none tracking-tight">Innboks</h1>
         <div className="flex flex-wrap items-center gap-3 text-sm font-semibold">
           {flereOrg.length > 1 && (
             <label className="flex items-center gap-2">Organisasjon
@@ -118,10 +118,10 @@ export function Dashboard() {
 
       {feil && <div className="mt-4"><Varsel type="warn">{feil}</Varsel></div>}
 
-      <div role="tablist" aria-label="Status" className="mt-6 flex flex-wrap gap-1 rounded-[9px] bg-soft p-1">
+      <div role="tablist" aria-label="Status" className="-mx-4 mt-6 flex gap-1 overflow-x-auto border-b border-line px-4">
         {FANER.map((f) => (
           <button key={f.v} role="tab" aria-selected={fane === f.v} onClick={() => setFane(f.v)}
-            className={`min-h-11 flex-1 whitespace-nowrap rounded-md px-3 text-[15px] font-semibold ${fane === f.v ? 'bg-surface shadow' : ''}`}>
+            className={`min-h-12 flex-none whitespace-nowrap px-3 text-base font-bold ${fane === f.v ? 'text-ink shadow-[inset_0_-3px_0_var(--accent)]' : 'text-muted'}`}>
             {f.l} <span className="text-muted">({antall(f.v)})</span>
           </button>
         ))}
@@ -175,7 +175,29 @@ export function Dashboard() {
         </Boks>
       )}
 
-      <div className="mt-6 overflow-x-auto rounded-lg border-[1.5px] border-line bg-surface">
+      <ul className="m-0 mt-4 flex list-none flex-col gap-2.5 p-0 md:hidden">
+        {filtrert.length === 0 && <li className="p-10 text-center text-muted">Ingen søknader her.</li>}
+        {filtrert.map((s) => (
+          <li key={s.id} className="flex flex-col gap-3 rounded-2xl bg-surface p-4">
+            <div className="flex items-start justify-between gap-2.5">
+              <div className="min-w-0"><strong className="block text-lg">{s.navn}</strong><span className="text-[15px] text-muted">{s.skole}</span></div>
+              <StatusMerke status={s.status} />
+            </div>
+            <div className="flex flex-col gap-1">
+              <strong className="text-base leading-tight">{s.arrangement}</strong>
+              <span className="text-[15px] text-muted">{TYPE_ETIKETT[s.type_arrangement]} · {tidTekst(s)} · {s.arrangorer?.navn}</span>
+            </div>
+            <div className="grid grid-cols-[1fr_auto] gap-2">
+              {s.status === 'venter'
+                ? <Knapp className="!min-h-12" disabled={!!sender} onClick={() => { setValgt(new Set([s.id])); setBekreft(true); window.scrollTo(0, 0) }}>Send fravær</Knapp>
+                : <span />}
+              <Knapp variant="spoekelse" className="!min-h-12" onClick={() => setParams({ soknad: s.id })}>Detaljer</Knapp>
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      <div className="mt-6 hidden overflow-x-auto rounded-2xl border border-line bg-surface md:block">
         <table className="w-full min-w-[720px] border-collapse text-left text-[15px]">
           <thead>
             <tr className="border-b border-line text-sm text-muted">
