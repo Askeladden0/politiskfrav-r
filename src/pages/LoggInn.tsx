@@ -17,6 +17,24 @@ export function LoggInn() {
   const [jobber, setJobber] = useState(false)
   useEffect(() => { document.title = 'Logg inn – Politisk fravær' }, [])
 
+  const [kode, setKode] = useState('')
+  const [sjekker, setSjekker] = useState(false)
+
+  // Lenken kan åpnes i en annen fane eller app enn den som ba om den. Så lenge vi venter,
+  // sjekker vi derfor jevnlig (og når fanen blir synlig) om innloggingen har kommet.
+  useEffect(() => {
+    if (!sendt || session) return
+    const sjekk = () => { void supabase.auth.getSession() }
+    const id = window.setInterval(sjekk, 2000)
+    document.addEventListener('visibilitychange', sjekk)
+    window.addEventListener('focus', sjekk)
+    return () => {
+      window.clearInterval(id)
+      document.removeEventListener('visibilitychange', sjekk)
+      window.removeEventListener('focus', sjekk)
+    }
+  }, [sendt, session])
+
   if (laster || (session && lasterOrg)) return <Laster />
   if (session) {
     if (next) return <Navigate to={next} replace />
@@ -61,6 +79,18 @@ export function LoggInn() {
     else setSendt(true)
   }
 
+  // Innlogging fra en annen enhet (f.eks. lenken åpnet på mobilen): koden fra e-posten logger inn her.
+  const brukKode = async (e: FormEvent) => {
+    e.preventDefault()
+    setFeil('')
+    const token = kode.replace(/\D/g, '')
+    if (token.length < 6) return setFeil('Skriv inn koden fra e-posten.')
+    setSjekker(true)
+    const { error } = await supabase.auth.verifyOtp({ email: epost.trim().toLowerCase(), token, type: 'email' })
+    setSjekker(false)
+    if (error) setFeil('Koden er ugyldig eller utløpt. Be om en ny innloggingslenke.')
+  }
+
   return (
     <Side tittel="Logg inn">
       <p className="text-muted">For attestanter og administratorer. Bare e-postadresser som er registrert i organisasjonen får tilgang.</p>
@@ -68,7 +98,13 @@ export function LoggInn() {
         <Knapp variant="linje" onClick={google}>Logg inn med Google</Knapp>
         <div className="text-center text-sm text-muted">eller</div>
         {sendt ? (
-          <Varsel type="ok">Vi har sendt en innloggingslenke til <b>{epost}</b>. Åpne e-posten og trykk på lenken.</Varsel>
+          <>
+            <Varsel type="ok">Vi har sendt en innloggingslenke til <b>{epost}</b>. Åpne e-posten og trykk på lenken. Åpner du den i samme nettleser, logges du inn her automatisk.</Varsel>
+            <form onSubmit={brukKode} className="flex flex-col gap-3" noValidate>
+              <Felt label="Åpnet du lenken på en annen enhet? Skriv inn koden fra e-posten" inputMode="numeric" autoComplete="one-time-code" value={kode} onChange={(e) => setKode(e.target.value)} />
+              <Knapp type="submit" variant="linje" disabled={sjekker}>{sjekker ? 'Sjekker …' : 'Logg inn med kode'}</Knapp>
+            </form>
+          </>
         ) : (
           <form onSubmit={lenke} className="flex flex-col gap-3" noValidate>
             <Felt label="E-postadresse" type="email" autoComplete="email" value={epost} onChange={(e) => setEpost(e.target.value)} />
