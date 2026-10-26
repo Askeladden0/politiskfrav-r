@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<div style="width:{{ w }}px;height:{{ h }}px;overflow:hidden;background:#FFFFFF;box-shadow:0 2px 12px rgba(0,0,0,.14);border-radius:4px;flex:none">
+  <div style="width:794px;height:1123px;transform:scale({{ s }});transform-origin:0 0;box-sizing:border-box;padding:64px 76px;display:flex;flex-direction:column;gap:28px;font-size:16px;line-height:1.55;color:#111418;position:relative;font-family:'Schibsted Grotesk',system-ui,sans-serif;text-align:left">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start">
+      <div style="display:flex;align-items:center;gap:12px">
+        <sc-if value="{{ hasLogo }}" hint-placeholder-val="{{ false }}"><img src="{{ logo }}" alt="" style="width:52px;height:52px;object-fit:contain;border-radius:11px"></img></sc-if>
+        <sc-if value="{{ noLogo }}" hint-placeholder-val="{{ true }}"><div style="width:52px;height:52px;border-radius:11px;background:{{ accent }};color:{{ onAccent }};display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px">{{ initials }}</div></sc-if>
+        <strong style="font-size:17px;line-height:1.2;max-width:220px">{{ org }}</strong>
+      </div>
+      <span style="font-size:15px">{{ date }}</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-top:20px">
+      <h1 style="margin:0;font-size:36px;line-height:1.05;font-weight:900;letter-spacing:-.025em">Dokumentasjon av politisk fravær</h1>
+      <span style="font-size:14px;line-height:1.5;color:#3C4250">Jf. forskrift til opplæringslova § 3-3 siste ledd og § 3-47 femte ledd bokstav c, og rundskriv Udir-3-2016.</span>
+    </div>
+    <div style="display:grid;grid-template-columns:150px 1fr;row-gap:6px;padding:18px 0;border-top:1.5px solid #111418;border-bottom:1px solid #C9CDD4;font-size:15px">
+      <span style="color:#3C4250">Elev</span><strong>{{ elev }}</strong>
+      <span style="color:#3C4250">Skole</span><span>{{ school }}</span>
+      <span style="color:#3C4250">Arrangement</span><span>{{ event }}</span>
+      <span style="color:#3C4250">Tid</span><span>{{ when }}</span>
+      <span style="color:#3C4250">Sted</span><span>{{ place }}</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px;white-space:pre-wrap;text-wrap:pretty">{{ body }}</div>
+    <div style="display:flex;flex-direction:column;gap:2px;margin-top:8px">
+      <span>Med vennlig hilsen</span>
+      <sc-if value="{{ hasImg }}" hint-placeholder-val="{{ false }}"><img src="{{ sigImg }}" alt="Signatur" style="height:70px;max-width:300px;object-fit:contain;object-position:left;margin:6px 0 2px"></img></sc-if>
+      <sc-if value="{{ hasText }}" hint-placeholder-val="{{ true }}"><span style="font-family:Caveat,cursive;font-size:50px;line-height:1.1;color:#1A2A5C;margin:6px 0 2px">{{ sigText }}</span></sc-if>
+      <sc-if value="{{ noSig }}" hint-placeholder-val="{{ false }}"><span style="height:24px"></span></sc-if>
+      <strong>{{ attestant }}</strong>
+      <span>{{ verv }}</span>
+      <span style="color:#3C4250">{{ contact }}</span>
+    </div>
+    <div style="position:absolute;left:76px;right:76px;bottom:56px;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;padding-top:18px;border-top:1px solid #C9CDD4">
+      <span style="font-size:13px;line-height:1.5;color:#3C4250">{{ org }}<br>Eksempelgata 1, 0150 Oslo</span>
+      <div style="display:flex;align-items:center;gap:14px">
+        <span style="display:flex;flex-direction:column;align-items:flex-end;text-align:right;font-size:13px;line-height:1.45"><span>Sjekk at dokumentet er ekte:</span><strong style="font-size:14px">politiskfravaer.no/v/{{ code }}</strong></span>
+        <img src="{{ qr }}" alt="" style="width:96px;height:96px;display:block"></img>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:380,&quot;height&quot;:540},&quot;w&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:360,&quot;tsType&quot;:&quot;number&quot;},&quot;elev&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Ola Nordmann&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;school&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Eksempel vgs&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;event&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Skolebesøk på Eksempel vgs&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;when&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;13. november 2026 kl. 09.00–14.30&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;place&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Eksempel vgs, aula&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;arrangor&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Oslo fylkeslag&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;attestant&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Kari Nordmann&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;verv&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Fylkesleder, Oslo fylkeslag&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;contact&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;kari@eksempel.no · 900 00 000&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;body&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;sigText&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Kari Nordmann&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;sigImg&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string&quot;},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#1D3F8F&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;initials&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;EU&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;org&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Eksempel Ungdomsorganisasjon&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;logo&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string&quot;},&quot;date&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Oslo, 16. november 2026&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;code&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;K7M2-X9PQ&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+function qr(seed){const n=29;let s=0;for(const ch of seed)s=(s*31+ch.charCodeAt(0))>>>0;const rnd=()=>{s=(s*1664525+1013904223)>>>0;return s/4294967296;};let d='';
+  for(let r=0;r<n;r++)for(let c=0;c<n;c++){let on;let z=null;for(const[zr,zc]of[[0,0],[0,n-7],[n-7,0]]){if(r>=zr-1&&r<=zr+7&&c>=zc-1&&c<=zc+7)z=[r-zr,c-zc];}
+    if(z){const[a,b]=z;on=a>=0&&a<=6&&b>=0&&b<=6&&(a===0||a===6||b===0||b===6||(a>=2&&a<=4&&b>=2&&b<=4));}else if(r===6||c===6)on=(r+c)%2===0;else on=rnd()<.5;
+    if(on)d+=`M${c} ${r}h1v1h-1z`;}
+  return'data:image/svg+xml;utf8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 ${n+4} ${n+4}" shape-rendering="crispEdges"><rect x="-2" y="-2" width="${n+4}" height="${n+4}" fill="#fff"/><path d="${d}" fill="#111418"/></svg>`);}
+const lum=h=>{h=(h||'#000').replace('#','');const n=parseInt(h,16);return[n>>16&255,n>>8&255,n&255].map(v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4);}).reduce((a,v,i)=>a+v*[.2126,.7152,.0722][i],0);};
+class Component extends DCLogic {
+  renderVals(){
+    const p=this.props,w=Number(p.w)||360;
+    const elev=p.elev??'Ola Nordmann',event=p.event??'Skolebesøk på Eksempel vgs',when=p.when??'13. november 2026 kl. 09.00–14.30',arr=p.arrangor??'Oslo fylkeslag';
+    const def=`${elev} deltok på ${event} den ${when} i regi av ${arr}. Dette kan regnes som politisk arbeid. Fraværet skal derfor ikke regnes med i fraværsgrensen, jf. forskrift til opplæringslova § 3-3 siste ledd.\n\nEleven kan også be om at inntil 10 skoledager med slikt fravær ikke føres på vitnemålet, jf. § 3-47 femte ledd bokstav c og rundskriv Udir-3-2016.`;
+    const accent=p.accent??'#1D3F8F',L=lum(accent);
+    const sigImg=p.sigImg||'',sigText=p.sigText??'Kari Nordmann';
+    return{w,h:Math.round(w*1123/794),s:w/794,elev,school:p.school??'Eksempel vgs',event,when,place:p.place??'Eksempel vgs, aula',
+      body:p.body||def,attestant:p.attestant??'Kari Nordmann',verv:p.verv??'Fylkesleder, Oslo fylkeslag',contact:p.contact??'kari@eksempel.no · 900 00 000',
+      accent,onAccent:(1.05)/(L+.05)>=4.5?'#FFFFFF':'#141414',initials:p.initials??'EU',org:p.org??'Eksempel Ungdomsorganisasjon',
+      logo:p.logo||'',hasLogo:!!p.logo,noLogo:!p.logo,
+      date:p.date??'Oslo, 16. november 2026',code:p.code??'K7M2-X9PQ',qr:qr(p.code??'K7M2-X9PQ'),
+      sigImg,sigText,hasImg:!!sigImg,hasText:!sigImg&&!!sigText,noSig:!sigImg&&!sigText};
+  }
+}
+</script>
+</body>
+</html>

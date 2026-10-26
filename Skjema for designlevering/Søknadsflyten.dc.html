@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<div style="display:flex;flex-direction:column">
+  <h2 style="margin:0 0 8px;font-size:28px;font-weight:800;letter-spacing:-.02em">A2 · Vanlig søknad og A3 · Kvittering</h2>
+  <p style="margin:0 0 24px;font-size:15px;color:#3E4350;max-width:760px">Send søknaden, så havner den øverst i innboksen under (<a class="dv-oid" href="#2b">2b</a>, <a class="dv-oid" href="#2d">2d</a>).</p>
+  <div class="dv-opts" style="margin-bottom:80px">
+    <div class="dv-opt" id="2a">
+      <div class="dv-olabel"><a class="dv-oid" href="#2a">2a</a><strong style="color:#17191E">Vanlig søknad</strong> · /eksempel · mobil</div>
+      <sc-if value="{{ showPills }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-wrap:wrap;gap:6px;max-width:410px"><sc-for list="{{ a2Pills }}" as="p" hint-placeholder-count="4"><button onClick="{{ p.onClick }}" style="min-height:32px;padding:0 12px;border-radius:999px;border:1px solid rgba(0,0,0,.15);font-size:13px;font-weight:600;cursor:pointer;background:{{ p.bg }};color:{{ p.fg }}">{{ p.label }}</button></sc-for></div>
+      </sc-if>
+      <div style="--bg:#E9EEF4;--surface:#FFFFFF;--ink:#0E1A2B;--muted:#46536A;--line:#C5D0DD;--accent:#1D3F8F;--on-accent:#FFFFFF;--accent-soft:#DCE5F4;--accent-ink:#1D3F8F;width:390px;height:844px;border-radius:44px;overflow:hidden;box-shadow:0 0 0 10px #16181D,0 30px 60px rgba(20,24,32,.25);margin:10px;display:flex;flex-direction:column;background:var(--bg);color:var(--ink)">
+        <div style="height:44px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 30px;font-weight:700;font-size:15px">19:20<span style="font-size:13px">5G ▮▮▮</span></div>
+        <div style="flex:none;margin:0 16px 4px;padding:6px 12px;border-radius:10px;background:rgba(14,26,43,.06);font-size:13px;color:var(--muted);text-align:center">politiskfravaer.no/eksempel</div>
+        <div style="flex:1;overflow-y:auto;display:flex;flex-direction:column">
+          <div style="padding:14px 20px 6px;display:flex;align-items:center;gap:12px"><div style="width:40px;height:40px;flex:none;border-radius:10px;background:var(--accent);color:var(--on-accent);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px">EU</div><div style="font-weight:700;font-size:17px;line-height:1.2">Eksempel Ungdomsorganisasjon</div></div>
+
+          <sc-if value="{{ a2IsForm }}" hint-placeholder-val="{{ true }}">
+            <form onSubmit="{{ a2Submit }}" noValidate="" style="padding:12px 20px 0;display:flex;flex-direction:column;gap:16px">
+              <div style="display:flex;flex-direction:column;gap:6px"><h1 style="margin:0;font-size:36px;line-height:1;font-weight:900;letter-spacing:-.03em">Søk om politisk fravær</h1><p style="margin:0;font-size:16px;line-height:1.45;color:var(--muted)">For arrangementer uten QR-kode. Den som bekrefter sjekker søknaden og sender deg erklæringen på e-post.</p></div>
+              <sc-if value="{{ a2HasErr }}" hint-placeholder-val="{{ false }}">
+                <div role="alert" style="background:#FBE4E1;border:2px solid #B3261E;border-radius:12px;padding:14px;color:#7A1A14;display:flex;flex-direction:column;gap:6px"><strong style="font-size:17px">Sjekk {{ a2ErrText }}</strong><sc-for list="{{ a2ErrList }}" as="x" hint-placeholder-count="2"><a href="{{ x.href }}" style="color:#7A1A14;font-weight:600;font-size:15px">{{ x.text }}</a></sc-for></div>
+              </sc-if>
+              <h2 style="margin:8px 0 0;font-size:22px;font-weight:800;letter-spacing:-.01em">Om deg</h2>
+              <div style="display:flex;flex-direction:column;gap:6px"><label for="a2-name" style="font-weight:600">Navn</label><input id="a2-name" value="{{ f2.name }}" onChange="{{ on2.name }}" autoComplete="name" style="min-height:52px;padding:0 14px;border-radius:10px;background:var(--surface);font-size:17px;border:2px solid {{ b2.name }}" style-focus="outline:3px solid var(--accent);outline-offset:2px"></input><sc-if value="{{ e2.name }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:8px;color:#B3261E;font-weight:600;font-size:15px"><span style="flex:none;width:20px;height:20px;border-radius:50%;background:#B3261E;color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center">!</span>{{ e2.name }}</div></sc-if></div>
+              <div style="display:flex;flex-direction:column;gap:6px"><label for="a2-school" style="font-weight:600">Skole</label><input id="a2-school" value="{{ f2.school }}" onChange="{{ on2.school }}" style="min-height:52px;padding:0 14px;border-radius:10px;background:var(--surface);font-size:17px;border:2px solid {{ b2.school }}" style-focus="outline:3px solid var(--accent);outline-offset:2px"></input><sc-if value="{{ e2.school }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:8px;color:#B3261E;font-weight:600;font-size:15px"><span style="flex:none;width:20px;height:20px;border-radius:50%;background:#B3261E;color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center">!</span>{{ e2.school }}</div></sc-if></div>
+              <div style="display:flex;flex-direction:column;gap:6px"><label for="a2-email" style="font-weight:600">E-post</label><input id="a2-email" type="email" value="{{ f2.email }}" onChange="{{ on2.email }}" autoComplete="email" style="min-height:52px;padding:0 14px;border-radius:10px;background:var(--surface);font-size:17px;border:2px solid {{ b2.email }}" style-focus="outline:3px solid var(--accent);outline-offset:2px"></input><sc-if value="{{ e2.email }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:8px;color:#B3261E;font-weight:600;font-size:15px"><span style="flex:none;width:20px;height:20px;border-radius:50%;background:#B3261E;color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center">!</span>{{ e2.email }}</div></sc-if></div>
+              <div style="display:flex;flex-direction:column;gap:6px"><label for="a2-phone" style="font-weight:600">Telefon <span style="font-weight:400;color:var(--muted)">(valgfritt)</span></label><input id="a2-phone" type="tel" value="{{ f2.phone }}" onChange="{{ on2.phone }}" style="min-height:52px;padding:0 14px;border-radius:10px;background:var(--surface);font-size:17px;border:2px solid var(--line)" style-focus="outline:3px solid var(--accent);outline-offset:2px"></input></div>
+
+              <h2 style="margin:12px 0 0;font-size:22px;font-weight:800;letter-spacing:-.01em">Arrangementet</h2>
+              <div style="display:flex;flex-direction:column;gap:6px"><label for="a2-org" style="font-weight:600">Arrangør</label><select id="a2-org" value="{{ f2.org }}" onChange="{{ on2.org }}" style="min-height:52px;padding:0 12px;border-radius:10px;background:var(--surface);font-size:17px;border:2px solid {{ b2.org }}" style-focus="outline:3px solid var(--accent);outline-offset:2px"><option value="">Velg fylkeslag eller lokallag</option><sc-for list="{{ orgOpts }}" as="o" hint-placeholder-count="6"><option value="{{ o }}">{{ o }}</option></sc-for></select><sc-if value="{{ e2.org }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:8px;color:#B3261E;font-weight:600;font-size:15px"><span style="flex:none;width:20px;height:20px;border-radius:50%;background:#B3261E;color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center">!</span>{{ e2.org }}</div></sc-if></div>
+              <fieldset style="border:0;padding:0;margin:0;display:flex;flex-direction:column;gap:6px"><legend style="font-weight:600;padding:0;margin-bottom:6px">Type</legend>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><sc-for list="{{ typeOpts }}" as="t" hint-placeholder-count="4"><label style="min-height:48px;display:flex;align-items:center;gap:10px;padding:0 12px;border-radius:10px;cursor:pointer;font-weight:600;border:2px solid {{ t.bd }};background:{{ t.bg }}"><input type="radio" name="a2-type" checked="{{ t.on }}" onChange="{{ t.onChange }}" style="width:20px;height:20px;margin:0;accent-color:var(--accent)"></input>{{ t.label }}</label></sc-for></div>
+              </fieldset>
+              <div style="display:flex;flex-direction:column;gap:6px"><label for="a2-event" style="font-weight:600">Navn på arrangementet</label><input id="a2-event" value="{{ f2.event }}" onChange="{{ on2.event }}" placeholder="F.eks. Årsmøte i lokallaget" style="min-height:52px;padding:0 14px;border-radius:10px;background:var(--surface);font-size:17px;border:2px solid {{ b2.event }}" style-focus="outline:3px solid var(--accent);outline-offset:2px"></input><sc-if value="{{ e2.event }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:8px;color:#B3261E;font-weight:600;font-size:15px"><span style="flex:none;width:20px;height:20px;border-radius:50%;background:#B3261E;color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center">!</span>{{ e2.event }}</div></sc-if></div>
+              <fieldset style="border:0;padding:0;margin:0"><legend style="font-weight:600;padding:0;margin-bottom:6px">Når</legend>
+                <div style="display:grid;grid-template-columns:1fr 1fr;background:var(--surface);border:2px solid var(--line);border-radius:12px;padding:4px;gap:4px"><sc-for list="{{ tenseOpts }}" as="t" hint-placeholder-count="2"><label style="min-height:44px;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:8px;cursor:pointer;font-weight:700;background:{{ t.bg }};color:{{ t.fg }}"><input type="radio" name="a2-tense" checked="{{ t.on }}" onChange="{{ t.onChange }}" style="position:absolute;opacity:0;width:1px;height:1px"></input>{{ t.label }}</label></sc-for></div>
+              </fieldset>
+              <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:8px">
+                <div style="display:flex;flex-direction:column;gap:6px"><label for="a2-fd" style="font-weight:600">Fra dato</label><input id="a2-fd" type="date" value="{{ f2.fromD }}" onChange="{{ on2.fromD }}" style="min-height:52px;padding:0 10px;border-radius:10px;background:var(--surface);font-size:16px;border:2px solid {{ b2.fromD }};min-width:0"></input></div>
+                <div style="display:flex;flex-direction:column;gap:6px"><label for="a2-ft" style="font-weight:600">Klokka</label><input id="a2-ft" type="time" value="{{ f2.fromT }}" onChange="{{ on2.fromT }}" style="min-height:52px;padding:0 10px;border-radius:10px;background:var(--surface);font-size:16px;border:2px solid {{ b2.fromD }};min-width:0"></input></div>
+                <div style="display:flex;flex-direction:column;gap:6px"><label for="a2-td" style="font-weight:600">Til dato</label><input id="a2-td" type="date" value="{{ f2.toD }}" onChange="{{ on2.toD }}" style="min-height:52px;padding:0 10px;border-radius:10px;background:var(--surface);font-size:16px;border:2px solid {{ b2.toD }};min-width:0"></input></div>
+                <div style="display:flex;flex-direction:column;gap:6px"><label for="a2-tt" style="font-weight:600">Klokka</label><input id="a2-tt" type="time" value="{{ f2.toT }}" onChange="{{ on2.toT }}" style="min-height:52px;padding:0 10px;border-radius:10px;background:var(--surface);font-size:16px;border:2px solid {{ b2.toD }};min-width:0"></input></div>
+              </div>
+              <sc-if value="{{ e2.fromD }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:8px;color:#B3261E;font-weight:600;font-size:15px;margin-top:-8px"><span style="flex:none;width:20px;height:20px;border-radius:50%;background:#B3261E;color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center">!</span>{{ e2.fromD }}</div></sc-if>
+              <sc-if value="{{ e2.toD }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:8px;color:#B3261E;font-weight:600;font-size:15px;margin-top:-8px"><span style="flex:none;width:20px;height:20px;border-radius:50%;background:#B3261E;color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center">!</span>{{ e2.toD }}</div></sc-if>
+              <div style="display:flex;flex-direction:column;gap:6px"><label for="a2-place" style="font-weight:600">Sted</label><input id="a2-place" value="{{ f2.place }}" onChange="{{ on2.place }}" style="min-height:52px;padding:0 14px;border-radius:10px;background:var(--surface);font-size:17px;border:2px solid {{ b2.place }}" style-focus="outline:3px solid var(--accent);outline-offset:2px"></input><sc-if value="{{ e2.place }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:8px;color:#B3261E;font-weight:600;font-size:15px"><span style="flex:none;width:20px;height:20px;border-radius:50%;background:#B3261E;color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center">!</span>{{ e2.place }}</div></sc-if></div>
+
+              <div style="display:flex;flex-direction:column;gap:6px;margin-top:8px"><label for="a2-com" style="font-weight:600">Kommentar til den som bekrefter <span style="font-weight:400;color:var(--muted)">(valgfritt)</span></label><textarea id="a2-com" rows="3" value="{{ f2.comment }}" onChange="{{ on2.comment }}" placeholder="F.eks. hva du gjorde der" style="padding:12px 14px;border:2px solid var(--line);border-radius:10px;background:var(--surface);font-size:17px;resize:vertical" style-focus="outline:3px solid var(--accent);outline-offset:2px"></textarea></div>
+              <label style="display:flex;align-items:center;gap:12px;min-height:44px;cursor:pointer;font-weight:600"><input type="checkbox" checked="{{ f2.copy }}" onChange="{{ on2.copy }}" style="width:24px;height:24px;accent-color:var(--accent);margin:0;flex:none"></input>Send kopi til skolen</label>
+              <sc-if value="{{ f2.copy }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;gap:6px;margin-top:-6px"><label for="a2-se" style="font-weight:600">Skolens e-post <span style="font-weight:400;color:var(--muted)">(valgfritt)</span></label><input id="a2-se" type="email" value="{{ f2.schoolEmail }}" onChange="{{ on2.schoolEmail }}" placeholder="post@eksempel.vgs.no" style="min-height:52px;padding:0 14px;border-radius:10px;background:var(--surface);font-size:17px;border:2px solid var(--line)"></input></div></sc-if>
+              <div style="position:sticky;bottom:0;margin:0 -20px;padding:12px 20px 24px;background:var(--bg)"><button type="submit" style="width:100%;min-height:58px;border:0;border-radius:12px;background:var(--accent);color:var(--on-accent);font-weight:800;font-size:19px;cursor:pointer" style-focus="outline:3px solid var(--ink);outline-offset:3px">Send søknaden</button></div>
+            </form>
+          </sc-if>
+
+          <sc-if value="{{ a2IsSending }}" hint-placeholder-val="{{ false }}">
+            <div role="status" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:40px"><span style="width:44px;height:44px;border-radius:50%;border:5px solid var(--line);border-top-color:var(--accent);animation:spin .9s linear infinite"></span><strong style="font-size:20px">Sender søknaden …</strong></div>
+          </sc-if>
+
+          <sc-if value="{{ a2IsDone }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:20px 20px 32px;display:flex;flex-direction:column;gap:22px">
+              <div style="width:64px;height:64px;border-radius:50%;background:var(--accent);color:var(--on-accent);display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:800">✓</div>
+              <div style="display:flex;flex-direction:column;gap:8px"><h1 style="margin:0;font-size:40px;line-height:1;font-weight:900;letter-spacing:-.03em">Søknaden er sendt</h1><p style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">{{ doneEvent }}, {{ doneDate }}.</p></div>
+              <div style="background:var(--surface);border-radius:16px;padding:20px;border:1px solid var(--line)">
+                <strong style="font-size:18px;display:block;margin-bottom:14px">Hva skjer nå</strong>
+                <div style="display:grid;grid-template-columns:28px 1fr;column-gap:12px">
+                  <div style="display:flex;flex-direction:column;align-items:center"><div style="width:28px;height:28px;border-radius:50%;background:var(--accent);color:var(--on-accent);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800">✓</div><div style="flex:1;width:2px;background:var(--accent);min-height:20px"></div></div>
+                  <div style="padding-bottom:18px"><strong style="font-size:17px">Mottatt</strong><div style="font-size:15px;color:var(--muted)">I dag kl. 19.20</div></div>
+                  <div style="display:flex;flex-direction:column;align-items:center"><div style="width:28px;height:28px;border-radius:50%;border:3px solid var(--accent);box-sizing:border-box"></div><div style="flex:1;width:2px;background:var(--line);min-height:20px"></div></div>
+                  <div style="padding-bottom:18px"><strong style="font-size:17px">Bekreftes av {{ doneOrg }}</strong><div style="font-size:15px;color:var(--muted)">De sjekker at du var der.</div></div>
+                  <div style="display:flex;flex-direction:column;align-items:center"><div style="width:28px;height:28px;border-radius:50%;border:2px solid var(--line);box-sizing:border-box"></div></div>
+                  <div><strong style="font-size:17px">PDF på e-post</strong><div style="font-size:15px;color:var(--muted)">Til {{ doneEmail }}</div></div>
+                </div>
+                <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--line);font-size:15px;font-weight:600">Vanligvis innen 2 dager.</div>
+              </div>
+              <p style="margin:0;font-size:16px;line-height:1.45">Vi har sendt kvitteringen til deg på e-post også.</p>
+              <a href="#2e" style="min-height:56px;border:2px solid var(--ink);border-radius:12px;background:var(--surface);font-weight:700;font-size:17px;display:flex;align-items:center;justify-content:center;color:var(--ink);text-decoration:none">Se status for søknaden</a>
+              <button onClick="{{ a2Again }}" style="min-height:44px;border:0;background:none;color:var(--accent-ink);font-weight:700;font-size:16px;text-decoration:underline;text-underline-offset:3px;cursor:pointer">Send en søknad til</button>
+              <a href="#2d" style="font-size:13px;color:var(--muted)">Prototype: se søknaden i innboksen →</a>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2 style="margin:0 0 8px;font-size:28px;font-weight:800;letter-spacing:-.02em">B1 · Innboks og B2 · Søknadsdetalj</h2>
+  <p style="margin:0 0 24px;font-size:15px;color:#3E4350;max-width:760px">Mobil og desktop deler samme søknader. Tilstandene (laster, feil, tom) styres av knappene over hver skjerm.</p>
+  <div class="dv-opts" style="margin-bottom:56px">
+    <div class="dv-opt" id="2b">
+      <div class="dv-olabel"><a class="dv-oid" href="#2b">2b</a><strong style="color:#17191E">Innboks</strong> · mobil · én knapp per søknad</div>
+      <sc-if value="{{ showPills }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-wrap:wrap;gap:6px;max-width:410px"><sc-for list="{{ viewPills }}" as="p" hint-placeholder-count="4"><button onClick="{{ p.onClick }}" style="min-height:32px;padding:0 12px;border-radius:999px;border:1px solid rgba(0,0,0,.15);font-size:13px;font-weight:600;cursor:pointer;background:{{ p.bg }};color:{{ p.fg }}">{{ p.label }}</button></sc-for></div>
+      </sc-if>
+      <div style="--bg:#E9EEF4;--surface:#FFFFFF;--ink:#0E1A2B;--muted:#46536A;--line:#C5D0DD;--accent:#1D3F8F;--on-accent:#FFFFFF;--accent-soft:#DCE5F4;--accent-ink:#1D3F8F;width:390px;height:844px;border-radius:44px;overflow:hidden;box-shadow:0 0 0 10px #16181D,0 30px 60px rgba(20,24,32,.25);margin:10px;display:flex;flex-direction:column;background:var(--bg);color:var(--ink);position:relative">
+        <div style="height:44px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 30px;font-weight:700;font-size:15px;background:var(--surface)">10:31<span style="font-size:13px">5G ▮▮▮</span></div>
+        <div style="flex:none;background:var(--surface);padding:6px 20px 0;display:flex;flex-direction:column;gap:10px;border-bottom:1px solid var(--line)">
+          <div style="display:flex;align-items:center;justify-content:space-between"><div style="display:flex;align-items:center;gap:10px"><div style="width:32px;height:32px;border-radius:8px;background:var(--accent);color:var(--on-accent);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px">EU</div><h1 style="margin:0;font-size:28px;font-weight:900;letter-spacing:-.02em">Innboks</h1></div><div style="width:40px;height:40px;border-radius:50%;background:var(--accent-soft);color:var(--accent-ink);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px">KN</div></div>
+          <div role="tablist" style="display:flex;gap:4px;overflow-x:auto;margin:0 -20px;padding:0 16px"><sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4"><button role="tab" aria-selected="{{ t.on }}" onClick="{{ t.onClick }}" style="flex:none;min-height:48px;padding:0 10px;border:0;background:none;font-weight:700;font-size:16px;cursor:pointer;white-space:nowrap;color:{{ t.fg }};box-shadow:inset 0 -3px 0 {{ t.line }}">{{ t.label }}</button></sc-for></div>
+        </div>
+        <div style="flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:10px">
+          <sc-if value="{{ isLoading }}" hint-placeholder-val="{{ false }}">
+            <div aria-busy="true" style="display:flex;flex-direction:column;gap:10px"><span style="position:absolute;width:1px;height:1px;overflow:hidden">Henter søknader …</span><div style="height:150px;border-radius:16px;background:var(--surface);animation:pulse 1.4s ease-in-out infinite"></div><div style="height:150px;border-radius:16px;background:var(--surface);animation:pulse 1.4s ease-in-out infinite"></div><div style="height:150px;border-radius:16px;background:var(--surface);animation:pulse 1.4s ease-in-out infinite"></div></div>
+          </sc-if>
+          <sc-if value="{{ isError }}" hint-placeholder-val="{{ false }}">
+            <div role="alert" style="background:var(--surface);border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:12px;margin-top:20px"><strong style="font-size:22px;line-height:1.15">Vi får ikke hentet søknadene</strong><span style="font-size:16px;line-height:1.45;color:var(--muted)">Sjekk at du er på nett. Ingenting er borte.</span><button onClick="{{ retry }}" style="min-height:52px;border:0;border-radius:12px;background:var(--accent);color:var(--on-accent);font-weight:700;font-size:17px;cursor:pointer">Prøv igjen</button></div>
+          </sc-if>
+          <sc-if value="{{ showEmpty }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:60px 20px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px"><div style="width:72px;height:72px;border-radius:50%;background:#E2F2E6;color:#17602F;display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:800">✓</div><strong style="font-size:24px;line-height:1.15">{{ emptyTitle }}</strong><span style="font-size:16px;color:var(--muted);max-width:260px">{{ emptyText }}</span></div>
+          </sc-if>
+          <sc-if value="{{ showList }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <sc-for list="{{ rows }}" as="a" hint-placeholder-count="4">
+                <div style="background:var(--surface);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:12px">
+                  <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><div style="display:flex;flex-direction:column;min-width:0"><strong style="font-size:18px">{{ a.name }}</strong><span style="font-size:15px;color:var(--muted)">{{ a.school }}</span></div><span style="flex:none;font-size:13px;font-weight:700;padding:3px 10px;border-radius:999px;background:{{ a.sBg }};color:{{ a.sFg }}">{{ a.sLabel }}</span></div>
+                  <div style="display:flex;flex-direction:column;gap:4px"><strong style="font-size:16px;line-height:1.25">{{ a.event }}</strong><span style="font-size:15px;color:var(--muted)">{{ a.short }} · {{ a.from }}–{{ a.to }} · {{ a.org }}</span>
+                    <sc-if value="{{ a.ev }}" hint-placeholder-val="{{ false }}"><span style="align-self:flex-start;margin-top:4px;font-size:13px;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--accent-soft);color:var(--ink)">Fra arrangement</span></sc-if></div>
+                  <div style="display:grid;grid-template-columns:1fr auto;gap:8px">
+                    <sc-if value="{{ a.isVenter }}" hint-placeholder-val="{{ true }}"><button onClick="{{ a.onSend }}" style="min-height:48px;border:0;border-radius:10px;background:var(--accent);color:var(--on-accent);font-weight:700;font-size:16px;cursor:pointer">Send fravær</button></sc-if>
+                    <sc-if value="{{ a.notVenter }}" hint-placeholder-val="{{ false }}"><span></span></sc-if>
+                    <a href="#2c" onClick="{{ a.onOpenM }}" style="min-height:48px;padding:0 16px;border:2px solid var(--line);border-radius:10px;font-weight:700;font-size:16px;display:flex;align-items:center;color:var(--ink);text-decoration:none">Detaljer</a>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+        <sc-if value="{{ toastM.has }}" hint-placeholder-val="{{ false }}">
+          <div role="status" style="position:absolute;left:16px;right:16px;bottom:24px;background:var(--ink);color:#fff;border-radius:14px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:16px;box-shadow:0 10px 30px rgba(0,0,0,.25)"><span>{{ toastM.text }}</span><button onClick="{{ toastM.undo }}" style="min-height:44px;padding:0 8px;border:0;background:none;color:#fff;font-weight:700;text-decoration:underline;cursor:pointer">Angre</button></div>
+        </sc-if>
+      </div>
+    </div>
+
+    <div class="dv-opt" id="2c">
+      <div class="dv-olabel"><a class="dv-oid" href="#2c">2c</a><strong style="color:#17191E">Søknadsdetalj</strong> · mobil · egen side</div>
+      <div style="--bg:#E9EEF4;--surface:#FFFFFF;--ink:#0E1A2B;--muted:#46536A;--line:#C5D0DD;--accent:#1D3F8F;--on-accent:#FFFFFF;--accent-soft:#DCE5F4;--accent-ink:#1D3F8F;width:390px;height:844px;border-radius:44px;overflow:hidden;box-shadow:0 0 0 10px #16181D,0 30px 60px rgba(20,24,32,.25);margin:10px;display:flex;flex-direction:column;background:var(--bg);color:var(--ink);position:relative">
+        <div style="height:44px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 30px;font-weight:700;font-size:15px;background:var(--surface)">10:32<span style="font-size:13px">5G ▮▮▮</span></div>
+        <div style="flex:none;background:var(--surface);padding:0 20px 12px;border-bottom:1px solid var(--line)"><a href="#2b" style="font-size:15px;font-weight:600;color:var(--accent-ink);min-height:44px;display:flex;align-items:center">‹ Innboks</a></div>
+        <div style="flex:1;overflow-y:auto;padding:16px 20px;display:flex;flex-direction:column;gap:18px">
+          <div style="display:flex;flex-direction:column;gap:6px"><span style="align-self:flex-start;font-size:13px;font-weight:700;padding:3px 10px;border-radius:999px;background:{{ dM.sBg }};color:{{ dM.sFg }}">{{ dM.sLabel }}</span><h1 style="margin:0;font-size:32px;line-height:1.02;font-weight:900;letter-spacing:-.025em">{{ dM.name }}</h1><span style="font-size:16px;color:var(--muted)">{{ dM.school }} · {{ dM.email }}</span></div>
+          <div style="background:var(--surface);border-radius:16px;padding:4px 16px">
+            <sc-if value="{{ dM.notEditing }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex;flex-direction:column">
+                <div style="padding:12px 0;border-bottom:1px solid var(--line)"><div style="font-size:14px;color:var(--muted)">Arrangement</div><strong style="font-size:17px">{{ dM.event }}</strong><sc-if value="{{ dM.ev }}" hint-placeholder-val="{{ false }}"><div style="margin-top:4px"><span style="font-size:13px;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--accent-soft)">Fra arrangement</span></div></sc-if></div>
+                <div style="padding:12px 0;border-bottom:1px solid var(--line)"><div style="font-size:14px;color:var(--muted)">Tid</div><strong style="font-size:17px">{{ dM.when }}</strong></div>
+                <div style="padding:12px 0;border-bottom:1px solid var(--line)"><div style="font-size:14px;color:var(--muted)">Sted</div><strong style="font-size:17px">{{ dM.place }}</strong></div>
+                <div style="padding:12px 0"><div style="font-size:14px;color:var(--muted)">Arrangør · type</div><strong style="font-size:17px">{{ dM.org }} · {{ dM.type }}</strong></div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ dM.editing }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:12px;padding:14px 0">
+                <div style="display:flex;flex-direction:column;gap:4px"><label for="m-ev" style="font-weight:600">Arrangement</label><input id="m-ev" value="{{ dM.draft.event }}" onChange="{{ dM.onDraftEvent }}" style="min-height:48px;padding:0 12px;border:2px solid var(--line);border-radius:10px;font-size:16px"></input></div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div style="display:flex;flex-direction:column;gap:4px"><label for="m-f" style="font-weight:600">Fra kl.</label><input id="m-f" value="{{ dM.draft.from }}" onChange="{{ dM.onDraftFrom }}" style="min-height:48px;padding:0 12px;border:2px solid var(--line);border-radius:10px;font-size:16px;min-width:0"></input></div><div style="display:flex;flex-direction:column;gap:4px"><label for="m-t" style="font-weight:600">Til kl.</label><input id="m-t" value="{{ dM.draft.to }}" onChange="{{ dM.onDraftTo }}" style="min-height:48px;padding:0 12px;border:2px solid var(--line);border-radius:10px;font-size:16px;min-width:0"></input></div></div>
+                <div style="display:flex;flex-direction:column;gap:4px"><label for="m-p" style="font-weight:600">Sted</label><input id="m-p" value="{{ dM.draft.place }}" onChange="{{ dM.onDraftPlace }}" style="min-height:48px;padding:0 12px;border:2px solid var(--line);border-radius:10px;font-size:16px"></input></div>
+                <div style="display:flex;gap:8px"><button onClick="{{ dM.saveEdit }}" style="flex:1;min-height:48px;border:0;border-radius:10px;background:var(--accent);color:var(--on-accent);font-weight:700;cursor:pointer">Lagre endringer</button><button onClick="{{ dM.cancelEdit }}" style="min-height:48px;padding:0 16px;border:2px solid var(--line);border-radius:10px;background:var(--surface);font-weight:700;cursor:pointer">Avbryt</button></div>
+              </div>
+            </sc-if>
+          </div>
+          <sc-if value="{{ dM.hasComment }}" hint-placeholder-val="{{ false }}"><div style="background:var(--accent-soft);border-radius:14px;padding:14px 16px;font-size:16px;line-height:1.45"><strong style="display:block;font-size:14px;margin-bottom:2px">Kommentar fra eleven</strong>«{{ dM.comment }}»</div></sc-if>
+          <sc-if value="{{ dM.hasReason }}" hint-placeholder-val="{{ false }}"><div style="background:#FBE4E1;border-radius:14px;padding:14px 16px;font-size:16px;line-height:1.45;color:#5E140F"><strong style="display:block;font-size:14px;margin-bottom:2px">Begrunnelse for avslag</strong>{{ dM.reason }}</div></sc-if>
+          <div style="display:flex;flex-direction:column;gap:10px"><strong style="font-size:18px">Forhåndsvisning</strong><dc-import name="Mini PDF" w="350" elev="{{ dM.name }}" school="{{ dM.school }}" event="{{ dM.pdfEvent }}" when="{{ dM.pdfWhen }}" place="{{ dM.pdfPlace }}" arrangor="{{ dM.org }}" hint-size="350px,495px"></dc-import></div>
+          <div style="display:flex;flex-direction:column;gap:10px"><strong style="font-size:18px">Historikk</strong>
+            <sc-for list="{{ dM.hist }}" as="h" hint-placeholder-count="2"><div style="display:grid;grid-template-columns:12px 1fr;gap:12px;align-items:start"><span style="width:10px;height:10px;border-radius:50%;background:var(--accent);margin-top:7px"></span><div><strong>{{ h.what }}</strong> <span style="color:var(--muted)">· {{ h.who }}</span><div style="font-size:14px;color:var(--muted)">{{ h.when }}</div></div></div></sc-for>
+          </div>
+          <div style="height:150px;flex:none"></div>
+        </div>
+        <sc-if value="{{ dM.isVenter }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);padding:12px 16px 24px;display:flex;flex-direction:column;gap:8px">
+            <sc-if value="{{ dM.rejectOpen }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:8px"><label for="m-r" style="font-weight:600">Begrunnelse <span style="font-weight:400;color:var(--muted)">(valgfritt, eleven ser den)</span></label><textarea id="m-r" rows="2" value="{{ dM.reasonDraft }}" onChange="{{ dM.onReason }}" style="padding:10px 12px;border:2px solid var(--line);border-radius:10px;font-size:16px;resize:none"></textarea><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><button onClick="{{ dM.cancelReject }}" style="min-height:48px;border:2px solid var(--line);border-radius:10px;background:var(--surface);font-weight:700;cursor:pointer">Avbryt</button><button onClick="{{ dM.confirmReject }}" style="min-height:48px;border:0;border-radius:10px;background:#A3261D;color:#fff;font-weight:700;cursor:pointer">Avslå søknaden</button></div></div>
+            </sc-if>
+            <sc-if value="{{ dM.actionsVisible }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex;flex-direction:column;gap:8px"><button onClick="{{ dM.send }}" style="min-height:56px;border:0;border-radius:12px;background:var(--accent);color:var(--on-accent);font-weight:800;font-size:18px;cursor:pointer">Send fravær</button><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><button onClick="{{ dM.startEdit }}" style="min-height:48px;border:2px solid var(--ink);border-radius:10px;background:var(--surface);font-weight:700;cursor:pointer">Rediger</button><button onClick="{{ dM.openReject }}" style="min-height:48px;border:2px solid #A3261D;border-radius:10px;background:var(--surface);color:#A3261D;font-weight:700;cursor:pointer">Avslå</button></div></div>
+            </sc-if>
+          </div>
+        </sc-if>
+        <sc-if value="{{ toastM.has }}" hint-placeholder-val="{{ false }}">
+          <div role="status" style="position:absolute;left:16px;right:16px;bottom:24px;background:var(--ink);color:#fff;border-radius:14px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:16px;box-shadow:0 10px 30px rgba(0,0,0,.25)"><span>{{ toastM.text }}</span><button onClick="{{ toastM.undo }}" style="min-height:44px;padding:0 8px;border:0;background:none;color:#fff;font-weight:700;text-decoration:underline;cursor:pointer">Angre</button></div>
+        </sc-if>
+      </div>
+    </div>
+  </div>
+
+  <div class="dv-opts" style="margin-bottom:80px">
+    <div class="dv-opt" id="2d">
+      <div class="dv-olabel"><a class="dv-oid" href="#2d">2d</a><strong style="color:#17191E">Innboks og detalj</strong> · desktop 1440 · velg flere for masseutsending, klikk et navn for sidepanel</div>
+      <sc-if value="{{ showPills }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ viewPills }}" as="p" hint-placeholder-count="4"><button onClick="{{ p.onClick }}" style="min-height:32px;padding:0 12px;border-radius:999px;border:1px solid rgba(0,0,0,.15);font-size:13px;font-weight:600;cursor:pointer;background:{{ p.bg }};color:{{ p.fg }}">{{ p.label }}</button></sc-for></div>
+      </sc-if>
+      <div style="--bg:#E9EEF4;--surface:#FFFFFF;--ink:#0E1A2B;--muted:#46536A;--line:#C5D0DD;--accent:#1D3F8F;--on-accent:#FFFFFF;--accent-soft:#DCE5F4;--accent-ink:#1D3F8F;width:1440px;height:1000px;background:var(--bg);color:var(--ink);border-radius:12px;overflow:hidden;box-shadow:0 20px 50px rgba(20,24,32,.18);display:flex;flex-direction:column;position:relative">
+        <div style="height:68px;flex:none;background:var(--surface);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:40px;padding:0 40px">
+          <div style="display:flex;align-items:center;gap:10px"><div style="width:36px;height:36px;border-radius:9px;background:var(--accent);color:var(--on-accent);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px">EU</div><strong style="font-size:16px">Eksempel Ungdomsorganisasjon</strong></div>
+          <nav style="display:flex;gap:4px;height:100%;font-weight:600;font-size:16px">
+            <a href="#2d" aria-current="page" style="display:flex;align-items:center;gap:8px;padding:0 14px;color:var(--accent-ink);text-decoration:none;box-shadow:inset 0 -3px 0 var(--accent)">Innboks <span style="background:var(--accent);color:var(--on-accent);border-radius:999px;padding:1px 8px;font-size:13px">{{ cVenter }}</span></a>
+            <a href="#2k" style="display:flex;align-items:center;padding:0 14px;color:var(--ink);text-decoration:none">Arrangementer</a>
+            <a href="#2n" style="display:flex;align-items:center;padding:0 14px;color:var(--ink);text-decoration:none">Innstillinger</a>
+          </nav>
+          <div style="margin-left:auto;display:flex;align-items:center;gap:10px;font-size:15px"><div style="text-align:right;line-height:1.25"><strong>Kari Nordmann</strong><br><span style="color:var(--muted)">Fylkesleder, Oslo fylkeslag</span></div><div style="width:40px;height:40px;border-radius:50%;background:var(--accent-soft);color:var(--accent-ink);display:flex;align-items:center;justify-content:center;font-weight:800">KN</div></div>
+        </div>
+        <div style="flex:1;min-height:0;padding:28px 40px 0;display:flex;flex-direction:column;gap:18px">
+          <h1 style="margin:0;font-size:46px;line-height:1;font-weight:900;letter-spacing:-.03em">Innboks</h1>
+          <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line)">
+            <div role="tablist" style="display:flex;gap:4px"><sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4"><button role="tab" aria-selected="{{ t.on }}" onClick="{{ t.onClick }}" style="min-height:48px;padding:0 14px;border:0;background:none;font-weight:700;font-size:17px;cursor:pointer;color:{{ t.fg }};box-shadow:inset 0 -3px 0 {{ t.line }}">{{ t.label }}</button></sc-for></div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap">
+            <div style="display:flex;flex-direction:column;gap:4px;width:300px"><label for="d-q" style="font-weight:600;font-size:15px">Søk</label><input id="d-q" value="{{ q }}" onChange="{{ onQ }}" placeholder="Navn eller skole" style="min-height:44px;padding:0 12px;border:2px solid var(--line);border-radius:10px;background:var(--surface);font-size:16px" style-focus="outline:3px solid var(--accent);outline-offset:2px"></input></div>
+            <div style="display:flex;flex-direction:column;gap:4px"><label for="d-org" style="font-weight:600;font-size:15px">Arrangør</label><select id="d-org" value="{{ fOrg }}" onChange="{{ onFOrg }}" style="min-height:44px;padding:0 10px;border:2px solid var(--line);border-radius:10px;background:var(--surface);font-size:16px;min-width:200px"><option value="">Alle arrangører</option><sc-for list="{{ orgFilterOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o }}">{{ o }}</option></sc-for></select></div>
+            <div style="display:flex;flex-direction:column;gap:4px"><label for="d-ev" style="font-weight:600;font-size:15px">Arrangement</label><select id="d-ev" value="{{ fEv }}" onChange="{{ onFEv }}" style="min-height:44px;padding:0 10px;border:2px solid var(--line);border-radius:10px;background:var(--surface);font-size:16px;min-width:260px"><option value="">Alle arrangementer</option><sc-for list="{{ evFilterOpts }}" as="o" hint-placeholder-count="4"><option value="{{ o }}">{{ o }}</option></sc-for></select></div>
+            <div style="display:flex;flex-direction:column;gap:4px"><label for="d-date" style="font-weight:600;font-size:15px">Dato</label><select id="d-date" value="{{ fDate }}" onChange="{{ onFDate }}" style="min-height:44px;padding:0 10px;border:2px solid var(--line);border-radius:10px;background:var(--surface);font-size:16px;min-width:160px"><option value="">Alle datoer</option><sc-for list="{{ dateFilterOpts }}" as="o" hint-placeholder-count="4"><option value="{{ o.v }}">{{ o.label }}</option></sc-for></select></div>
+            <sc-if value="{{ hasFilter }}" hint-placeholder-val="{{ false }}"><button onClick="{{ clearFilter }}" style="min-height:44px;padding:0 8px;border:0;background:none;color:var(--accent-ink);font-weight:700;text-decoration:underline;cursor:pointer">Nullstill filter</button></sc-if>
+          </div>
+          <div style="flex:1;min-height:0;background:var(--surface);border-radius:16px 16px 0 0;display:flex;flex-direction:column;overflow:hidden">
+            <div style="display:grid;grid-template-columns:56px minmax(0,1.3fr) minmax(0,1.7fr) minmax(0,1fr) 150px 160px 130px;gap:12px;align-items:center;padding:0 20px;min-height:52px;border-bottom:1px solid var(--line);font-size:14px;font-weight:700;color:var(--muted)">
+              <label style="display:flex;align-items:center;justify-content:center;min-height:44px;cursor:pointer"><input type="checkbox" aria-label="Velg alle som venter" checked="{{ allSel }}" onChange="{{ toggleAll }}" style="width:22px;height:22px;margin:0;accent-color:var(--accent)"></input></label>
+              <span>Elev</span><span>Arrangement</span><span>Arrangør</span><span>Dato</span><span>Mottatt</span><span>Status</span>
+            </div>
+            <div style="flex:1;overflow-y:auto">
+              <sc-if value="{{ isLoading }}" hint-placeholder-val="{{ false }}"><div aria-busy="true" style="display:flex;flex-direction:column"><div style="height:64px;margin:8px 20px;border-radius:8px;background:var(--bg);animation:pulse 1.4s ease-in-out infinite"></div><div style="height:64px;margin:8px 20px;border-radius:8px;background:var(--bg);animation:pulse 1.4s ease-in-out infinite"></div><div style="height:64px;margin:8px 20px;border-radius:8px;background:var(--bg);animation:pulse 1.4s ease-in-out infinite"></div><div style="height:64px;margin:8px 20px;border-radius:8px;background:var(--bg);animation:pulse 1.4s ease-in-out infinite"></div></div></sc-if>
+              <sc-if value="{{ isError }}" hint-placeholder-val="{{ false }}"><div role="alert" style="padding:60px;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center"><strong style="font-size:24px">Vi får ikke hentet søknadene</strong><span style="color:var(--muted);font-size:17px">Sjekk at du er på nett. Ingenting er borte.</span><button onClick="{{ retry }}" style="min-height:48px;padding:0 24px;border:0;border-radius:10px;background:var(--accent);color:var(--on-accent);font-weight:700;cursor:pointer">Prøv igjen</button></div></sc-if>
+              <sc-if value="{{ showEmptyD }}" hint-placeholder-val="{{ false }}"><div style="padding:80px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center"><div style="width:72px;height:72px;border-radius:50%;background:#E2F2E6;color:#17602F;display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:800">✓</div><strong style="font-size:26px">{{ emptyTitleD }}</strong><span style="color:var(--muted);font-size:17px">{{ emptyTextD }}</span></div></sc-if>
+              <sc-if value="{{ showListD }}" hint-placeholder-val="{{ true }}">
+                <div>
+                  <sc-for list="{{ dRows }}" as="a" hint-placeholder-count="10">
+                    <div style="display:grid;grid-template-columns:56px minmax(0,1.3fr) minmax(0,1.7fr) minmax(0,1fr) 150px 160px 130px;gap:12px;align-items:center;padding:6px 20px;min-height:60px;border-bottom:1px solid var(--line);font-size:16px;background:{{ a.rowBg }}">
+                      <label style="display:flex;align-items:center;justify-content:center;min-height:44px;cursor:pointer"><sc-if value="{{ a.isVenter }}" hint-placeholder-val="{{ true }}"><input type="checkbox" aria-label="Velg {{ a.name }}" checked="{{ a.sel }}" onChange="{{ a.onSel }}" style="width:22px;height:22px;margin:0;accent-color:var(--accent)"></input></sc-if></label>
+                      <div style="display:flex;flex-direction:column;min-width:0;align-items:flex-start"><button onClick="{{ a.onOpenD }}" style="border:0;background:none;padding:0;font-weight:700;font-size:16px;color:var(--accent-ink);text-decoration:underline;text-underline-offset:3px;cursor:pointer;text-align:left;min-height:24px">{{ a.name }}</button><span style="font-size:14px;color:var(--muted)">{{ a.school }}</span></div>
+                      <div style="display:flex;flex-direction:column;gap:3px;min-width:0;align-items:flex-start"><span style="font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%">{{ a.event }}</span><sc-if value="{{ a.ev }}" hint-placeholder-val="{{ false }}"><span style="font-size:12px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--accent-soft)">Fra arrangement</span></sc-if></div>
+                      <span style="color:var(--muted)">{{ a.org }}</span>
+                      <span>{{ a.short }}</span>
+                      <span style="color:var(--muted);font-size:15px">{{ a.rec }}</span>
+                      <span style="justify-self:start;font-size:13px;font-weight:700;padding:3px 10px;border-radius:999px;background:{{ a.sBg }};color:{{ a.sFg }}">{{ a.sLabel }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </sc-if>
+            </div>
+            <sc-if value="{{ hasSel }}" hint-placeholder-val="{{ false }}">
+              <div role="region" aria-label="Handlinger for valgte" style="flex:none;background:var(--ink);color:#fff;padding:12px 20px;display:flex;align-items:center;gap:12px">
+                <strong style="font-size:17px">{{ selCount }} valgt</strong>
+                <button onClick="{{ clearSel }}" style="min-height:44px;padding:0 10px;border:0;background:none;color:#fff;text-decoration:underline;font-weight:600;cursor:pointer">Fjern valg</button>
+                <div style="margin-left:auto;display:flex;gap:10px"><button onClick="{{ bulkReject }}" style="min-height:48px;padding:0 20px;border:2px solid #fff;border-radius:10px;background:transparent;color:#fff;font-weight:700;cursor:pointer">Avslå</button><button onClick="{{ openBulk }}" style="min-height:48px;padding:0 24px;border:0;border-radius:10px;background:#fff;color:var(--ink);font-weight:800;font-size:17px;cursor:pointer">Send fravær ({{ selCount }})</button></div>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+
+        <sc-if value="{{ panelOpen }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute;inset:68px 0 0 0;background:rgba(14,26,43,.35)" onClick="{{ closePanel }}"></div>
+          <aside aria-label="Søknadsdetalj" style="position:absolute;top:68px;right:0;bottom:0;width:960px;background:var(--surface);box-shadow:-20px 0 50px rgba(14,26,43,.2);display:flex;flex-direction:column">
+            <div style="padding:24px 32px 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:flex-start;gap:16px">
+              <div style="display:flex;flex-direction:column;gap:6px"><span style="align-self:flex-start;font-size:13px;font-weight:700;padding:3px 10px;border-radius:999px;background:{{ dD.sBg }};color:{{ dD.sFg }}">{{ dD.sLabel }}</span><h2 style="margin:0;font-size:36px;line-height:1;font-weight:900;letter-spacing:-.025em">{{ dD.name }}</h2><span style="font-size:16px;color:var(--muted)">{{ dD.school }} · {{ dD.email }}</span></div>
+              <button onClick="{{ closePanel }}" aria-label="Lukk" style="width:44px;height:44px;border:2px solid var(--line);border-radius:10px;background:var(--surface);font-size:20px;font-weight:700;cursor:pointer">✕</button>
+            </div>
+            <div style="flex:1;min-height:0;overflow-y:auto;padding:24px 32px;display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:32px;align-items:start">
+              <div style="display:flex;flex-direction:column;gap:20px">
+                <sc-if value="{{ dD.notEditing }}" hint-placeholder-val="{{ true }}">
+                  <div style="display:grid;grid-template-columns:130px 1fr;font-size:16px;border-top:1px solid var(--line)">
+                    <span style="padding:12px 0;border-bottom:1px solid var(--line);color:var(--muted)">Arrangement</span><span style="padding:12px 0;border-bottom:1px solid var(--line);font-weight:700">{{ dD.event }}</span>
+                    <span style="padding:12px 0;border-bottom:1px solid var(--line);color:var(--muted)">Tid</span><span style="padding:12px 0;border-bottom:1px solid var(--line);font-weight:700">{{ dD.when }}</span>
+                    <span style="padding:12px 0;border-bottom:1px solid var(--line);color:var(--muted)">Sted</span><span style="padding:12px 0;border-bottom:1px solid var(--line);font-weight:700">{{ dD.place }}</span>
+                    <span style="padding:12px 0;border-bottom:1px solid var(--line);color:var(--muted)">Arrangør</span><span style="padding:12px 0;border-bottom:1px solid var(--line);font-weight:700">{{ dD.org }}</span>
+                    <span style="padding:12px 0;border-bottom:1px solid var(--line);color:var(--muted)">Type</span><span style="padding:12px 0;border-bottom:1px solid var(--line);font-weight:700">{{ dD.type }}</span>
+                    <span style="padding:12px 0;color:var(--muted)">Kilde</span><span style="padding:12px 0;font-weight:700">{{ dD.srcText }}</span>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ dD.editing }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-direction:column;gap:12px;background:var(--accent-soft);border-radius:14px;padding:16px">
+                    <strong style="font-size:17px">Rediger opplysninger</strong>
+                    <div style="display:flex;flex-direction:column;gap:4px"><label for="d-e-ev" style="font-weight:600">Arrangement</label><input id="d-e-ev" value="{{ dD.draft.event }}" onChange="{{ dD.onDraftEvent }}" style="min-height:44px;padding:0 12px;border:2px solid var(--line);border-radius:10px;font-size:16px;background:var(--surface)"></input></div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr 2fr;gap:8px"><div style="display:flex;flex-direction:column;gap:4px"><label for="d-e-f" style="font-weight:600">Fra kl.</label><input id="d-e-f" value="{{ dD.draft.from }}" onChange="{{ dD.onDraftFrom }}" style="min-height:44px;padding:0 12px;border:2px solid var(--line);border-radius:10px;font-size:16px;background:var(--surface);min-width:0"></input></div><div style="display:flex;flex-direction:column;gap:4px"><label for="d-e-t" style="font-weight:600">Til kl.</label><input id="d-e-t" value="{{ dD.draft.to }}" onChange="{{ dD.onDraftTo }}" style="min-height:44px;padding:0 12px;border:2px solid var(--line);border-radius:10px;font-size:16px;background:var(--surface);min-width:0"></input></div><div style="display:flex;flex-direction:column;gap:4px"><label for="d-e-p" style="font-weight:600">Sted</label><input id="d-e-p" value="{{ dD.draft.place }}" onChange="{{ dD.onDraftPlace }}" style="min-height:44px;padding:0 12px;border:2px solid var(--line);border-radius:10px;font-size:16px;background:var(--surface);min-width:0"></input></div></div>
+                    <span style="font-size:14px;color:var(--muted)">Forhåndsvisningen til høyre oppdateres mens du skriver.</span>
+                    <div style="display:flex;gap:8px"><button onClick="{{ dD.saveEdit }}" style="min-height:44px;padding:0 18px;border:0;border-radius:10px;background:var(--accent);color:var(--on-accent);font-weight:700;cursor:pointer">Lagre endringer</button><button onClick="{{ dD.cancelEdit }}" style="min-height:44px;padding:0 16px;border:2px solid var(--line);border-radius:10px;background:var(--surface);font-weight:700;cursor:pointer">Avbryt</button></div>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ dD.hasComment }}" hint-placeholder-val="{{ false }}"><div style="background:var(--bg);border-radius:14px;padding:14px 16px;font-size:16px;line-height:1.45"><strong style="display:block;font-size:14px;margin-bottom:2px">Kommentar fra eleven</strong>«{{ dD.comment }}»</div></sc-if>
+                <sc-if value="{{ dD.hasReason }}" hint-placeholder-val="{{ false }}"><div style="background:#FBE4E1;border-radius:14px;padding:14px 16px;font-size:16px;line-height:1.45;color:#5E140F"><strong style="display:block;font-size:14px;margin-bottom:2px">Begrunnelse for avslag</strong>{{ dD.reason }}</div></sc-if>
+                <sc-if value="{{ dD.isVenter }}" hint-placeholder-val="{{ true }}">
+                  <div style="display:flex;flex-direction:column;gap:12px">
+                    <sc-if value="{{ dD.actionsVisible }}" hint-placeholder-val="{{ true }}"><div style="display:flex;gap:10px"><button onClick="{{ dD.send }}" style="min-height:52px;padding:0 26px;border:0;border-radius:12px;background:var(--accent);color:var(--on-accent);font-weight:800;font-size:17px;cursor:pointer" style-focus="outline:3px solid var(--ink);outline-offset:3px">Send fravær</button><button onClick="{{ dD.startEdit }}" style="min-height:52px;padding:0 20px;border:2px solid var(--ink);border-radius:12px;background:var(--surface);font-weight:700;cursor:pointer">Rediger</button><button onClick="{{ dD.openReject }}" style="min-height:52px;padding:0 20px;border:2px solid #A3261D;border-radius:12px;background:var(--surface);color:#A3261D;font-weight:700;cursor:pointer">Avslå</button></div></sc-if>
+                    <sc-if value="{{ dD.rejectOpen }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;gap:8px;border:2px solid #A3261D;border-radius:14px;padding:16px"><label for="d-r" style="font-weight:700">Begrunnelse <span style="font-weight:400;color:var(--muted)">(valgfritt, eleven ser den)</span></label><textarea id="d-r" rows="3" value="{{ dD.reasonDraft }}" onChange="{{ dD.onReason }}" placeholder="F.eks. Vi finner deg ikke på deltakerlisten." style="padding:10px 12px;border:2px solid var(--line);border-radius:10px;font-size:16px;resize:vertical"></textarea><div style="display:flex;gap:8px"><button onClick="{{ dD.confirmReject }}" style="min-height:44px;padding:0 18px;border:0;border-radius:10px;background:#A3261D;color:#fff;font-weight:700;cursor:pointer">Avslå søknaden</button><button onClick="{{ dD.cancelReject }}" style="min-height:44px;padding:0 16px;border:2px solid var(--line);border-radius:10px;background:var(--surface);font-weight:700;cursor:pointer">Avbryt</button></div></div></sc-if>
+                  </div>
+                </sc-if>
+                <div style="display:flex;flex-direction:column;gap:10px"><strong style="font-size:18px">Historikk</strong>
+                  <sc-for list="{{ dD.hist }}" as="h" hint-placeholder-count="2"><div style="display:grid;grid-template-columns:12px 1fr;gap:12px;align-items:start"><span style="width:10px;height:10px;border-radius:50%;background:var(--accent);margin-top:7px"></span><div><strong>{{ h.what }}</strong> <span style="color:var(--muted)">· {{ h.who }}</span><div style="font-size:14px;color:var(--muted)">{{ h.when }}</div></div></div></sc-for>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:8px;position:sticky;top:0"><span style="font-size:14px;font-weight:700;color:var(--muted)">Forhåndsvisning av PDF</span><dc-import name="Mini PDF" w="400" elev="{{ dD.name }}" school="{{ dD.school }}" event="{{ dD.pdfEvent }}" when="{{ dD.pdfWhen }}" place="{{ dD.pdfPlace }}" arrangor="{{ dD.org }}" hint-size="400px,566px"></dc-import></div>
+            </div>
+          </aside>
+        </sc-if>
+
+        <sc-if value="{{ bulkOpen }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute;inset:0;background:rgba(14,26,43,.55);display:flex;align-items:center;justify-content:center">
+            <div role="dialog" aria-modal="true" aria-labelledby="bulk-t" style="width:560px;background:var(--surface);border-radius:22px;padding:30px;display:flex;flex-direction:column;gap:18px;box-shadow:0 30px 80px rgba(0,0,0,.3)">
+              <h2 id="bulk-t" style="margin:0;font-size:30px;line-height:1.05;font-weight:900;letter-spacing:-.02em">{{ bulkTitle }}</h2>
+              <p style="margin:0;font-size:18px;line-height:1.5">{{ bulkLead }} <strong>Kari Nordmann, fylkesleder</strong>. Svar går til <strong>kari@eksempel.no</strong>.</p>
+              <sc-if value="{{ bulkIsReject }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;gap:6px"><label for="bulk-r" style="font-weight:700">Begrunnelse <span style="font-weight:400;color:var(--muted)">(valgfritt)</span></label><textarea id="bulk-r" rows="3" value="{{ bulkReason }}" onChange="{{ onBulkReason }}" style="padding:10px 12px;border:2px solid var(--line);border-radius:10px;font-size:16px"></textarea></div></sc-if>
+              <div style="display:flex;gap:10px;justify-content:flex-end"><button onClick="{{ closeBulk }}" style="min-height:52px;padding:0 20px;border:2px solid var(--line);border-radius:12px;background:var(--surface);font-weight:700;cursor:pointer">Avbryt</button><button onClick="{{ confirmBulk }}" style="min-height:52px;padding:0 24px;border:0;border-radius:12px;font-weight:800;font-size:17px;cursor:pointer;background:{{ bulkBtnBg }};color:#FFFFFF">{{ bulkBtn }}</button></div>
+            </div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ toastD.has }}" hint-placeholder-val="{{ false }}">
+          <div role="status" style="position:absolute;left:50%;bottom:28px;transform:translateX(-50%);background:var(--ink);color:#fff;border-radius:14px;padding:10px 12px 10px 20px;display:flex;align-items:center;gap:16px;font-size:17px;box-shadow:0 10px 30px rgba(0,0,0,.25)"><span>{{ toastD.text }}</span><button onClick="{{ toastD.undo }}" style="min-height:44px;padding:0 10px;border:0;background:none;color:#fff;font-weight:700;text-decoration:underline;cursor:pointer">Angre</button></div>
+        </sc-if>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;visTilstandsvelgere&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+const MON=['januar','februar','mars','april','mai','juni','juli','august','september','oktober','november','desember'];
+const DAY=['søn','man','tir','ons','tor','fre','lør'];
+const longD=iso=>{const[y,m,d]=iso.split('-').map(Number);return`${d}. ${MON[m-1]} ${y}`;};
+const shortD=iso=>{const[y,m,d]=iso.split('-').map(Number);return`${DAY[new Date(y,m-1,d).getDay()]} ${d}. ${MON[m-1].slice(0,3)}`;};
+const mail=n=>n.toLowerCase().replace(/ø/g,'o').replace(/æ/g,'ae').replace(/å/g,'a').split(' ').join('.')+'@elev.no';
+const A=(id,name,school,event,type,org,date,from,to,place,ev,comment,status,rec,reason)=>({id,name,school,email:mail(name),event,type,org,date,from,to,place,ev,comment:comment||'',status,rec,reason:reason||'',
+  hist:[{what:'Mottatt',who:ev?`${name} via QR-kode`:`${name} via søknadsskjema`,when:rec}].concat(status==='sendt'?[{what:'Sendt',who:'Kari Nordmann',when:'16. nov kl. 10.42'}]:status==='avslatt'?[{what:'Avslått',who:'Kari Nordmann',when:'16. nov kl. 10.44'}]:[])});
+const SK='Skolebesøk på Eksempel vgs',KO='Konferanse om elevdemokrati',FM='Fylkesmøte i Trøndelag fylkeslag',SV='Styremøte i Vestland fylkeslag';
+const sk=(id,n,s,st,rec,r)=>A(id,n,s,SK,'Skolebesøk','Oslo fylkeslag','2026-11-13','09.00','14.30','Eksempel vgs, aula',true,'',st,rec,r);
+const initApps=()=>[
+  sk(1,'Sara Ahmed','Fjordbyen vgs','venter','13. nov kl. 08.43'),sk(2,'Ingrid Haugen','Eksempel vgs','venter','13. nov kl. 08.47'),sk(3,'Mohammed Ali','Fjordbyen vgs','venter','13. nov kl. 08.48'),
+  A(4,'Jonas Berg','Eksempel vgs',FM,'Møte','Trøndelag fylkeslag','2026-11-12','10.00','15.00','Trondheim, Folkets hus',false,'Jeg var med som referent.','venter','12. nov kl. 21.14'),
+  A(5,'Emma Johansen','Eksempel vgs',KO,'Konferanse','Oslo fylkeslag','2026-11-10','09.00','16.00','Oslo, Kulturhuset',false,'','venter','11. nov kl. 07.55'),
+  A(6,'Aisha Hussain','Eksempel vgs',KO,'Konferanse','Oslo fylkeslag','2026-11-10','09.00','16.00','Oslo, Kulturhuset',false,'','venter','11. nov kl. 16.20'),
+  A(7,'Lukas Larsen','Fjordbyen vgs',SV,'Møte','Vestland fylkeslag','2026-11-09','12.00','15.00','Bergen, Ungdomshuset',false,'','venter','10. nov kl. 18.02'),
+  A(8,'Thea Solberg','Fjordbyen vgs',SV,'Møte','Vestland fylkeslag','2026-11-09','12.00','15.00','Bergen, Ungdomshuset',false,'','venter','10. nov kl. 19.40'),
+  A(9,'Elias Kristiansen','Eksempel vgs','Høring i bystyret','Annet','Oslo fylkeslag','2026-11-11','13.00','15.00','Oslo rådhus',false,'Jeg holdt innlegg for elevrådet.','venter','11. nov kl. 15.31'),
+  A(10,'Maja Olsen','Nidelv vgs',FM,'Møte','Trøndelag fylkeslag','2026-11-12','10.00','15.00','Trondheim, Folkets hus',false,'','venter','13. nov kl. 10.05'),
+  A(11,'Oskar Lie','Nidelv vgs',FM,'Møte','Trøndelag fylkeslag','2026-11-12','10.00','15.00','Trondheim, Folkets hus',false,'','venter','14. nov kl. 12.12'),
+  A(12,'Nora Pedersen','Fjordbyen vgs','Klimaverksted på Fjordbyen vgs','Skolebesøk','Vestland fylkeslag','2026-11-18','12.00','15.00','Fjordbyen vgs, biblioteket',false,'','venter','15. nov kl. 20.47'),
+  sk(13,'Ola Nordmann','Eksempel vgs','sendt','13. nov kl. 08.41'),sk(14,'Filip Andersen','Fjordbyen vgs','sendt','13. nov kl. 08.58'),
+  A(15,'Sofie Nilsen','Eksempel vgs',KO,'Konferanse','Oslo fylkeslag','2026-11-10','09.00','16.00','Oslo, Kulturhuset',false,'','sendt','10. nov kl. 20.10'),
+  sk(16,'Henrik Dahl','Eksempel vgs','avslatt','13. nov kl. 09.03','Du er ikke registrert som møtt på arrangementet. Ta kontakt hvis dette er feil.'),
+];
+const ORGS=['Oslo fylkeslag','Vestland fylkeslag','Trøndelag fylkeslag','Eksempel vgs lokallag','Fjordbyen lokallag','Nidelv lokallag'];
+const TYPES=['Skolebesøk','Møte','Konferanse','Annet'];
+const EMPTY2={name:'',school:'',email:'',phone:'',org:'',type:'Møte',event:'',tense:'har',fromD:'',fromT:'',toD:'',toT:'',place:'',comment:'',copy:false,schoolEmail:''};
+const FULL2={name:'Leah Bakken',school:'Eksempel vgs',email:'leah.bakken@elev.no',phone:'',org:'Eksempel vgs lokallag',type:'Møte',event:'Årsmøte i Eksempel vgs lokallag',tense:'har',fromD:'2026-11-19',fromT:'12:00',toD:'2026-11-19',toT:'15:00',place:'Eksempel vgs, rom 204',comment:'Jeg ble valgt som leder.',copy:false,schoolEmail:''};
+const ST={venter:['Venter','#FBF0D9','#7A4F00'],sendt:['✓ Sendt','#E2F2E6','#17602F'],avslatt:['✕ Avslått','#FBE4E1','#9A231B']};
+const UI0={rejectOpen:false,reasonDraft:'',editing:false,draft:{}};
+const RX=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+class Component extends DCLogic {
+  state={apps:initApps(),a2:'form',f2:{...EMPTY2},tried:false,tab:'venter',view:'data',mSel:1,dSel:null,uiM:{...UI0},uiD:{...UI0},toastM:null,toastD:null,
+    sel:[],q:'',fOrg:'',fEv:'',fDate:'',bulk:null,bulkReason:''};
+  componentWillUnmount(){clearTimeout(this.t1);clearTimeout(this.tm);clearTimeout(this.td);}
+  errs(){const f=this.state.f2,e={};
+    if(!f.name.trim())e.name='Skriv inn navnet ditt.';if(!f.school.trim())e.school='Skriv inn hvilken skole du går på.';
+    if(!f.email.trim())e.email='Skriv inn e-postadressen din. Dit sender vi erklæringen.';else if(!RX.test(f.email.trim()))e.email='E-postadressen mangler noe. Eksempel: navn@skole.no';
+    if(!f.org)e.org='Velg hvem som arrangerte.';if(!f.event.trim())e.event='Skriv navnet på arrangementet.';
+    if(!f.fromD||!f.fromT)e.fromD='Velg dato og klokkeslett for starten.';
+    else if(f.tense==='har'&&f.fromD>'2026-11-20')e.fromD='Du valgte «Har vært», men datoen er frem i tid. Velg «Skal være».';
+    else if(f.tense==='skal'&&f.fromD<'2026-11-20')e.fromD='Du valgte «Skal være», men datoen har vært. Velg «Har vært».';
+    if(!f.toD||!f.toT)e.toD='Velg dato og klokkeslett for slutten.';else if(f.fromD&&(f.toD+f.toT)<=(f.fromD+f.fromT))e.toD='Slutten må være etter starten.';
+    if(!f.place.trim())e.place=f.tense==='har'?'Skriv hvor arrangementet var.':'Skriv hvor arrangementet skal være.';return e;}
+  toast(k,text,undo){clearTimeout(this['t'+k]);this.setState({['toast'+k]:{text,undo}});this['t'+k]=setTimeout(()=>this.setState({['toast'+k]:null}),6000);}
+  det(id,k){const s=this.state,a=s.apps.find(x=>x.id===id)||s.apps[0],ui=s['ui'+k];
+    const setUi=patch=>this.setState(st=>({['ui'+k]:{...st['ui'+k],...patch}}));
+    const upd=(fn,text)=>{const prev=s.apps;this.setState(st=>({apps:st.apps.map(x=>x.id===a.id?fn(x):x)}));this.toast(k,text,()=>{this.setState({apps:prev,['toast'+k]:null});});};
+    const dr=k2=>ev=>{const v=ev.target.value;this.setState(st=>({['ui'+k]:{...st['ui'+k],draft:{...st['ui'+k].draft,[k2]:v}}}));};
+    const d=ui.editing?{...a,...ui.draft}:a;const[sl,sb,sf]=ST[a.status];
+    return{...a,when:`${longD(a.date)} kl. ${a.from}–${a.to}`,srcText:a.ev?'Påmeldt via QR-kode på arrangementet':'Vanlig søknad',
+      sLabel:sl,sBg:sb,sFg:sf,isVenter:a.status==='venter',hasComment:!!a.comment,hasReason:a.status==='avslatt'&&!!a.reason,hist:a.hist,
+      pdfEvent:d.event,pdfPlace:d.place,pdfWhen:`${longD(a.date)} kl. ${d.from}–${d.to}`,
+      editing:ui.editing,notEditing:!ui.editing,draft:ui.draft,rejectOpen:ui.rejectOpen,actionsVisible:!ui.rejectOpen&&!ui.editing,reasonDraft:ui.reasonDraft,
+      onDraftEvent:dr('event'),onDraftPlace:dr('place'),onDraftFrom:dr('from'),onDraftTo:dr('to'),
+      onReason:ev=>setUi({reasonDraft:ev.target.value}),
+      send:()=>upd(x=>({...x,status:'sendt',hist:[...x.hist,{what:'Sendt',who:'Kari Nordmann',when:'i dag kl. 10.42'}]}),`Fraværet til ${a.name} er sendt.`),
+      openReject:()=>setUi({rejectOpen:true}),cancelReject:()=>setUi({rejectOpen:false,reasonDraft:''}),
+      confirmReject:()=>{upd(x=>({...x,status:'avslatt',reason:ui.reasonDraft.trim(),hist:[...x.hist,{what:'Avslått',who:'Kari Nordmann',when:'i dag kl. 10.44'}]}),`Søknaden fra ${a.name} er avslått.`);setUi({rejectOpen:false,reasonDraft:''});},
+      startEdit:()=>setUi({editing:true,draft:{event:a.event,place:a.place,from:a.from,to:a.to}}),cancelEdit:()=>setUi({editing:false}),
+      saveEdit:()=>{upd(x=>({...x,...ui.draft,hist:[...x.hist,{what:'Redigert',who:'Kari Nordmann',when:'i dag kl. 10.40'}]}),'Endringene er lagret.');setUi({editing:false});}};}
+  renderVals(){
+    const s=this.state,f2=s.f2,P=this.props;
+    const pill=(list,cur,set)=>list.map(([k,l])=>({label:l,onClick:()=>set(k),bg:cur===k?'#17191E':'#FFFFFF',fg:cur===k?'#FFFFFF':'#17191E'}));
+    const keys=['name','school','email','org','event','fromD','toD','place'];
+    const er=s.tried?this.errs():{};const e2={},b2={};keys.forEach(k=>{e2[k]=er[k]||'';b2[k]=er[k]?'#B3261E':'var(--line)';});
+    const ec=Object.keys(er).length;const ids={name:'a2-name',school:'a2-school',email:'a2-email',org:'a2-org',event:'a2-event',fromD:'a2-fd',toD:'a2-td',place:'a2-place'};
+    const on2={};Object.keys(EMPTY2).forEach(k=>{on2[k]=ev=>{const v=k==='copy'?ev.target.checked:ev.target.value;this.setState(st=>({f2:{...st.f2,[k]:v}}));};});
+    const a2Cur=s.a2==='form'?(s.tried&&ec?'err':(f2.name?'full':'empty')):s.a2;
+    const apps=s.apps,cnt=st=>apps.filter(a=>a.status===st).length,cVenter=cnt('venter');
+    const tabDefs=[['venter',`Venter (${cVenter})`],['sendt','Sendt'],['avslatt','Avslått'],['alle','Alle']];
+    const tabs=tabDefs.map(([k,l])=>({label:l,on:s.tab===k,onClick:()=>this.setState({tab:k,sel:[]}),fg:s.tab===k?'var(--accent-ink)':'var(--muted)',line:s.tab===k?'var(--accent)':'transparent'}));
+    const inTab=apps.filter(a=>s.tab==='alle'||a.status===s.tab);
+    const mk=a=>{const[l,b,f]=ST[a.status];return{...a,short:shortD(a.date),sLabel:l,sBg:b,sFg:f,isVenter:a.status==='venter',notVenter:a.status!=='venter',
+      sel:s.sel.includes(a.id),rowBg:s.sel.includes(a.id)?'var(--accent-soft)':(s.dSel===a.id?'#F3F6FA':'transparent'),
+      onSend:()=>this.det(a.id,'M').send(),onOpenM:()=>this.setState({mSel:a.id,uiM:{...UI0}}),onOpenD:()=>this.setState({dSel:a.id,uiD:{...UI0}}),
+      onSel:()=>this.setState(st=>({sel:st.sel.includes(a.id)?st.sel.filter(x=>x!==a.id):[...st.sel,a.id]}))};};
+    const q=s.q.trim().toLowerCase();
+    const dList=inTab.filter(a=>(!q||(a.name+' '+a.school).toLowerCase().includes(q))&&(!s.fOrg||a.org===s.fOrg)&&(!s.fEv||a.event===s.fEv)&&(!s.fDate||a.date===s.fDate));
+    const visVenter=dList.filter(a=>a.status==='venter').map(a=>a.id);const allSel=visVenter.length>0&&visVenter.every(id=>s.sel.includes(id));
+    const isData=s.view==='data'||s.view==='empty';const forceEmpty=s.view==='empty';
+    const emptyTitle=s.tab==='venter'?'Ingen søknader venter. Godt jobbet!':'Ingen søknader her ennå';
+    const emptyText=s.tab==='venter'?'Du får ett sammendrag på e-post når det kommer nye.':'Når du sender eller avslår søknader, havner de her.';
+    const uniq=arr=>[...new Set(arr)];
+    const sendSel=()=>{const ids=s.sel,prev=apps;this.setState(st=>({apps:st.apps.map(a=>ids.includes(a.id)?{...a,status:s.bulk==='send'?'sendt':'avslatt',reason:s.bulk==='send'?a.reason:st.bulkReason.trim(),hist:[...a.hist,{what:s.bulk==='send'?'Sendt':'Avslått',who:'Kari Nordmann',when:'i dag kl. 10.45'}]}:a),sel:[],bulk:null,bulkReason:''}));
+      this.toast('D',s.bulk==='send'?`${ids.length} fraværserklæringer er sendt.`:`${ids.length} søknader er avslått.`,()=>this.setState({apps:prev,toastD:null}));};
+    const n=s.sel.length;
+    return{
+      showPills:P.visTilstandsvelgere??true,
+      a2Pills:pill([['empty','Tomt'],['err','Feil i felt'],['full','Utfylt'],['done','Kvittering']],a2Cur,k=>{clearTimeout(this.t1);
+        if(k==='empty')this.setState({a2:'form',f2:{...EMPTY2},tried:false});else if(k==='full')this.setState({a2:'form',f2:{...FULL2},tried:false});
+        else if(k==='err')this.setState({a2:'form',f2:{...FULL2,email:'leah.bakken@elev',event:'',toT:'11:00',fromD:'2026-11-24'},tried:true});else this.setState({a2:'done',f2:{...FULL2}});}),
+      f2,e2,b2,on2,a2HasErr:ec>0,a2ErrText:ec===1?'1 felt':`${ec} felt`,a2ErrList:Object.keys(er).map(k=>({text:er[k],href:'#'+ids[k]})),
+      a2IsForm:s.a2==='form',a2IsSending:s.a2==='sending',a2IsDone:s.a2==='done',orgOpts:ORGS,
+      typeOpts:TYPES.map(t=>({label:t,on:f2.type===t,onChange:()=>on2.type({target:{value:t}}),bd:f2.type===t?'var(--accent)':'var(--line)',bg:f2.type===t?'var(--accent-soft)':'var(--surface)'})),
+      tenseOpts:[['har','Har vært'],['skal','Skal være']].map(([v,l])=>({label:l,on:f2.tense===v,onChange:()=>on2.tense({target:{value:v}}),bg:f2.tense===v?'var(--accent)':'transparent',fg:f2.tense===v?'var(--on-accent)':'var(--ink)'})),
+      a2Submit:ev=>{ev.preventDefault();this.setState({tried:true},()=>{if(Object.keys(this.errs()).length)return;this.setState({a2:'sending'});
+        this.t1=setTimeout(()=>{const f=this.state.f2;const id=Date.now();
+          this.setState(st=>({a2:'done',tab:'venter',apps:[A(id,f.name,f.school,f.event,f.type,f.org,f.fromD,f.fromT.replace(':','.'),f.toT.replace(':','.'),f.place,false,f.comment,'venter','i dag kl. 19.20'),...st.apps],mSel:id}));},1300);});},
+      a2Again:()=>this.setState({a2:'form',f2:{...EMPTY2},tried:false}),
+      doneEvent:f2.event||'Arrangementet',doneDate:f2.fromD?longD(f2.fromD):'',doneOrg:f2.org||'fylkeslaget',doneEmail:f2.email||'e-posten din',
+      viewPills:pill([['data','Søknader'],['loading','Laster'],['error','Feil'],['empty','Tom']],s.view,k=>this.setState({view:k})),
+      isLoading:s.view==='loading',isError:s.view==='error',retry:()=>{this.setState({view:'loading'});setTimeout(()=>this.setState({view:'data'}),900);},
+      tabs,cVenter,rows:inTab.map(mk),showList:isData&&!forceEmpty&&inTab.length>0,showEmpty:isData&&(forceEmpty||inTab.length===0),emptyTitle,emptyText,
+      dRows:dList.map(mk),showListD:isData&&!forceEmpty&&dList.length>0,showEmptyD:isData&&(forceEmpty||dList.length===0),
+      emptyTitleD:dList.length===0&&inTab.length>0&&!forceEmpty?'Ingen treff':emptyTitle,emptyTextD:dList.length===0&&inTab.length>0&&!forceEmpty?'Prøv et annet søk eller nullstill filteret.':emptyText,
+      toastM:{has:!!s.toastM,text:s.toastM?.text||'',undo:s.toastM?.undo||(()=>{})},toastD:{has:!!s.toastD,text:s.toastD?.text||'',undo:s.toastD?.undo||(()=>{})},
+      dM:this.det(s.mSel,'M'),dD:this.det(s.dSel??1,'D'),panelOpen:s.dSel!=null,closePanel:()=>this.setState({dSel:null}),
+      q:s.q,onQ:ev=>this.setState({q:ev.target.value}),fOrg:s.fOrg,fEv:s.fEv,fDate:s.fDate,
+      onFOrg:ev=>this.setState({fOrg:ev.target.value}),onFEv:ev=>this.setState({fEv:ev.target.value}),onFDate:ev=>this.setState({fDate:ev.target.value}),
+      hasFilter:!!(s.q||s.fOrg||s.fEv||s.fDate),clearFilter:()=>this.setState({q:'',fOrg:'',fEv:'',fDate:''}),
+      orgFilterOpts:uniq(apps.map(a=>a.org)),evFilterOpts:uniq(apps.map(a=>a.event)),dateFilterOpts:uniq(apps.map(a=>a.date)).sort().map(v=>({v,label:shortD(v)})),
+      allSel,toggleAll:()=>this.setState(st=>({sel:allSel?st.sel.filter(id=>!visVenter.includes(id)):uniq([...st.sel,...visVenter])})),
+      hasSel:n>0,selCount:n,clearSel:()=>this.setState({sel:[]}),
+      openBulk:()=>this.setState({bulk:'send'}),bulkReject:()=>this.setState({bulk:'reject'}),closeBulk:()=>this.setState({bulk:null}),bulkOpen:!!s.bulk,
+      bulkIsReject:s.bulk==='reject',bulkReason:s.bulkReason,onBulkReason:ev=>this.setState({bulkReason:ev.target.value}),
+      bulkTitle:s.bulk==='reject'?`Avslå ${n} søknader?`:`Send ${n} fraværserklæringer?`,
+      bulkLead:s.bulk==='reject'?`Elevene får beskjed på e-post fra`:`Du sender ${n} fraværserklæringer som`,
+      bulkBtn:s.bulk==='reject'?`Avslå ${n}`:`Send ${n} erklæringer`,bulkBtnBg:s.bulk==='reject'?'#A3261D':'#1D3F8F',confirmBulk:sendSel,
+    };
+  }
+}
+</script>
+</body>
+</html>

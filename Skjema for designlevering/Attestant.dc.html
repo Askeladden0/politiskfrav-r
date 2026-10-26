@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<div style="display:flex;flex-direction:column">
+  <h2 style="margin:0 0 24px;font-size:28px;font-weight:800;letter-spacing:-.02em">B3 · Arrangementer og B4 · Nytt arrangement</h2>
+  <div class="dv-opts" style="margin-bottom:56px">
+    <div class="dv-opt" id="2k">
+      <div class="dv-olabel"><a class="dv-oid" href="#2k">2k</a><strong style="color:#17191E">Arrangementer</strong> · desktop</div>
+      <sc-if value="{{ showPills }}" hint-placeholder-val="{{ true }}"><div style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ b3Pills }}" as="p" hint-placeholder-count="2"><button onClick="{{ p.onClick }}" style="min-height:32px;padding:0 12px;border-radius:999px;border:1px solid rgba(0,0,0,.15);font-size:13px;font-weight:600;cursor:pointer;background:{{ p.bg }};color:{{ p.fg }}">{{ p.label }}</button></sc-for></div></sc-if>
+      <div style="--bg:#E9EEF4;--surface:#FFFFFF;--ink:#0E1A2B;--muted:#46536A;--line:#C5D0DD;--accent:#1D3F8F;--on-accent:#FFFFFF;--accent-soft:#DCE5F4;--accent-ink:#1D3F8F;width:1440px;min-height:820px;background:var(--bg);color:var(--ink);border-radius:12px;overflow:hidden;box-shadow:0 20px 50px rgba(20,24,32,.18)">
+        <div style="height:68px;background:var(--surface);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:40px;padding:0 40px">
+          <div style="display:flex;align-items:center;gap:10px"><div style="width:36px;height:36px;border-radius:9px;background:var(--accent);color:var(--on-accent);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px">EU</div><strong style="font-size:16px">Eksempel Ungdomsorganisasjon</strong></div>
+          <nav style="display:flex;gap:4px;height:100%;font-weight:600;font-size:16px">
+            <a href="#2d" style="display:flex;align-items:center;gap:8px;padding:0 14px;color:var(--ink);text-decoration:none">Innboks <span style="background:var(--accent);color:var(--on-accent);border-radius:999px;padding:1px 8px;font-size:13px">12</span></a>
+            <a href="#2k" aria-current="page" style="display:flex;align-items:center;padding:0 14px;color:var(--accent-ink);text-decoration:none;box-shadow:inset 0 -3px 0 var(--accent)">Arrangementer</a>
+            <a href="#2n" style="display:flex;align-items:center;padding:0 14px;color:var(--ink);text-decoration:none">Innstillinger</a>
+          </nav>
+          <div style="margin-left:auto;display:flex;align-items:center;gap:10px;font-size:15px"><div style="text-align:right;line-height:1.25"><strong>Kari Nordmann</strong><br><span style="color:var(--muted)">Fylkesleder, Oslo fylkeslag</span></div><div style="width:40px;height:40px;border-radius:50%;background:var(--accent-soft);color:var(--accent-ink);display:flex;align-items:center;justify-content:center;font-weight:800">KN</div></div>
+        </div>
+        <div style="padding:28px 40px 40px;display:flex;flex-direction:column;gap:20px">
+          <div style="display:flex;justify-content:space-between;align-items:flex-end"><h1 style="margin:0;font-size:46px;line-height:1;font-weight:900;letter-spacing:-.03em">Arrangementer</h1><a href="#2m" style="min-height:52px;padding:0 22px;border-radius:12px;background:var(--accent);color:var(--on-accent);font-weight:800;font-size:17px;display:flex;align-items:center;text-decoration:none">+ Nytt arrangement</a></div>
+          <div role="tablist" style="display:flex;gap:4px;border-bottom:1px solid var(--line)"><sc-for list="{{ b3Tabs }}" as="t" hint-placeholder-count="2"><button role="tab" aria-selected="{{ t.on }}" onClick="{{ t.onClick }}" style="min-height:48px;padding:0 14px;border:0;background:none;font-weight:700;font-size:17px;cursor:pointer;color:{{ t.fg }};box-shadow:inset 0 -3px 0 {{ t.line }}">{{ t.label }}</button></sc-for></div>
+          <sc-if value="{{ b3Empty }}" hint-placeholder-val="{{ false }}">
+            <div style="background:var(--surface);border-radius:18px;padding:64px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px"><strong style="font-size:28px;letter-spacing:-.02em">Ingen arrangementer ennå</strong><span style="font-size:17px;color:var(--muted);max-width:460px">Lag et arrangement, så får du en QR-kode som deltakerne skanner. Da slipper alle å søke hver for seg.</span><a href="#2m" style="margin-top:8px;min-height:52px;padding:0 22px;border-radius:12px;background:var(--accent);color:var(--on-accent);font-weight:800;display:flex;align-items:center;text-decoration:none">Lag ditt første arrangement</a></div>
+          </sc-if>
+          <sc-if value="{{ b3HasList }}" hint-placeholder-val="{{ true }}">
+            <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px">
+              <sc-for list="{{ events }}" as="e" hint-placeholder-count="6">
+                <a href="{{ e.href }}" style="background:var(--surface);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:14px;text-decoration:none;color:var(--ink);border:2px solid transparent" style-hover="border-color:var(--accent)">
+                  <div style="display:flex;gap:14px;align-items:flex-start">
+                    <div style="flex:none;width:60px;height:70px;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.05;background:{{ e.dBg }};color:{{ e.dFg }}"><span style="font-size:12px;font-weight:700">{{ e.wd }}</span><span style="font-size:28px;font-weight:800">{{ e.d }}</span><span style="font-size:12px;font-weight:700">NOV</span></div>
+                    <div style="display:flex;flex-direction:column;gap:3px;min-width:0"><strong style="font-size:19px;line-height:1.15;letter-spacing:-.01em">{{ e.name }}</strong><span style="font-size:15px;color:var(--muted)">{{ e.time }} · {{ e.place }}</span><span style="font-size:15px;color:var(--muted)">{{ e.org }}</span></div>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:12px"><strong style="font-size:16px">{{ e.count }}</strong><span style="font-size:13px;font-weight:700;padding:3px 10px;border-radius:999px;background:{{ e.bBg }};color:{{ e.bFg }}">{{ e.badge }}</span></div>
+                </a>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dv-opts" style="margin-bottom:80px">
+    <div class="dv-opt" id="2l">
+      <div class="dv-olabel"><a class="dv-oid" href="#2l">2l</a><strong style="color:#17191E">Arrangementer</strong> · mobil</div>
+      <div style="--bg:#E9EEF4;--surface:#FFFFFF;--ink:#0E1A2B;--muted:#46536A;--line:#C5D0DD;--accent:#1D3F8F;--on-accent:#FFFFFF;--accent-soft:#DCE5F4;--accent-ink:#1D3F8F;width:390px;height:844px;border-radius:44px;overflow:hidden;box-shadow:0 0 0 10px #16181D,0 30px 60px rgba(20,24,32,.25);margin:10px;display:flex;flex-direction:column;background:var(--bg);color:var(--ink);position:relative">
+        <div style="height:44px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 30px;font-weight:700;font-size:15px;background:var(--surface)">08:30<span style="font-size:13px">5G ▮▮▮</span></div>
+        <div style="flex:none;background:var(--surface);padding:6px 20px 0;display:flex;flex-direction:column;gap:6px;border-bottom:1px solid var(--line)">
+          <h1 style="margin:0;font-size:28px;font-weight:900;letter-spacing:-.02em">Arrangementer</h1>
+          <div role="tablist" style="display:flex;gap:4px"><sc-for list="{{ b3Tabs }}" as="t" hint-placeholder-count="2"><button role="tab" aria-selected="{{ t.on }}" onClick="{{ t.onClick }}" style="min-height:48px;padding:0 10px;border:0;background:none;font-weight:700;font-size:16px;cursor:pointer;color:{{ t.fg }};box-shadow:inset 0 -3px 0 {{ t.line }}">{{ t.label }}</button></sc-for></div>
+        </div>
+        <div style="flex:1;overflow-y:auto;padding:12px 12px 100px;display:flex;flex-direction:column;gap:10px">
+          <sc-if value="{{ b3Empty }}" hint-placeholder-val="{{ false }}"><div style="padding:60px 20px;text-align:center;display:flex;flex-direction:column;gap:8px"><strong style="font-size:22px">Ingen arrangementer ennå</strong><span style="color:var(--muted)">Lag et, så får du en QR-kode.</span></div></sc-if>
+          <sc-if value="{{ b3HasList }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <sc-for list="{{ events }}" as="e" hint-placeholder-count="4">
+                <a href="{{ e.hrefM }}" style="background:var(--surface);border-radius:16px;padding:14px;display:flex;gap:12px;text-decoration:none;color:var(--ink)">
+                  <div style="flex:none;width:54px;height:62px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.05;background:{{ e.dBg }};color:{{ e.dFg }}"><span style="font-size:11px;font-weight:700">{{ e.wd }}</span><span style="font-size:24px;font-weight:800">{{ e.d }}</span><span style="font-size:11px;font-weight:700">NOV</span></div>
+                  <div style="display:flex;flex-direction:column;gap:3px;min-width:0;flex:1"><strong style="font-size:17px;line-height:1.15">{{ e.name }}</strong><span style="font-size:14px;color:var(--muted)">{{ e.time }} · {{ e.org }}</span><div style="display:flex;justify-content:space-between;gap:6px;align-items:center;margin-top:4px"><strong style="font-size:14px">{{ e.count }}</strong><span style="font-size:12px;font-weight:700;padding:2px 8px;border-radius:999px;background:{{ e.bBg }};color:{{ e.bFg }}">{{ e.badge }}</span></div></div>
+                </a>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+        <div style="position:absolute;left:16px;right:16px;bottom:24px"><a href="#2m" style="min-height:58px;border-radius:14px;background:var(--accent);color:var(--on-accent);font-weight:800;font-size:18px;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 8px 20px rgba(29,63,143,.3)">+ Nytt arrangement</a></div>
+      </div>
+    </div>
+
+    <div class="dv-opt" id="2m">
+      <div class="dv-olabel"><a class="dv-oid" href="#2m">2m</a><strong style="color:#17191E">Nytt arrangement</strong> · desktop · live forhåndsvisning for elevene</div>
+      <div style="--bg:#E9EEF4;--surface:#FFFFFF;--ink:#0E1A2B;--muted:#46536A;--line:#C5D0DD;--accent:#1D3F8F;--on-accent:#FFFFFF;--accent-soft:#DCE5F4;--accent-ink:#1D3F8F;width:1100px;background:var(--bg);color:var(--ink);border-radius:12px;overflow:hidden;box-shadow:0 20px 50px rgba(20,24,32,.18);padding:36px 40px;box-sizing:border-box;display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:40px;align-items:start">
+        <sc-if value="{{ b4IsForm }}" hint-placeholder-val="{{ true }}">
+          <form onSubmit="{{ b4Submit }}" noValidate="" style="display:flex;flex-direction:column;gap:18px">
+            <a href="#2k" style="font-size:15px;font-weight:600;color:var(--accent-ink)">← Arrangementer</a>
+            <h1 style="margin:0;font-size:42px;line-height:1;font-weight:900;letter-spacing:-.03em">Nytt arrangement</h1>
+            <div style="display:flex;flex-direction:column;gap:6px"><label for="b4-n" style="font-weight:600">Navn</label><input id="b4-n" value="{{ f4.name }}" onChange="{{ on4.name }}" placeholder="F.eks. Skolebesøk på Fjordbyen vgs" style="min-height:52px;padding:0 14px;border-radius:10px;background:var(--surface);font-size:17px;border:2px solid {{ b4.name }}" style-focus="outline:3px solid var(--accent);outline-offset:2px"></input><sc-if value="{{ e4.name }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:8px;color:#B3261E;font-weight:600;font-size:15px"><span style="flex:none;width:20px;height:20px;border-radius:50%;background:#B3261E;color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center">!</span>{{ e4.name }}</div></sc-if></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+              <div style="display:flex;flex-direction:column;gap:6px"><label for="b4-t" style="font-weight:600">Type</label><select id="b4-t" value="{{ f4.type }}" onChange="{{ on4.type }}" style="min-height:52px;padding:0 12px;border:2px solid var(--line);border-radius:10px;background:var(--surface);font-size:17px"><option>Skolebesøk</option><option>Møte</option><option>Konferanse</option><option>Annet</option></select></div>
+              <div style="display:flex;flex-direction:column;gap:6px"><label for="b4-o" style="font-weight:600">Arrangør</label><select id="b4-o" value="{{ f4.org }}" onChange="{{ on4.org }}" style="min-height:52px;padding:0 12px;border:2px solid var(--line);border-radius:10px;background:var(--surface);font-size:17px"><option>Oslo fylkeslag</option><option>Eksempel vgs lokallag</option></select><span style="font-size:14px;color:var(--muted)">Du kan velge enhetene du har ansvar for.</span></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1.3fr 1fr 1.3fr 1fr;gap:10px;align-items:end">
+              <div style="display:flex;flex-direction:column;gap:6px"><label for="b4-fd" style="font-weight:600">Fra dato</label><input id="b4-fd" type="date" value="{{ f4.fromD }}" onChange="{{ on4.fromD }}" style="min-height:52px;padding:0 10px;border:2px solid {{ b4.time }};border-radius:10px;background:var(--surface);font-size:16px;min-width:0"></input></div>
+              <div style="display:flex;flex-direction:column;gap:6px"><label for="b4-ft" style="font-weight:600">Kl.</label><input id="b4-ft" type="time" value="{{ f4.fromT }}" onChange="{{ on4.fromT }}" style="min-height:52px;padding:0 10px;border:2px solid {{ b4.time }};border-radius:10px;background:var(--surface);font-size:16px;min-width:0"></input></div>
+              <div style="display:flex;flex-direction:column;gap:6px"><label for="b4-td" style="font-weight:600">Til dato</label><input id="b4-td" type="date" value="{{ f4.toD }}" onChange="{{ on4.toD }}" style="min-height:52px;padding:0 10px;border:2px solid {{ b4.time }};border-radius:10px;background:var(--surface);font-size:16px;min-width:0"></input></div>
+              <div style="display:flex;flex-direction:column;gap:6px"><label for="b4-tt" style="font-weight:600">Kl.</label><input id="b4-tt" type="time" value="{{ f4.toT }}" onChange="{{ on4.toT }}" style="min-height:52px;padding:0 10px;border:2px solid {{ b4.time }};border-radius:10px;background:var(--surface);font-size:16px;min-width:0"></input></div>
+            </div>
+            <sc-if value="{{ e4.time }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:8px;color:#B3261E;font-weight:600;font-size:15px;margin-top:-8px"><span style="flex:none;width:20px;height:20px;border-radius:50%;background:#B3261E;color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center">!</span>{{ e4.time }}</div></sc-if>
+            <div style="display:flex;flex-direction:column;gap:6px"><label for="b4-p" style="font-weight:600">Sted</label><input id="b4-p" value="{{ f4.place }}" onChange="{{ on4.place }}" style="min-height:52px;padding:0 14px;border-radius:10px;background:var(--surface);font-size:17px;border:2px solid {{ b4.place }}" style-focus="outline:3px solid var(--accent);outline-offset:2px"></input><sc-if value="{{ e4.place }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:8px;color:#B3261E;font-weight:600;font-size:15px"><span style="flex:none;width:20px;height:20px;border-radius:50%;background:#B3261E;color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center">!</span>{{ e4.place }}</div></sc-if></div>
+            <label style="display:flex;gap:12px;align-items:flex-start;background:var(--surface);border-radius:14px;padding:16px;cursor:pointer"><input type="checkbox" checked="{{ f4.autoClose }}" onChange="{{ on4.autoClose }}" style="width:24px;height:24px;accent-color:var(--accent);margin:0;flex:none"></input><span style="display:flex;flex-direction:column;gap:2px"><strong>Steng påmeldingen automatisk 24 timer etter slutt</strong><span style="font-size:15px;color:var(--muted)">{{ closeText }}</span></span></label>
+            <div style="display:flex;gap:10px"><button type="submit" style="min-height:56px;padding:0 28px;border:0;border-radius:12px;background:var(--accent);color:var(--on-accent);font-weight:800;font-size:18px;cursor:pointer">Lag arrangement</button><a href="#2k" style="min-height:56px;padding:0 22px;border:2px solid var(--line);border-radius:12px;font-weight:700;display:flex;align-items:center;color:var(--ink);text-decoration:none">Avbryt</a></div>
+          </form>
+        </sc-if>
+        <sc-if value="{{ b4IsDone }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:18px">
+            <div style="width:64px;height:64px;border-radius:50%;background:#1B6B3A;color:#fff;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:800">✓</div>
+            <h1 style="margin:0;font-size:42px;line-height:1;font-weight:900;letter-spacing:-.03em">Arrangementet er klart</h1>
+            <p style="margin:0;font-size:18px;line-height:1.5">QR-koden virker fra nå. Vis den på storskjerm når deltakerne kommer.</p>
+            <div style="display:flex;gap:10px"><a href="#1f" style="min-height:56px;padding:0 24px;border-radius:12px;background:var(--accent);color:var(--on-accent);font-weight:800;font-size:17px;display:flex;align-items:center;text-decoration:none">Vis på storskjerm</a><a href="#1c" style="min-height:56px;padding:0 22px;border:2px solid var(--ink);border-radius:12px;font-weight:700;display:flex;align-items:center;color:var(--ink);text-decoration:none">Gå til arrangementet</a></div>
+            <button onClick="{{ b4Reset }}" style="align-self:flex-start;min-height:44px;border:0;background:none;padding:0;color:var(--accent-ink);font-weight:700;text-decoration:underline;cursor:pointer">Lag et til</button>
+          </div>
+        </sc-if>
+        <div style="display:flex;flex-direction:column;gap:10px;position:sticky;top:0">
+          <span style="font-size:14px;font-weight:700;color:var(--muted)">Slik ser elevene det</span>
+          <div style="background:var(--surface);border-radius:16px;padding:16px;display:flex;gap:14px;border:1px solid var(--line)">
+            <div style="flex:none;width:60px;height:70px;border-radius:12px;background:var(--accent);color:var(--on-accent);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.05"><span style="font-size:12px;font-weight:700">{{ pv.wd }}</span><span style="font-size:28px;font-weight:800">{{ pv.d }}</span><span style="font-size:12px;font-weight:700">{{ pv.m }}</span></div>
+            <div style="min-width:0;display:flex;flex-direction:column;gap:3px"><strong style="font-size:19px;line-height:1.1">{{ pv.name }}</strong><span style="font-size:15px;color:var(--muted)">{{ pv.time }}</span><span style="font-size:15px;color:var(--muted)">{{ pv.place }}</span><span style="font-size:15px;font-weight:600">Arrangør: {{ f4.org }}</span></div>
+          </div>
+          <div style="min-height:52px;border-radius:12px;background:var(--accent);color:var(--on-accent);font-weight:800;display:flex;align-items:center;justify-content:center;opacity:.9">Meld meg på</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2 style="margin:0 0 8px;font-size:28px;font-weight:800;letter-spacing:-.02em">B8 · Mine innstillinger</h2>
+  <p style="margin:0 0 24px;font-size:15px;color:#3E4350;max-width:760px">Tegn med musa eller fingeren. Forhåndsvisningen viser signaturen på en ekte erklæring.</p>
+  <div class="dv-opts" style="margin-bottom:40px">
+    <div class="dv-opt" id="2n">
+      <div class="dv-olabel"><a class="dv-oid" href="#2n">2n</a><strong style="color:#17191E">Innstillinger</strong> · mobil</div>
+      <div style="--bg:#E9EEF4;--surface:#FFFFFF;--ink:#0E1A2B;--muted:#46536A;--line:#C5D0DD;--accent:#1D3F8F;--on-accent:#FFFFFF;--accent-soft:#DCE5F4;--accent-ink:#1D3F8F;width:390px;height:844px;border-radius:44px;overflow:hidden;box-shadow:0 0 0 10px #16181D,0 30px 60px rgba(20,24,32,.25);margin:10px;display:flex;flex-direction:column;background:var(--bg);color:var(--ink);position:relative">
+        <div style="height:44px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 30px;font-weight:700;font-size:15px;background:var(--surface)">21:10<span style="font-size:13px">5G ▮▮▮</span></div>
+        <div style="flex:none;background:var(--surface);padding:6px 20px 14px;border-bottom:1px solid var(--line)"><h1 style="margin:0;font-size:28px;font-weight:900;letter-spacing:-.02em">Mine innstillinger</h1></div>
+        <div style="flex:1;overflow-y:auto;padding:16px 20px 110px;display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;flex-direction:column;gap:6px"><label for="s-n" style="font-weight:600">Navn</label><input id="s-n" value="{{ me.name }}" onChange="{{ onMe.name }}" style="min-height:52px;padding:0 14px;border:2px solid var(--line);border-radius:10px;background:var(--surface);font-size:17px" style-focus="outline:3px solid var(--accent);outline-offset:2px"></input></div>
+          <div style="display:flex;flex-direction:column;gap:6px"><label for="s-v" style="font-weight:600">Verv</label><input id="s-v" value="{{ me.verv }}" onChange="{{ onMe.verv }}" style="min-height:52px;padding:0 14px;border:2px solid var(--line);border-radius:10px;background:var(--surface);font-size:17px" style-focus="outline:3px solid var(--accent);outline-offset:2px"></input><span style="font-size:14px;color:var(--muted)">Står under signaturen på erklæringen.</span></div>
+          <div style="display:flex;flex-direction:column;gap:6px"><label for="s-t" style="font-weight:600">Telefon</label><input id="s-t" type="tel" value="{{ me.phone }}" onChange="{{ onMe.phone }}" style="min-height:52px;padding:0 14px;border:2px solid var(--line);border-radius:10px;background:var(--surface);font-size:17px" style-focus="outline:3px solid var(--accent);outline-offset:2px"></input></div>
+          <h2 style="margin:8px 0 0;font-size:22px;font-weight:800">Signatur</h2>
+          <div role="tablist" style="display:grid;grid-template-columns:repeat(3,1fr);background:var(--surface);border:2px solid var(--line);border-radius:12px;padding:4px;gap:4px"><sc-for list="{{ sigTabs }}" as="t" hint-placeholder-count="3"><button role="tab" aria-selected="{{ t.on }}" onClick="{{ t.onClick }}" style="min-height:44px;border:0;border-radius:8px;font-weight:700;font-size:15px;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }}">{{ t.label }}</button></sc-for></div>
+          <sc-if value="{{ sigIsType }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;flex-direction:column;gap:6px"><label for="s-sig" style="font-weight:600">Skriv navnet ditt</label><input id="s-sig" value="{{ sigText }}" onChange="{{ onSigText }}" style="min-height:64px;padding:0 14px;border:2px solid var(--line);border-radius:10px;background:var(--surface);font-family:Caveat,cursive;font-size:34px;color:#1A2A5C"></input></div>
+          </sc-if>
+          <sc-if value="{{ sigIsDraw }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:8px"><span style="font-weight:600">Tegn med fingeren</span>
+              <canvas ref="{{ canvasRef }}" width="700" height="260" aria-label="Tegneflate for signatur" onPointerDown="{{ pDown }}" onPointerMove="{{ pMove }}" onPointerUp="{{ pUp }}" onPointerLeave="{{ pUp }}" style="width:100%;height:130px;background:var(--surface);border:2px dashed var(--line);border-radius:12px;touch-action:none;cursor:crosshair"></canvas>
+              <button onClick="{{ clearCanvas }}" style="align-self:flex-start;min-height:44px;padding:0 14px;border:2px solid var(--line);border-radius:10px;background:var(--surface);font-weight:700;cursor:pointer">Tøm</button>
+            </div>
+          </sc-if>
+          <sc-if value="{{ sigIsUpload }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <label style="min-height:96px;border:2px dashed var(--line);border-radius:12px;background:var(--surface);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;text-align:center;padding:12px"><input type="file" accept="image/png,image/jpeg" onChange="{{ onUpload }}" style="position:absolute;width:1px;height:1px;opacity:0"></input><strong style="color:var(--accent-ink)">Velg bilde</strong><span style="font-size:14px;color:var(--muted)">PNG eller JPG. Hvit eller gjennomsiktig bakgrunn blir best.</span></label>
+              <sc-if value="{{ hasUpload }}" hint-placeholder-val="{{ false }}"><span style="font-size:15px;color:#17602F;font-weight:600">✓ Bildet er lastet opp</span></sc-if>
+            </div>
+          </sc-if>
+          <div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:14px;font-weight:700;color:var(--muted)">Forhåndsvisning</span>
+            <div style="height:240px;overflow:hidden;border-radius:6px;position:relative"><div style="position:absolute;left:0;top:-250px"><dc-import name="Mini PDF" w="350" sig-text="{{ pdfSigText }}" sig-img="{{ pdfSigImg }}" attestant="{{ me.name }}" verv="{{ me.verv }}" contact="{{ pdfContact }}" hint-size="350px,495px"></dc-import></div></div>
+          </div>
+          <h2 style="margin:8px 0 0;font-size:22px;font-weight:800">Varsler</h2>
+          <label style="display:flex;gap:12px;align-items:flex-start;cursor:pointer;min-height:44px"><input type="checkbox" checked="{{ digest }}" onChange="{{ toggleDigest }}" style="width:24px;height:24px;accent-color:var(--accent);margin:0;flex:none"></input><span style="display:flex;flex-direction:column"><strong>Ett sammendrag om dagen</strong><span style="font-size:15px;color:var(--muted)">I stedet for én e-post per søknad. Kommer kl. 16.00.</span></span></label>
+        </div>
+        <div style="position:absolute;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);padding:12px 16px 24px"><button onClick="{{ save }}" style="width:100%;min-height:56px;border:0;border-radius:12px;background:var(--accent);color:var(--on-accent);font-weight:800;font-size:18px;cursor:pointer">{{ saveLabel }}</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;visTilstandsvelgere&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+const EVS=[
+  {name:'Skolebesøk på Eksempel vgs',wd:'FRE',d:13,time:'09.00–14.30',place:'Eksempel vgs, aula',org:'Oslo fylkeslag',reg:23,met:19,state:'now',href:'#1c',hrefM:'#1d'},
+  {name:'Klimaverksted på Fjordbyen vgs',wd:'ONS',d:18,time:'12.00–15.00',place:'Fjordbyen vgs',org:'Vestland fylkeslag',reg:11,met:0,state:'soon'},
+  {name:'Fylkesmøte i Oslo fylkeslag',wd:'LØR',d:21,time:'10.00–16.00',place:'Oslo, Ungdomshuset',org:'Oslo fylkeslag',reg:8,met:0,state:'soon'},
+  {name:'Skolebesøk på Fjordbyen vgs',wd:'TIR',d:24,time:'08.30–12.00',place:'Fjordbyen vgs, kantina',org:'Eksempel vgs lokallag',reg:0,met:0,state:'soon'},
+  {name:'Konferanse om elevdemokrati',wd:'TIR',d:10,time:'09.00–16.00',place:'Oslo, Kulturhuset',org:'Oslo fylkeslag',reg:41,met:38,state:'past'},
+  {name:'Fylkesmøte i Oslo fylkeslag',wd:'TOR',d:5,time:'10.00–15.00',place:'Oslo, Ungdomshuset',org:'Oslo fylkeslag',reg:14,met:14,state:'past'},
+];
+const MON=['januar','februar','mars','april','mai','juni','juli','august','september','oktober','november','desember'];
+const DAY=['søndag','mandag','tirsdag','onsdag','torsdag','fredag','lørdag'];
+const F4={name:'',type:'Skolebesøk',org:'Oslo fylkeslag',fromD:'2026-11-27',fromT:'09:00',toD:'2026-11-27',toT:'14:00',place:'',autoClose:true};
+class Component extends DCLogic {
+  state={b3Tab:'kommende',b3Empty:false,f4:{...F4},b4:'form',tried:false,
+    me:{name:'Kari Nordmann',verv:'Fylkesleder, Oslo fylkeslag',phone:'900 00 000'},sigMode:'type',sigText:'Kari Nordmann',sigDraw:'',sigUpload:'',digest:true,saved:false};
+  canvasRef=React.createRef();
+  componentDidUpdate(){if(this.state.sigMode==='draw'&&this.state.sigDraw&&this.canvasRef.current&&!this.restored){const c=this.canvasRef.current,img=new Image();img.onload=()=>c.getContext('2d').drawImage(img,0,0);img.src=this.state.sigDraw;this.restored=true;}if(this.state.sigMode!=='draw')this.restored=false;}
+  pt(e){const c=this.canvasRef.current,r=c.getBoundingClientRect();return[(e.clientX-r.left)*c.width/r.width,(e.clientY-r.top)*c.height/r.height];}
+  renderVals(){
+    const s=this.state,f=s.f4;
+    const pill=(list,cur,set)=>list.map(([k,l])=>({label:l,onClick:()=>set(k),bg:cur===k?'#17191E':'#FFFFFF',fg:cur===k?'#FFFFFF':'#17191E'}));
+    const tabs=[['kommende','Kommende (4)'],['tidligere','Tidligere (2)']];
+    const evs=EVS.filter(e=>s.b3Tab==='kommende'?e.state!=='past':e.state==='past').map(e=>({...e,href:e.href||'#1c',hrefM:e.hrefM||'#1d',
+      count:`${e.reg} påmeldt · ${e.met} møtt`,dBg:e.state==='past'?'var(--bg)':'var(--accent)',dFg:e.state==='past'?'var(--ink)':'var(--on-accent)',
+      badge:e.state==='now'?'● Pågår nå':e.state==='soon'?'Påmelding åpen':(e.met===e.reg?'Alle sendt':'Stengt'),
+      bBg:e.state==='now'?'#E2F2E6':e.state==='soon'?'var(--accent-soft)':'#ECEEF2',bFg:e.state==='now'?'#17602F':e.state==='soon'?'var(--ink)':'#3A4150'}));
+    const e4={name:'',time:'',place:''};
+    if(s.tried){if(!f.name.trim())e4.name='Gi arrangementet et navn. Elevene ser det når de melder seg på.';if(!f.place.trim())e4.place='Skriv hvor arrangementet er.';
+      if(!f.fromD||!f.toD||!f.fromT||!f.toT)e4.time='Velg når arrangementet starter og slutter.';else if(f.toD+f.toT<=f.fromD+f.fromT)e4.time='Slutten må være etter starten.';}
+    const b4={};Object.keys(e4).forEach(k=>b4[k]=e4[k]?'#B3261E':'var(--line)');
+    const on4={};Object.keys(F4).forEach(k=>on4[k]=ev=>{const v=k==='autoClose'?ev.target.checked:ev.target.value;this.setState(st=>({f4:{...st.f4,[k]:v}}));});
+    let closeText='Du stenger påmeldingen selv.';
+    if(f.autoClose&&f.toD&&f.toT){const[y,m,d]=f.toD.split('-').map(Number);const dt=new Date(y,m-1,d+1);closeText=`Stenger ${DAY[dt.getDay()]} ${dt.getDate()}. ${MON[dt.getMonth()]} kl. ${f.toT.replace(':','.')}. Etter det må elevene sende vanlig søknad.`;}
+    let pv={wd:'—',d:'',m:'',name:f.name||'Navn på arrangementet',place:f.place||'Sted',time:''};
+    if(f.fromD){const[y,m,d]=f.fromD.split('-').map(Number);const dt=new Date(y,m-1,d);pv={...pv,wd:DAY[dt.getDay()].slice(0,3).toUpperCase(),d,m:MON[m-1].slice(0,3).toUpperCase(),time:`${DAY[dt.getDay()][0].toUpperCase()+DAY[dt.getDay()].slice(1)} ${d}. ${MON[m-1]}, kl. ${(f.fromT||'').replace(':','.')}–${(f.toT||'').replace(':','.')}`};}
+    const onMe={};['name','verv','phone'].forEach(k=>onMe[k]=ev=>{const v=ev.target.value;this.setState(st=>({me:{...st.me,[k]:v}}));});
+    const sigTabs=[['type','Skriv'],['draw','Tegn'],['upload','Last opp']].map(([k,l])=>({label:l,on:s.sigMode===k,onClick:()=>this.setState({sigMode:k}),bg:s.sigMode===k?'var(--accent)':'transparent',fg:s.sigMode===k?'var(--on-accent)':'var(--ink)'}));
+    const img=s.sigMode==='draw'?s.sigDraw:s.sigMode==='upload'?s.sigUpload:'';
+    return{
+      showPills:this.props.visTilstandsvelgere??true,
+      b3Pills:pill([['list','Med arrangementer'],['empty','Tom']],s.b3Empty?'empty':'list',k=>this.setState({b3Empty:k==='empty'})),
+      b3Tabs:tabs.map(([k,l])=>({label:l,on:s.b3Tab===k,onClick:()=>this.setState({b3Tab:k}),fg:s.b3Tab===k?'var(--accent-ink)':'var(--muted)',line:s.b3Tab===k?'var(--accent)':'transparent'})),
+      events:evs,b3Empty:s.b3Empty,b3HasList:!s.b3Empty,
+      f4:f,on4,e4,b4,closeText,pv,b4IsForm:s.b4==='form',b4IsDone:s.b4==='done',
+      b4Submit:ev=>{ev.preventDefault();const ff=this.state.f4;const ok=ff.name.trim()&&ff.place.trim()&&ff.fromD&&ff.toD&&ff.fromT&&ff.toT&&ff.toD+ff.toT>ff.fromD+ff.fromT;this.setState(ok?{b4:'done',tried:false}:{tried:true});},
+      b4Reset:()=>this.setState({b4:'form',f4:{...F4},tried:false}),
+      me:s.me,onMe,sigTabs,sigIsType:s.sigMode==='type',sigIsDraw:s.sigMode==='draw',sigIsUpload:s.sigMode==='upload',
+      sigText:s.sigText,onSigText:ev=>this.setState({sigText:ev.target.value}),canvasRef:this.canvasRef,
+      pDown:e=>{this.drawing=true;const c=this.canvasRef.current,ctx=c.getContext('2d');ctx.lineWidth=5;ctx.lineCap='round';ctx.lineJoin='round';ctx.strokeStyle='#1A2A5C';ctx.beginPath();ctx.moveTo(...this.pt(e));c.setPointerCapture&&c.setPointerCapture(e.pointerId);},
+      pMove:e=>{if(!this.drawing)return;const ctx=this.canvasRef.current.getContext('2d');ctx.lineTo(...this.pt(e));ctx.stroke();},
+      pUp:()=>{if(!this.drawing)return;this.drawing=false;this.setState({sigDraw:this.canvasRef.current.toDataURL('image/png')});},
+      clearCanvas:()=>{const c=this.canvasRef.current;c&&c.getContext('2d').clearRect(0,0,c.width,c.height);this.setState({sigDraw:''});},
+      onUpload:ev=>{const file=ev.target.files&&ev.target.files[0];if(!file)return;const r=new FileReader();r.onload=()=>this.setState({sigUpload:r.result});r.readAsDataURL(file);},
+      hasUpload:!!s.sigUpload,pdfSigImg:img,pdfSigText:s.sigMode==='type'?s.sigText:'',pdfContact:`kari@eksempel.no · ${s.me.phone}`,
+      digest:s.digest,toggleDigest:()=>this.setState(st=>({digest:!st.digest})),
+      save:()=>{this.setState({saved:true});setTimeout(()=>this.setState({saved:false}),1800);},saveLabel:s.saved?'Lagret ✓':'Lagre',
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800;900&family=Source+Sans+3:wght@400;600;700;900&family=Figtree:wght@400;600;700;900&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#E4E2DD;font-family:'Schibsted Grotesk',system-ui,sans-serif;color:#17191E;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:#24466E}a:hover{color:#17191E}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.dv-turn{padding:48px 56px 40px;border-bottom:1px solid rgba(0,0,0,.08);scroll-margin-top:16px}
+.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 20px}
+.dv-tid{font:600 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#1a1a1a;color:#fff;border-radius:4px;text-decoration:none}
+.dv-tname{font:600 13px/1.2 system-ui,sans-serif;color:#1a1a1a}
+.dv-opts{display:flex;flex-wrap:wrap;gap:56px;align-items:flex-start}
+.dv-opt{flex:none;display:flex;flex-direction:column;gap:14px;scroll-margin-top:16px}
+.dv-oid{font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(0,0,0,.08);color:#1a1a1a;border-radius:5px;text-decoration:none}
+.dv-olabel{display:flex;align-items:center;flex-wrap:wrap;gap:8px;font:400 13px/1.3 system-ui,sans-serif;color:rgba(0,0,0,.6);max-width:100%}
+.dv-opt:target .dv-oid{background:#2a78d6;color:#fff}
+.dv-next{margin:28px 0 0;font:12px/1.5 system-ui,sans-serif;color:rgba(0,0,0,.5)}
+</style>
+</helmet>
+<section class="dv-turn" id="t2">
+  <div class="dv-thd"><a class="dv-tid" href="#t2">2</a><span class="dv-tname">Runde 2 · resten av skjermene · profil låst til superadmin</span></div>
+  <div style="max-width:1100px;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:48px;margin:0 0 64px">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <h1 style="margin:0;font-size:56px;line-height:.98;font-weight:900;letter-spacing:-.03em;text-wrap:balance">Hele tjenesten, fra søknad til superadmin</h1>
+      <p style="margin:0;font-size:18px;line-height:1.5;color:#3E4350;max-width:560px">Søknadsflyten kan klikkes fra start til slutt: send søknaden i <a class="dv-oid" href="#2a">2a</a>, så dukker den opp i innboksen (<a class="dv-oid" href="#2b">2b</a>, <a class="dv-oid" href="#2d">2d</a>). Åpne den og send.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:15px;font-weight:600">
+        <a href="#2a" style="padding:8px 12px;background:#fff;border-radius:8px;text-decoration:none;color:#17191E">A2 Søknad</a>→<a href="#2b" style="padding:8px 12px;background:#fff;border-radius:8px;text-decoration:none;color:#17191E">B1 Innboks</a>→<a href="#2c" style="padding:8px 12px;background:#fff;border-radius:8px;text-decoration:none;color:#17191E">B2 Detalj</a>→<a href="#2f" style="padding:8px 12px;background:#fff;border-radius:8px;text-decoration:none;color:#17191E">A4 Sendt</a>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;font-size:15px;line-height:1.5;color:#2E323C">
+      <strong style="font-size:15px;color:#17191E">Endring: bare superadmin styrer profilen</strong>
+      <div>• Logo, farger og skrift redigeres bare i superadmin (<a class="dv-oid" href="#2t">2t</a>). Kontrasten sjekkes mens du velger, og for svak tekst stopper lagringen.</div>
+      <div>• Org-admin ser profilen, men kan ikke endre den. I veiviseren er steg 1 «Sjekk profilen», med knappen «Be om endring» (<a class="dv-oid" href="#2o">2o</a>). Kontaktinformasjon kan de fortsatt redigere selv (<a class="dv-oid" href="#2p">2p</a>, fanen Profil).</div>
+      <div>• Skrift er nå en egen variabel i profilen, med tre valg som alle støtter æ, ø og å.</div>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:96px">
+    <section aria-label="Elev og søknadsflyt"><div style="font:700 13px/1 system-ui;letter-spacing:.08em;text-transform:uppercase;color:rgba(0,0,0,.5);margin-bottom:16px">Søknadsflyten</div><dc-import name="Søknadsflyten" hint-size="100%,2900px"></dc-import></section>
+    <section aria-label="Eleven"><div style="font:700 13px/1 system-ui;letter-spacing:.08em;text-transform:uppercase;color:rgba(0,0,0,.5);margin-bottom:16px">Eleven og e-poster</div><dc-import name="Elev" hint-size="100%,2600px"></dc-import></section>
+    <section aria-label="Den som bekrefter"><div style="font:700 13px/1 system-ui;letter-spacing:.08em;text-transform:uppercase;color:rgba(0,0,0,.5);margin-bottom:16px">Den som bekrefter</div><dc-import name="Attestant" hint-size="100%,2900px"></dc-import></section>
+    <section aria-label="Org-admin"><div style="font:700 13px/1 system-ui;letter-spacing:.08em;text-transform:uppercase;color:rgba(0,0,0,.5);margin-bottom:16px">Org-admin</div><dc-import name="Admin" hint-size="100%,2200px"></dc-import></section>
+    <section aria-label="Plattform"><div style="font:700 13px/1 system-ui;letter-spacing:.08em;text-transform:uppercase;color:rgba(0,0,0,.5);margin-bottom:16px">Plattform</div><dc-import name="Plattform" hint-size="100%,3200px"></dc-import></section>
+  </div>
+  <p class="dv-next">Prøv neste: «lag desktopversjon av A2 og A5» · «gjør superadmin-editoren <a class="dv-oid" href="#2t">2t</a> om til et eget steg når en ny organisasjon opprettes» · «vis innboksen <a class="dv-oid" href="#2d">2d</a> med Grønn Fremtid-profilen»</p>
+</section>
+<section class="dv-turn" id="t1">
+  <div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">Runde 1 · prioriterte skjermer: A1, B5, B6, B7, F, D1 + komponenter</span></div>
+
+  <div style="max-width:1100px;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:48px;margin:0 0 64px">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <h1 style="margin:0;font-size:56px;line-height:.98;font-weight:900;letter-spacing:-.03em;text-wrap:balance">Politisk fravær – klikkbar prototype</h1>
+      <p style="margin:0;font-size:18px;line-height:1.5;color:#3E4350;max-width:560px">Alt er klikkbart: felt, oppmøteknapper, kopier lenke, utsending. Oppmøtelisten deles mellom desktop, mobil og utsendingsdialogen, så endringer ett sted vises overalt.</p>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">
+        <strong style="font-size:15px">QR-flyten – klikk deg gjennom</strong>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:15px;font-weight:600">
+          <a href="#1c" style="padding:8px 12px;background:#fff;border-radius:8px;text-decoration:none;color:#17191E">B5 Arrangement</a>→
+          <a href="#1f" style="padding:8px 12px;background:#fff;border-radius:8px;text-decoration:none;color:#17191E">B6 Storskjerm</a>→
+          <a href="#1a" style="padding:8px 12px;background:#fff;border-radius:8px;text-decoration:none;color:#17191E">A1 Elev melder seg på</a>→
+          <a href="#1d" style="padding:8px 12px;background:#fff;border-radius:8px;text-decoration:none;color:#17191E">B5 Oppmøte</a>→
+          <a href="#1g" style="padding:8px 12px;background:#fff;border-radius:8px;text-decoration:none;color:#17191E">B7 Send</a>→
+          <a href="#1h" style="padding:8px 12px;background:#fff;border-radius:8px;text-decoration:none;color:#17191E">F PDF</a>→
+          <a href="#1i" style="padding:8px 12px;background:#fff;border-radius:8px;text-decoration:none;color:#17191E">D1 Skolen sjekker</a>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;font-size:15px;line-height:1.5;color:#2E323C">
+      <strong style="font-size:15px;color:#17191E">Antakelser og valg</strong>
+      <div>• Plattformen eier PDF-rammen og verifiseringssiden (D1). Skolen skal stole på plattformen, ikke på org-fargene.</div>
+      <div>• Statusfarger (venter, sendt, avslått) er faste for alle organisasjoner. Betydningen endrer seg aldri.</div>
+      <div>• Org-profilen er 8 fargevariabler. Tekst på knapper blir hvit eller nesten svart etter kontrastberegning. Lenkefargen mørknes til minst 4,5:1. Prøv selv i <a class="dv-oid" href="#1l">1l</a>.</div>
+      <div>• To varianter av A1 (<a class="dv-oid" href="#1a">1a</a> skjema, <a class="dv-oid" href="#1b">1b</a> «gjenkjent elev») og B5 mobil (<a class="dv-oid" href="#1d">1d</a> liste, <a class="dv-oid" href="#1e">1e</a> opprop).</div>
+      <div>• Skrift: Schibsted Grotesk. Caveat brukes bare til signaturen.</div>
+      <div>• Søknadsflyten (A2 → B1 → B2) og resten av skjermene kommer i runde 2.</div>
+    </div>
+  </div>
+
+  <h2 style="margin:0 0 24px;font-size:28px;font-weight:800;letter-spacing:-.02em">A1 · Påmelding via QR</h2>
+  <div class="dv-opts" style="margin-bottom:80px">
+
+    <div class="dv-opt" id="1a">
+      <div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a><strong style="color:#17191E">Skjema</strong> · Eksempel Ungdomsorganisasjon · mobil</div>
+      <sc-if value="{{ showPills }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-wrap:wrap;gap:6px;max-width:410px">
+          <sc-for list="{{ a1Pills }}" as="p" hint-placeholder-count="6"><button onClick="{{ p.onClick }}" style="min-height:32px;padding:0 12px;border-radius:999px;border:1px solid rgba(0,0,0,.15);font-size:13px;font-weight:600;cursor:pointer;background:{{ p.bg }};color:{{ p.fg }}">{{ p.label }}</button></sc-for>
+        </div>
+      </sc-if>
+      <div style="--bg:#E9EEF4;--surface:#FFFFFF;--ink:#0E1A2B;--muted:#46536A;--line:#C5D0DD;--accent:#1D3F8F;--on-accent:#FFFFFF;--accent-soft:#DCE5F4;--accent-ink:#1D3F8F;width:390px;height:844px;border-radius:44px;overflow:hidden;box-shadow:0 0 0 10px #16181D,0 30px 60px rgba(20,24,32,.25);margin:10px;display:flex;flex-direction:column;background:var(--bg);color:var(--ink)">
+        <div style="height:44px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 30px;font-weight:700;font-size:15px">09:12<span style="font-size:13px">5G ▮▮▮</span></div>
+        <div style="flex:none;margin:0 16px 4px;padding:6px 12px;border-radius:10px;background:rgba(14,26,43,.06);font-size:13px;color:var(--muted);text-align:center">politiskfravaer.no/eksempel/a/k7m2x9pq</div>
+        <div style="flex:1;overflow-y:auto;display:flex;flex-direction:column">
+          <div style="padding:14px 20px 6px;display:flex;align-items:center;gap:12px">
+            <div style="width:40px;height:40px;flex:none;border-radius:10px;background:var(--accent);color:var(--on-accent);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px">EU</div>
+            <div style="font-weight:700;font-size:17px;line-height:1.2">Eksempel Ungdomsorganisasjon</div>
+          </div>
+
+          <sc-if value="{{ a1IsDone }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:24px 20px 32px;display:flex;flex-direction:column;gap:22px">
+              <div style="width:64px;height:64px;border-radius:50%;background:var(--accent);color:var(--on-accent);display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:800">✓</div>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <h1 style="margin:0;font-size:40px;line-height:1;font-weight:900;letter-spacing:-.03em">Du er påmeldt</h1>
+                <p style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">Skolebesøk på Eksempel vgs, fredag 13. november.</p>
+              </div>
+              <div style="background:var(--surface);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:0;border:1px solid var(--line)">
+                <strong style="font-size:18px;margin-bottom:14px">Hva skjer nå</strong>
+                <div style="display:grid;grid-template-columns:28px 1fr;column-gap:12px">
+                  <div style="display:flex;flex-direction:column;align-items:center"><div style="width:28px;height:28px;border-radius:50%;background:var(--accent);color:var(--on-accent);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800">✓</div><div style="flex:1;width:2px;background:var(--accent);min-height:20px"></div></div>
+                  <div style="padding-bottom:18px"><strong style="font-size:17px">Mottatt</strong><div style="font-size:15px;color:var(--muted)">I dag kl. 09.12</div></div>
+                  <div style="display:flex;flex-direction:column;align-items:center"><div style="width:28px;height:28px;border-radius:50%;border:3px solid var(--accent);box-sizing:border-box;background:var(--surface)"></div><div style="flex:1;width:2px;background:var(--line);min-height:20px"></div></div>
+                  <div style="padding-bottom:18px"><strong style="font-size:17px">Bekreftes av Oslo fylkeslag</strong><div style="font-size:15px;color:var(--muted)">De krysser av at du møtte.</div></div>
+                  <div style="display:flex;flex-direction:column;align-items:center"><div style="width:28px;height:28px;border-radius:50%;border:2px solid var(--line);box-sizing:border-box;background:var(--surface)"></div></div>
+                  <div><strong style="font-size:17px">PDF på e-post</strong><div style="font-size:15px;color:var(--muted)">Til {{ f.email }}</div></div>
+                </div>
+                <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--line);font-size:15px;font-weight:600">Vanligvis innen 2 dager.</div>
+              </div>
+              <p style="margin:0;font-size:16px;line-height:1.45">Vi har sendt kvitteringen til deg på e-post også.</p>
+              <div style="display:flex;flex-direction:column;gap:6px">
+                <button style="min-height:56px;border:2px solid var(--ink);border-radius:12px;background:var(--surface);font-weight:700;font-size:17px;cursor:pointer" style-focus="outline:3px solid var(--accent);outline-offset:3px">Se status for påmeldingen</button>
+                <button onClick="{{ a1Another }}" style="min-height:44px;border:0;background:none;color:var(--accent-ink);font-weight:700;font-size:16px;text-decoration:underline;text-underline-offset:3px;cursor:pointer">Meld på en annen person</button>
+              </div>
+              <a href="#1d" style="font-size:13px;color:var(--muted)">Prototype: gå til oppmøtelisten →</a>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ a1ShowEvent }}" hint-placeholder-val="{{ true }}">
+            <div style="padding:10px 20px 0;display:flex;flex-direction:column;gap:14px">
+              <sc-if value="{{ a1IsForm }}" hint-placeholder-val="{{ true }}">
+                <div style="display:flex;flex-direction:column;gap:6px;padding-top:6px">
+                  <h1 style="margin:0;font-size:36px;line-height:1;font-weight:900;letter-spacing:-.03em">Meld deg på</h1>
+                  <p style="margin:0;font-size:16px;line-height:1.45;color:var(--muted)">Når fylkeslaget har krysset av at du møtte, får du fraværserklæringen på e-post.</p>
+                </div>
+              </sc-if>
+              <div style="background:var(--surface);border-radius:16px;padding:16px;display:flex;gap:14px;border:1px solid var(--line)">
+                <div style="flex:none;width:60px;height:70px;border-radius:12px;background:var(--accent);color:var(--on-accent);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.05"><span style="font-size:12px;font-weight:700;letter-spacing:.06em">FRE</span><span style="font-size:28px;font-weight:800">13</span><span style="font-size:12px;font-weight:700;letter-spacing:.06em">NOV</span></div>
+                <div style="min-width:0;display:flex;flex-direction:column;gap:3px"><h2 style="margin:0;font-size:20px;font-weight:800;line-height:1.1;letter-spacing:-.01em">Skolebesøk på Eksempel vgs</h2><div style="font-size:15px;color:var(--muted)">Fredag 13. november, kl. 09.00–14.30</div><div style="font-size:15px;color:var(--muted)">Eksempel vgs, aula</div><div style="font-size:15px;font-weight:600">Arrangør: Oslo fylkeslag</div></div>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ a1IsClosed }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:20px;display:flex;flex-direction:column;gap:16px">
+              <h1 style="margin:0;font-size:34px;line-height:1;font-weight:900;letter-spacing:-.03em">Påmeldingen er stengt</h1>
+              <p style="margin:0;font-size:17px;line-height:1.5">Arrangementet sluttet for mer enn 24 timer siden. Var du der? Du kan fortsatt få fravær ved å sende en vanlig søknad.</p>
+              <button style="min-height:56px;border:0;border-radius:12px;background:var(--accent);color:var(--on-accent);font-weight:700;font-size:18px;cursor:pointer">Gå til vanlig søknad</button>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ a1IsAlready }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:20px;display:flex;flex-direction:column;gap:16px">
+              <div style="background:#E2F2E6;border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:6px;color:#0F3D21">
+                <strong style="font-size:22px;line-height:1.15">Du er allerede påmeldt</strong>
+                <span style="font-size:16px;line-height:1.45">Vi fikk påmeldingen din kl. 08.41. Du trenger ikke gjøre noe mer.</span>
+              </div>
+              <button style="min-height:56px;border:2px solid var(--ink);border-radius:12px;background:var(--surface);font-weight:700;font-size:17px;cursor:pointer">Se status</button>
+              <button onClick="{{ a1Another }}" style="min-height:44px;border:0;background:none;color:var(--accent-ink);font-weight:700;font-size:16px;text-decoration:underline;text-underline-offset:3px;cursor:pointer">Meld på en annen person</button>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ a1IsForm }}" hint-placeholder-val="{{ true }}">
+            <form onSubmit="{{ a1Submit }}" noValidate="" style="padding:18px 20px 0;display:flex;flex-direction:column;gap:16px;flex:1">
+              <sc-if value="{{ a1Prefilled }}" hint-placeholder-val="{{ true }}">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:15px;color:var(--muted)">Fylt inn fra sist gang.<button type="button" onClick="{{ a1Clear }}" style="min-height:44px;border:0;background:none;padding:0;color:var(--accent-ink);font-weight:700;text-decoration:underline;text-underline-offset:3px;cursor:pointer">Ikke deg? Tøm feltene</button></div>
+              </sc-if>
+              <sc-if value="{{ a1ErrCount }}" hint-placeholder-val="{{ false }}">
+                <div role="alert" style="background:#FBE4E1;border:2px solid #B3261E;border-radius:12px;padding:12px 14px;color:#7A1A14;font-size:16px;font-weight:600">Sjekk {{ a1ErrText }} før du melder deg på.</div>
+              </sc-if>
+              <div style="display:flex;flex-direction:column;gap:6px">
+                <label for="a1-name" style="font-weight:600;font-size:16px">Navn</label>
+                <input id="a1-name" value="{{ f.name }}" onChange="{{ onName }}" autoComplete="name" style="min-height:52px;padding:0 14px;border-radius:10px;background:var(--surface);font-size:17px;border:2px solid {{ bName }}" style-focus="outline:3px solid var(--accent);outline-offset:2px"></input>
+                <sc-if value="{{ eName }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:8px;color:#B3261E;font-weight:600;font-size:15px"><span style="flex:none;width:20px;height:20px;border-radius:50%;background:#B3261E;color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center">!</span>{{ eName }}</div></sc-if>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:6px">
+                <label for="a1-school" style="font-weight:600;font-size:16px">Skole</label>
+                <input id="a1-school" value="{{ f.school }}" onChange="{{ onSchool }}" style="min-height:52px;padding:0 14px;border-radius:10px;background:var(--surface);font-size:17px;border:2px solid {{ bSchool }}" style-focus="outline:3px solid var(--accent);outline-offset:2px"></input>
+                <sc-if value="{{ eSchool }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:8px;color:#B3261E;font-weight:600;font-size:15px"><span style="flex:none;width:20px;height:20px;border-radius:50%;background:#B3261E;color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center">!</span>{{ eSchool }}</div></sc-if>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:6px">
+                <label for="a1-email" style="font-weight:600;font-size:16px">E-post</label>
+                <input id="a1-email" type="email" value="{{ f.email }}" onChange="{{ onEmail }}" autoComplete="email" style="min-height:52px;padding:0 14px;border-radius:10px;background:var(--surface);font-size:17px;border:2px solid {{ bEmail }}" style-focus="outline:3px solid var(--accent);outline-offset:2px"></input>
+                <sc-if value="{{ eEmail }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:8px;color:#B3261E;font-weight:600;font-size:15px"><span style="flex:none;width:20px;height:20px;border-radius:50%;background:#B3261E;color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center">!</span>{{ eEmail }}</div></sc-if>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:6px">
+                <label for="a1-phone" style="font-weight:600;font-size:16px">Telefon <span style="font-weight:400;color:var(--muted)">(valgfritt)</span></label>
+                <input id="a1-phone" type="tel" value="{{ f.phone }}" onChange="{{ onPhone }}" style="min-height:52px;padding:0 14px;border:2px solid var(--line);border-radius:10px;background:var(--surface);font-size:17px" style-focus="outline:3px solid var(--accent);outline-offset:2px"></input>
+              </div>
+              <label style="display:flex;align-items:center;gap:12px;min-height:44px;cursor:pointer;font-weight:600;font-size:16px"><input type="checkbox" checked="{{ a1Copy }}" onChange="{{ a1ToggleCopy }}" style="width:24px;height:24px;accent-color:var(--accent);margin:0;flex:none"></input>Send kopi direkte til skolen</label>
+              <sc-if value="{{ a1Copy }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;flex-direction:column;gap:6px;margin-top:-6px">
+                  <label for="a1-se" style="font-weight:600;font-size:16px">Skolens e-post <span style="font-weight:400;color:var(--muted)">(valgfritt)</span></label>
+                  <input id="a1-se" type="email" placeholder="post@eksempel.vgs.no" value="{{ f.schoolEmail }}" onChange="{{ onSchoolEmail }}" style="min-height:52px;padding:0 14px;border-radius:10px;background:var(--surface);font-size:17px;border:2px solid {{ bSchoolEmail }}" style-focus="outline:3px solid var(--accent);outline-offset:2px"></input>
+                  <span style="font-size:14px;color:var(--muted)">For eksempel kontaktlæreren din.</span>
+                  <sc-if value="{{ eSchoolEmail }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:8px;color:#B3261E;font-weight:600;font-size:15px"><span style="flex:none;width:20px;height:20px;border-radius:50%;background:#B3261E;color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center">!</span>{{ eSchoolEmail }}</div></sc-if>
+                </div>
+              </sc-if>
+              <div style="position:sticky;bottom:0;margin:auto -20px 0;padding:12px 20px 24px;background:var(--bg);display:flex;flex-direction:column;gap:10px">
+                <sc-if value="{{ a1IsSlow }}" hint-placeholder-val="{{ false }}">
+                  <div role="status" style="display:flex;gap:12px;align-items:center;background:#FBF0D9;color:#5C3B00;border-radius:12px;padding:12px 14px;font-size:15px;line-height:1.35"><span style="flex:none;width:18px;height:18px;border-radius:50%;border:3px solid #E0B866;border-top-color:#7A4F00;animation:spin .9s linear infinite"></span><span><strong>Dårlig nett. Vi prøver igjen …</strong><br>Det du har skrevet er lagret. Ikke lukk siden.</span></div>
+                </sc-if>
+                <button type="submit" style="min-height:58px;border:0;border-radius:12px;background:{{ a1BtnBg }};color:{{ a1BtnFg }};font-weight:800;font-size:19px;cursor:pointer" style-focus="outline:3px solid var(--ink);outline-offset:3px">{{ a1BtnLabel }}</button>
+                <span style="font-size:13px;line-height:1.4;color:var(--muted);text-align:center">Brukes bare til fraværserklæringen. Slettes etter 18 måneder.</span>
+              </div>
+            </form>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+
+    <div class="dv-opt" id="1b">
+      <div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a><strong style="color:#17191E">Gjenkjent elev</strong> · Grønn Fremtid Ungdom · mobil</div>
+      <sc-if value="{{ showPills }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-wrap:wrap;gap:6px;max-width:410px">
+          <sc-for list="{{ a1bPills }}" as="p" hint-placeholder-count="3"><button onClick="{{ p.onClick }}" style="min-height:32px;padding:0 12px;border-radius:999px;border:1px solid rgba(0,0,0,.15);font-size:13px;font-weight:600;cursor:pointer;background:{{ p.bg }};color:{{ p.fg }}">{{ p.label }}</button></sc-for>
+        </div>
+      </sc-if>
+      <div style="--bg:#F6F2E9;--surface:#FFFDF8;--ink:#1F2A1F;--muted:#535E4D;--line:#D9D0BD;--accent:#1E6B3C;--on-accent:#FFFFFF;--accent-soft:#E0EDDD;--accent-ink:#1E6B3C;width:390px;height:844px;border-radius:44px;overflow:hidden;box-shadow:0 0 0 10px #16181D,0 30px 60px rgba(20,24,32,.25);margin:10px;display:flex;flex-direction:column;background:var(--accent);color:var(--ink)">
+        <div style="height:44px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 30px;font-weight:700;font-size:15px;color:var(--on-accent)">12:04<span style="font-size:13px">5G ▮▮▮</span></div>
+        <div style="flex:1;overflow-y:auto;display:flex;flex-direction:column">
+          <div style="padding:12px 22px 44px;color:var(--on-accent);display:flex;flex-direction:column;gap:18px">
+            <div style="display:flex;align-items:center;gap:10px"><div style="width:36px;height:36px;border-radius:9px;background:var(--on-accent);color:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px">GF</div><span style="font-weight:700;font-size:16px">Grønn Fremtid Ungdom</span></div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <span style="font-size:15px;font-weight:700;letter-spacing:.04em;text-transform:uppercase">Onsdag 18. november · 12.00–15.00</span>
+              <h1 style="margin:0;font-size:44px;line-height:.96;font-weight:900;letter-spacing:-.035em">Klimaverksted på Fjordbyen vgs</h1>
+              <span style="font-size:16px;line-height:1.4">Fjordbyen vgs, biblioteket<br>Arrangør: Vestland fylkeslag</span>
+            </div>
+          </div>
+          <div style="flex:1;background:var(--bg);border-radius:28px 28px 0 0;margin-top:-24px;padding:24px 20px 28px;display:flex;flex-direction:column;gap:18px">
+            <sc-if value="{{ a1bConfirm }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex;flex-direction:column;gap:18px;flex:1">
+                <div style="display:flex;flex-direction:column;gap:4px"><strong style="font-size:15px;color:var(--muted)">Du melder på</strong>
+                  <div style="background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;gap:14px;align-items:center">
+                    <div style="width:52px;height:52px;flex:none;border-radius:50%;background:var(--accent-soft);color:var(--accent-ink);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px">SA</div>
+                    <div style="display:flex;flex-direction:column;min-width:0"><strong style="font-size:20px;line-height:1.15">Sara Ahmed</strong><span style="font-size:15px;color:var(--muted)">Fjordbyen vgs</span><span style="font-size:15px;color:var(--muted)">sara.ahmed@elev.no</span></div>
+                  </div>
+                </div>
+                <button onClick="{{ a1bEdit }}" style="align-self:flex-start;min-height:44px;border:0;background:none;padding:0;color:var(--accent-ink);font-weight:700;font-size:16px;text-decoration:underline;text-underline-offset:3px;cursor:pointer">Ikke deg? Tøm feltene</button>
+                <label style="display:flex;align-items:center;gap:12px;min-height:44px;cursor:pointer;font-weight:600;font-size:16px"><input type="checkbox" style="width:24px;height:24px;accent-color:var(--accent);margin:0"></input>Send kopi direkte til skolen</label>
+                <button onClick="{{ a1bDone }}" style="margin-top:auto;min-height:64px;border:0;border-radius:16px;background:var(--accent);color:var(--on-accent);font-weight:800;font-size:20px;cursor:pointer" style-focus="outline:3px solid var(--ink);outline-offset:3px">Meld meg på</button>
+              </div>
+            </sc-if>
+            <sc-if value="{{ a1bIsEdit }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:14px">
+                <strong style="font-size:22px;letter-spacing:-.01em">Om deg</strong>
+                <div style="display:flex;flex-direction:column;gap:6px"><label for="b-n" style="font-weight:600">Navn</label><input id="b-n" autoComplete="name" style="min-height:52px;padding:0 14px;border:2px solid var(--line);border-radius:10px;background:var(--surface);font-size:17px" style-focus="outline:3px solid var(--accent);outline-offset:2px"></input></div>
+                <div style="display:flex;flex-direction:column;gap:6px"><label for="b-s" style="font-weight:600">Skole</label><input id="b-s" style="min-height:52px;padding:0 14px;border:2px solid var(--line);border-radius:10px;background:var(--surface);font-size:17px" style-focus="outline:3px solid var(--accent);outline-offset:2px"></input></div>
+                <div style="display:flex;flex-direction:column;gap:6px"><label for="b-e" style="font-weight:600">E-post</label><input id="b-e" type="email" style="min-height:52px;padding:0 14px;border:2px solid var(--line);border-radius:10px;background:var(--surface);font-size:17px" style-focus="outline:3px solid var(--accent);outline-offset:2px"></input></div>
+                <div style="display:flex;flex-direction:column;gap:6px"><label for="b-t" style="font-weight:600">Telefon <span style="font-weight:400;color:var(--muted)">(valgfritt)</span></label><input id="b-t" type="tel" style="min-height:52px;padding:0 14px;border:2px solid var(--line);border-radius:10px;background:var(--surface);font-size:17px" style-focus="outline:3px solid var(--accent);outline-offset:2px"></input></div>
+                <label style="display:flex;align-items:center;gap:12px;min-height:44px;cursor:pointer;font-weight:600;font-size:16px"><input type="checkbox" style="width:24px;height:24px;accent-color:var(--accent);margin:0"></input>Send kopi direkte til skolen</label>
+                <button onClick="{{ a1bDone }}" style="min-height:64px;border:0;border-radius:16px;background:var(--accent);color:var(--on-accent);font-weight:800;font-size:20px;cursor:pointer">Meld meg på</button>
+              </div>
+            </sc-if>
+            <sc-if value="{{ a1bIsDone }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:20px">
+                <div style="display:flex;flex-direction:column;gap:6px"><h2 style="margin:0;font-size:38px;line-height:1;font-weight:900;letter-spacing:-.03em">Du er påmeldt, Sara</h2><span style="font-size:16px;color:var(--muted)">Kvitteringen er sendt til sara.ahmed@elev.no.</span></div>
+                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px">
+                  <div style="display:flex;flex-direction:column;gap:8px"><div style="height:6px;border-radius:3px;background:var(--accent)"></div><strong style="font-size:15px;line-height:1.2">Mottatt</strong><span style="font-size:13px;color:var(--muted)">Nå</span></div>
+                  <div style="display:flex;flex-direction:column;gap:8px"><div style="height:6px;border-radius:3px;background:var(--accent);opacity:.35"></div><strong style="font-size:15px;line-height:1.2">Bekreftes av Vestland fylkeslag</strong></div>
+                  <div style="display:flex;flex-direction:column;gap:8px"><div style="height:6px;border-radius:3px;background:var(--line)"></div><strong style="font-size:15px;line-height:1.2">PDF på e-post</strong></div>
+                </div>
+                <div style="background:var(--accent-soft);border-radius:14px;padding:14px 16px;font-size:16px;line-height:1.45"><strong>Vanligvis innen 2 dager.</strong> Du trenger ikke gjøre noe mer.</div>
+                <button style="min-height:56px;border:2px solid var(--ink);border-radius:14px;background:var(--surface);font-weight:700;font-size:17px;cursor:pointer">Se status</button>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2 style="margin:0 0 24px;font-size:28px;font-weight:800;letter-spacing:-.02em">B5 · Arrangementsdetalj</h2>
+  <div class="dv-opts" style="margin-bottom:80px">
+    <div class="dv-opt" id="1c">
+      <div class="dv-olabel"><a class="dv-oid" href="#1c">1c</a><strong style="color:#17191E">Desktop 1440</strong> · del, oppmøte, send og avslutt på én flate</div>
+      <div style="--bg:#E9EEF4;--surface:#FFFFFF;--ink:#0E1A2B;--muted:#46536A;--line:#C5D0DD;--accent:#1D3F8F;--on-accent:#FFFFFF;--accent-soft:#DCE5F4;--accent-ink:#1D3F8F;width:1440px;background:var(--bg);color:var(--ink);border-radius:12px;overflow:hidden;box-shadow:0 20px 50px rgba(20,24,32,.18);display:flex;flex-direction:column">
+        <div style="height:68px;background:var(--surface);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:40px;padding:0 40px">
+          <div style="display:flex;align-items:center;gap:10px"><div style="width:36px;height:36px;border-radius:9px;background:var(--accent);color:var(--on-accent);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px">EU</div><strong style="font-size:16px">Eksempel Ungdomsorganisasjon</strong></div>
+          <nav style="display:flex;gap:4px;height:100%;font-weight:600;font-size:16px">
+            <a href="#" style="display:flex;align-items:center;gap:8px;padding:0 14px;color:var(--ink);text-decoration:none">Innboks <span style="background:var(--accent);color:var(--on-accent);border-radius:999px;padding:1px 8px;font-size:13px">12</span></a>
+            <a href="#" aria-current="page" style="display:flex;align-items:center;padding:0 14px;color:var(--accent-ink);text-decoration:none;box-shadow:inset 0 -3px 0 var(--accent)">Arrangementer</a>
+            <a href="#" style="display:flex;align-items:center;padding:0 14px;color:var(--ink);text-decoration:none">Innstillinger</a>
+          </nav>
+          <div style="margin-left:auto;display:flex;align-items:center;gap:10px;font-size:15px"><div style="text-align:right;line-height:1.25"><strong>Kari Nordmann</strong><br><span style="color:var(--muted)">Fylkesleder, Oslo fylkeslag</span></div><div style="width:40px;height:40px;border-radius:50%;background:var(--accent-soft);color:var(--accent-ink);display:flex;align-items:center;justify-content:center;font-weight:800">KN</div></div>
+        </div>
+
+        <div style="padding:28px 40px 32px;display:flex;flex-direction:column;gap:24px">
+          <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px">
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <a href="#" style="font-size:15px;font-weight:600;color:var(--accent-ink)">← Arrangementer</a>
+              <div style="display:flex;align-items:center;gap:14px"><h1 style="margin:0;font-size:46px;line-height:1;font-weight:900;letter-spacing:-.03em">Skolebesøk på Eksempel vgs</h1><span style="display:flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;background:#E2F2E6;color:#17602F;font-weight:700;font-size:14px"><span style="width:8px;height:8px;border-radius:50%;background:#1B6B3A;animation:pulse 1.6s ease-in-out infinite"></span>Pågår nå</span></div>
+              <div style="font-size:17px;color:var(--muted)">Fredag 13. november, kl. 09.00–14.30 · Eksempel vgs, aula · Arrangør: Oslo fylkeslag · Skolebesøk</div>
+            </div>
+            <button style="min-height:44px;padding:0 18px;border:2px solid var(--ink);border-radius:10px;background:var(--surface);font-weight:700;cursor:pointer">Rediger arrangement</button>
+          </div>
+
+          <div style="display:grid;grid-template-columns:380px minmax(0,1fr);gap:24px;align-items:start">
+            <div style="display:flex;flex-direction:column;gap:24px">
+              <div style="background:var(--surface);border-radius:18px;padding:24px;display:flex;flex-direction:column;gap:16px">
+                <h2 style="margin:0;font-size:22px;font-weight:800;letter-spacing:-.01em">Del påmeldingen</h2>
+                <img src="{{ qrEU }}" alt="QR-kode til påmeldingen" style="width:100%;aspect-ratio:1;display:block;border-radius:8px"></img>
+                <div style="display:flex;gap:8px">
+                  <div style="flex:1;min-width:0;min-height:44px;display:flex;align-items:center;padding:0 12px;border-radius:10px;background:var(--bg);font-size:14px;font-weight:600;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">politiskfravaer.no/eksempel/a/k7m2x9pq</div>
+                  <button onClick="{{ copyLink }}" style="flex:none;min-height:44px;padding:0 14px;border:2px solid var(--ink);border-radius:10px;background:var(--surface);font-weight:700;cursor:pointer">{{ copyLabel }}</button>
+                </div>
+                <a href="#1f" style="min-height:52px;border-radius:12px;background:var(--accent);color:var(--on-accent);font-weight:700;font-size:17px;display:flex;align-items:center;justify-content:center;text-decoration:none">Vis på storskjerm</a>
+                <button style="min-height:48px;border:2px solid var(--line);border-radius:12px;background:var(--surface);font-weight:700;cursor:pointer">Last ned QR (PNG)</button>
+                <span style="font-size:14px;line-height:1.4;color:var(--muted)">Påmeldingen stenger automatisk lørdag 14. november kl. 14.30.</span>
+              </div>
+              <div style="background:var(--surface);border-radius:18px;padding:24px;display:flex;flex-direction:column;gap:14px">
+                <h2 style="margin:0;font-size:22px;font-weight:800;letter-spacing:-.01em">Avslutt arrangement</h2>
+                <sc-if value="{{ notEnded }}" hint-placeholder-val="{{ true }}">
+                  <div style="display:flex;flex-direction:column;gap:14px">
+                    <p style="margin:0;font-size:16px;line-height:1.45">{{ endText }} får avslag med denne begrunnelsen:</p>
+                    <div style="font-size:15px;line-height:1.45;padding:12px 14px;border-radius:10px;background:var(--bg)">«Du er ikke registrert som møtt på arrangementet. Ta kontakt hvis dette er feil.»</div>
+                    <label style="display:flex;align-items:center;gap:12px;min-height:44px;cursor:pointer;font-weight:600"><input type="checkbox" checked="{{ endMail }}" onChange="{{ toggleEndMail }}" style="width:22px;height:22px;accent-color:var(--accent);margin:0"></input>Send e-post om avslaget</label>
+                    <button onClick="{{ endEvent }}" style="min-height:48px;border:2px solid #A3261D;border-radius:12px;background:var(--surface);color:#A3261D;font-weight:700;cursor:pointer">Avslutt arrangement</button>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ ended }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-direction:column;gap:10px"><div style="padding:12px 14px;border-radius:10px;background:#E2F2E6;color:#0F3D21;font-weight:600">Avsluttet. {{ endedText }}</div><button onClick="{{ undoEnd }}" style="align-self:flex-start;min-height:44px;border:0;background:none;padding:0;color:var(--accent-ink);font-weight:700;text-decoration:underline;cursor:pointer">Angre</button></div>
+                </sc-if>
+              </div>
+            </div>
+
+            <div style="background:var(--surface);border-radius:18px;display:flex;flex-direction:column;overflow:hidden">
+              <div style="padding:24px 24px 0;display:flex;flex-direction:column;gap:20px">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
+                  <h2 style="margin:0;font-size:22px;font-weight:800;letter-spacing:-.01em">Deltakere</h2>
+                  <div style="display:flex;gap:8px">
+                    <button onClick="{{ toggleAdd }}" style="min-height:44px;padding:0 16px;border:2px solid var(--line);border-radius:10px;background:var(--surface);font-weight:700;cursor:pointer">+ Legg til deltaker manuelt</button>
+                    <button onClick="{{ markAll }}" style="min-height:44px;padding:0 16px;border:2px solid var(--ink);border-radius:10px;background:var(--surface);font-weight:700;cursor:pointer">✓ Merk alle som møtt</button>
+                  </div>
+                </div>
+                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+                  <div style="display:flex;flex-direction:column"><strong style="font-size:40px;line-height:1;letter-spacing:-.03em">{{ cTotal }}</strong><span style="font-size:15px;color:var(--muted)">påmeldt</span></div>
+                  <div style="display:flex;flex-direction:column"><strong style="font-size:40px;line-height:1;letter-spacing:-.03em;color:#17602F">{{ cMott }}</strong><span style="font-size:15px;color:var(--muted)">møtt</span></div>
+                  <div style="display:flex;flex-direction:column"><strong style="font-size:40px;line-height:1;letter-spacing:-.03em;color:#9A231B">{{ cIkke }}</strong><span style="font-size:15px;color:var(--muted)">ikke møtt</span></div>
+                  <div style="display:flex;flex-direction:column"><strong style="font-size:40px;line-height:1;letter-spacing:-.03em;color:#7A4F00">{{ cPending }}</strong><span style="font-size:15px;color:var(--muted)">ikke registrert</span></div>
+                </div>
+                <div aria-hidden="true" style="display:flex;height:8px;border-radius:4px;overflow:hidden;background:#F1E3C2;gap:2px">
+                  <div style="background:#1B6B3A;width:{{ pMott }};transition:width .3s"></div><div style="background:#A3261D;width:{{ pIkke }};transition:width .3s"></div>
+                </div>
+                <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+                  <sc-for list="{{ filters }}" as="fl" hint-placeholder-count="4"><button onClick="{{ fl.onClick }}" aria-pressed="{{ fl.on }}" style="min-height:40px;padding:0 14px;border-radius:999px;font-weight:600;font-size:15px;cursor:pointer;border:2px solid {{ fl.bd }};background:{{ fl.bg }};color:{{ fl.fg }}">{{ fl.label }}</button></sc-for>
+                  <label for="b5-q" style="position:absolute;width:1px;height:1px;overflow:hidden">Søk etter deltaker</label>
+                  <input id="b5-q" placeholder="Søk etter navn" value="{{ q }}" onChange="{{ onQ }}" style="margin-left:auto;width:240px;min-height:44px;padding:0 14px;border:2px solid var(--line);border-radius:10px;background:var(--surface)" style-focus="outline:3px solid var(--accent);outline-offset:2px"></input>
+                </div>
+              </div>
+              <sc-if value="{{ addOpen }}" hint-placeholder-val="{{ false }}">
+                <div style="margin:16px 24px 0;padding:14px;border-radius:12px;background:var(--accent-soft);display:flex;gap:10px;align-items:flex-end">
+                  <div style="flex:1;display:flex;flex-direction:column;gap:4px"><label for="add-n" style="font-weight:600;font-size:15px">Navn</label><input id="add-n" value="{{ addName }}" onChange="{{ onAddName }}" style="min-height:44px;padding:0 12px;border:2px solid var(--line);border-radius:10px;background:var(--surface)"></input></div>
+                  <div style="flex:1;display:flex;flex-direction:column;gap:4px"><label for="add-s" style="font-weight:600;font-size:15px">Skole</label><input id="add-s" value="{{ addSchool }}" onChange="{{ onAddSchool }}" style="min-height:44px;padding:0 12px;border:2px solid var(--line);border-radius:10px;background:var(--surface)"></input></div>
+                  <div style="flex:1;display:flex;flex-direction:column;gap:4px"><label for="add-e" style="font-weight:600;font-size:15px">E-post</label><input id="add-e" style="min-height:44px;padding:0 12px;border:2px solid var(--line);border-radius:10px;background:var(--surface)"></input></div>
+                  <button onClick="{{ addPerson }}" style="min-height:44px;padding:0 18px;border:0;border-radius:10px;background:var(--accent);color:var(--on-accent);font-weight:700;cursor:pointer">Legg til som møtt</button>
+                </div>
+              </sc-if>
+              <div style="margin-top:16px;max-height:560px;overflow-y:auto;border-top:1px solid var(--line)">
+                <sc-for list="{{ rowsFiltered }}" as="p" hint-placeholder-count="8">
+                  <div style="display:grid;grid-template-columns:44px minmax(0,1.3fr) minmax(0,1fr) 300px;gap:16px;align-items:center;padding:10px 24px;border-bottom:1px solid var(--line);background:{{ p.rowBg }}">
+                    <div style="width:40px;height:40px;border-radius:50%;background:var(--accent-soft);color:var(--accent-ink);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px">{{ p.initials }}</div>
+                    <div style="display:flex;flex-direction:column;min-width:0"><strong style="font-size:17px">{{ p.name }}</strong><span style="font-size:15px;color:var(--muted)">{{ p.school }}</span></div>
+                    <div style="font-size:15px;color:var(--muted);display:flex;gap:8px;align-items:center">{{ p.srcText }}<sc-if value="{{ p.already }}" hint-placeholder-val="{{ false }}"><span style="padding:2px 8px;border-radius:999px;background:#E2F2E6;color:#17602F;font-weight:700;font-size:13px">Sendt før</span></sc-if></div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                      <button onClick="{{ p.onMott }}" aria-pressed="{{ p.isMott }}" aria-label="Møtt: {{ p.name }}" style="min-height:48px;border-radius:10px;font-weight:700;font-size:16px;cursor:pointer;border:2px solid {{ p.mBd }};background:{{ p.mBg }};color:{{ p.mFg }}" style-focus="outline:3px solid var(--ink);outline-offset:2px">✓ Møtt</button>
+                      <button onClick="{{ p.onIkke }}" aria-pressed="{{ p.isIkke }}" aria-label="Ikke møtt: {{ p.name }}" style="min-height:48px;border-radius:10px;font-weight:700;font-size:16px;cursor:pointer;border:2px solid {{ p.kBd }};background:{{ p.kBg }};color:{{ p.kFg }}" style-focus="outline:3px solid var(--ink);outline-offset:2px">Ikke møtt</button>
+                    </div>
+                  </div>
+                </sc-for>
+                <sc-if value="{{ noRows }}" hint-placeholder-val="{{ false }}"><div style="padding:40px 24px;text-align:center;color:var(--muted);font-size:17px">Ingen deltakere her.</div></sc-if>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="background:var(--surface);border-top:1px solid var(--line);padding:16px 40px;display:flex;align-items:center;justify-content:space-between;gap:24px;box-shadow:0 -8px 24px rgba(14,26,43,.06)">
+          <div style="font-size:16px;line-height:1.4"><strong>{{ cMott }} møtte.</strong> <span style="color:var(--muted)">{{ alreadyText }}</span></div>
+          <a href="#1g" onClick="{{ b7Reset }}" style="min-height:56px;padding:0 32px;border-radius:12px;background:var(--accent);color:var(--on-accent);font-weight:800;font-size:18px;display:flex;align-items:center;text-decoration:none">Send fravær til {{ cMott }} som møtte</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="dv-opt" id="1d">
+      <div class="dv-olabel"><a class="dv-oid" href="#1d">1d</a><strong style="color:#17191E">Mobil · liste</strong> · ikke registrerte øverst</div>
+      <div style="--bg:#E9EEF4;--surface:#FFFFFF;--ink:#0E1A2B;--muted:#46536A;--line:#C5D0DD;--accent:#1D3F8F;--on-accent:#FFFFFF;--accent-soft:#DCE5F4;--accent-ink:#1D3F8F;width:390px;height:844px;border-radius:44px;overflow:hidden;box-shadow:0 0 0 10px #16181D,0 30px 60px rgba(20,24,32,.25);margin:10px;display:flex;flex-direction:column;background:var(--bg);color:var(--ink)">
+        <div style="height:44px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 30px;font-weight:700;font-size:15px;background:var(--surface)">09:47<span style="font-size:13px">5G ▮▮▮</span></div>
+        <div style="flex:none;background:var(--surface);padding:6px 20px 0;display:flex;flex-direction:column;gap:8px">
+          <a href="#" style="font-size:15px;font-weight:600;color:var(--accent-ink);min-height:32px;display:flex;align-items:center">‹ Arrangementer</a>
+          <h1 style="margin:0;font-size:26px;line-height:1.05;font-weight:900;letter-spacing:-.02em">Skolebesøk på Eksempel vgs</h1>
+          <span style="font-size:15px;color:var(--muted)">Fre 13. nov · 09.00–14.30 · Aula</span>
+          <div role="tablist" style="display:grid;grid-template-columns:repeat(3,1fr);margin-top:6px">
+            <sc-for list="{{ mTabs }}" as="t" hint-placeholder-count="3"><button role="tab" aria-selected="{{ t.on }}" onClick="{{ t.onClick }}" style="min-height:48px;border:0;background:none;font-weight:700;font-size:16px;cursor:pointer;color:{{ t.fg }};box-shadow:inset 0 -3px 0 {{ t.line }}">{{ t.label }}</button></sc-for>
+          </div>
+        </div>
+        <div style="flex:1;overflow-y:auto;display:flex;flex-direction:column">
+          <sc-if value="{{ mTabDelt }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;flex-direction:column;flex:1">
+              <div style="padding:16px 20px;display:flex;flex-direction:column;gap:12px">
+                <div style="display:flex;gap:8px;flex-wrap:wrap;font-size:14px;font-weight:700">
+                  <span style="padding:6px 10px;border-radius:999px;background:#E2F2E6;color:#17602F">{{ cMott }} møtt</span>
+                  <span style="padding:6px 10px;border-radius:999px;background:#FBE4E1;color:#9A231B">{{ cIkke }} ikke møtt</span>
+                  <span style="padding:6px 10px;border-radius:999px;background:#FBF0D9;color:#7A4F00">{{ cPending }} ikke registrert</span>
+                </div>
+                <button onClick="{{ markAll }}" style="min-height:48px;border:2px solid var(--ink);border-radius:12px;background:var(--surface);font-weight:700;font-size:16px;cursor:pointer">✓ Merk alle som møtt</button>
+              </div>
+              <sc-if value="{{ cPending }}" hint-placeholder-val="{{ true }}">
+                <div style="padding:4px 20px 8px;font-size:14px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#7A4F00">Ikke registrert ({{ cPending }})</div>
+              </sc-if>
+              <sc-for list="{{ rowsPending }}" as="p" hint-placeholder-count="2">
+                <div style="margin:0 12px 8px;background:var(--surface);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:10px;border:2px dashed #E0B866">
+                  <div style="display:flex;flex-direction:column"><strong style="font-size:17px">{{ p.name }}</strong><span style="font-size:14px;color:var(--muted)">{{ p.school }} · {{ p.srcText }}</span></div>
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                    <button onClick="{{ p.onMott }}" aria-pressed="{{ p.isMott }}" style="min-height:52px;border-radius:10px;font-weight:700;font-size:17px;cursor:pointer;border:2px solid {{ p.mBd }};background:{{ p.mBg }};color:{{ p.mFg }}">✓ Møtt</button>
+                    <button onClick="{{ p.onIkke }}" aria-pressed="{{ p.isIkke }}" style="min-height:52px;border-radius:10px;font-weight:700;font-size:17px;cursor:pointer;border:2px solid {{ p.kBd }};background:{{ p.kBg }};color:{{ p.kFg }}">Ikke møtt</button>
+                  </div>
+                </div>
+              </sc-for>
+              <div style="padding:12px 20px 8px;font-size:14px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)">Registrert ({{ cDone }})</div>
+              <sc-for list="{{ rowsDone }}" as="p" hint-placeholder-count="6">
+                <div style="margin:0 12px 6px;background:var(--surface);border-radius:14px;padding:10px 12px;display:flex;align-items:center;gap:10px">
+                  <div style="flex:1;min-width:0;display:flex;flex-direction:column"><strong style="font-size:16px">{{ p.name }}</strong><span style="font-size:14px;color:var(--muted)">{{ p.school }}</span></div>
+                  <button onClick="{{ p.onMott }}" aria-pressed="{{ p.isMott }}" aria-label="Møtt: {{ p.name }}" style="width:52px;min-height:48px;border-radius:10px;font-weight:800;font-size:18px;cursor:pointer;border:2px solid {{ p.mBd }};background:{{ p.mBg }};color:{{ p.mFg }}">✓</button>
+                  <button onClick="{{ p.onIkke }}" aria-pressed="{{ p.isIkke }}" aria-label="Ikke møtt: {{ p.name }}" style="width:52px;min-height:48px;border-radius:10px;font-weight:800;font-size:18px;cursor:pointer;border:2px solid {{ p.kBd }};background:{{ p.kBg }};color:{{ p.kFg }}">✕</button>
+                </div>
+              </sc-for>
+              <button onClick="{{ quickAdd }}" style="margin:8px 12px 12px;min-height:48px;border:2px dashed var(--line);border-radius:12px;background:none;font-weight:700;font-size:16px;cursor:pointer;color:var(--accent-ink)">+ Legg til deltaker manuelt</button>
+              <div style="position:sticky;bottom:0;margin-top:auto;padding:12px 16px 24px;background:var(--bg)">
+                <a href="#1g" onClick="{{ b7Reset }}" style="min-height:60px;border-radius:14px;background:var(--accent);color:var(--on-accent);font-weight:800;font-size:18px;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 8px 20px rgba(29,63,143,.3)">Send fravær til {{ cMott }} som møtte</a>
+              </div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ mTabDel }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:20px;display:flex;flex-direction:column;gap:14px">
+              <img src="{{ qrEU }}" alt="QR-kode til påmeldingen" style="width:100%;aspect-ratio:1;border-radius:16px;background:#fff;display:block"></img>
+              <div style="display:flex;gap:8px"><div style="flex:1;min-width:0;min-height:48px;display:flex;align-items:center;padding:0 12px;border-radius:10px;background:var(--surface);font-size:14px;font-weight:600;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">politiskfravaer.no/eksempel/a/k7m2x9pq</div><button onClick="{{ copyLink }}" style="min-height:48px;padding:0 14px;border:2px solid var(--ink);border-radius:10px;background:var(--surface);font-weight:700;cursor:pointer">{{ copyLabel }}</button></div>
+              <a href="#1f" style="min-height:56px;border-radius:12px;background:var(--accent);color:var(--on-accent);font-weight:700;font-size:17px;display:flex;align-items:center;justify-content:center;text-decoration:none">Vis på storskjerm</a>
+              <button style="min-height:52px;border:2px solid var(--line);border-radius:12px;background:var(--surface);font-weight:700;cursor:pointer">Last ned QR (PNG)</button>
+            </div>
+          </sc-if>
+          <sc-if value="{{ mTabEnd }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:20px;display:flex;flex-direction:column;gap:14px">
+              <sc-if value="{{ notEnded }}" hint-placeholder-val="{{ true }}">
+                <div style="display:flex;flex-direction:column;gap:14px">
+                  <p style="margin:0;font-size:17px;line-height:1.45">{{ endText }} får avslag med en standard begrunnelse.</p>
+                  <div style="font-size:15px;line-height:1.45;padding:12px 14px;border-radius:10px;background:var(--surface)">«Du er ikke registrert som møtt på arrangementet. Ta kontakt hvis dette er feil.»</div>
+                  <label style="display:flex;align-items:center;gap:12px;min-height:44px;cursor:pointer;font-weight:600"><input type="checkbox" checked="{{ endMail }}" onChange="{{ toggleEndMail }}" style="width:24px;height:24px;accent-color:var(--accent);margin:0"></input>Send e-post om avslaget</label>
+                  <button onClick="{{ endEvent }}" style="min-height:56px;border:2px solid #A3261D;border-radius:12px;background:var(--surface);color:#A3261D;font-weight:700;font-size:17px;cursor:pointer">Avslutt arrangement</button>
+                </div>
+              </sc-if>
+              <sc-if value="{{ ended }}" hint-placeholder-val="{{ false }}"><div style="padding:14px;border-radius:12px;background:#E2F2E6;color:#0F3D21;font-weight:600;font-size:16px">Avsluttet. {{ endedText }}</div></sc-if>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+
+    <div class="dv-opt" id="1e">
+      <div class="dv-olabel"><a class="dv-oid" href="#1e">1e</a><strong style="color:#17191E">Mobil · opprop</strong> · én person om gangen, store knapper</div>
+      <div style="--bg:#E9EEF4;--surface:#FFFFFF;--ink:#0E1A2B;--muted:#46536A;--line:#C5D0DD;--accent:#1D3F8F;--on-accent:#FFFFFF;--accent-soft:#DCE5F4;--accent-ink:#1D3F8F;width:390px;height:844px;border-radius:44px;overflow:hidden;box-shadow:0 0 0 10px #16181D,0 30px 60px rgba(20,24,32,.25);margin:10px;display:flex;flex-direction:column;background:var(--ink);color:#FFFFFF">
+        <div style="height:44px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 30px;font-weight:700;font-size:15px">09:48<span style="font-size:13px">5G ▮▮▮</span></div>
+        <div style="padding:8px 20px 16px;display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;justify-content:space-between;align-items:center"><a href="#1d" style="color:#fff;font-weight:600;font-size:15px;min-height:44px;display:flex;align-items:center">‹ Til listen</a><span style="font-size:15px;font-weight:600;opacity:.85">Opprop</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline"><strong style="font-size:18px">Skolebesøk på Eksempel vgs</strong></div>
+          <div style="display:flex;flex-direction:column;gap:6px"><div style="height:8px;border-radius:4px;background:rgba(255,255,255,.18);overflow:hidden"><div style="height:100%;background:#7FD1A0;width:{{ pReg }};transition:width .3s"></div></div><span style="font-size:15px;color:#D5DCE8">{{ cDone }} av {{ cTotal }} registrert</span></div>
+        </div>
+        <div style="flex:1;background:var(--bg);color:var(--ink);border-radius:28px 28px 0 0;padding:24px 20px 28px;display:flex;flex-direction:column;gap:16px;overflow-y:auto">
+          <sc-if value="{{ opHas }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;flex-direction:column;gap:16px;flex:1">
+              <div style="background:var(--surface);border-radius:20px;padding:24px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px">
+                <div style="width:88px;height:88px;border-radius:50%;background:var(--accent-soft);color:var(--accent-ink);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:30px;margin-bottom:8px">{{ op.initials }}</div>
+                <strong style="font-size:32px;line-height:1.05;letter-spacing:-.02em">{{ op.name }}</strong>
+                <span style="font-size:17px;color:var(--muted)">{{ op.school }}</span>
+                <span style="font-size:15px;color:var(--muted)">{{ op.srcText }}</span>
+                <span style="margin-top:8px;padding:4px 12px;border-radius:999px;font-weight:700;font-size:14px;background:{{ op.badgeBg }};color:{{ op.badgeFg }}">{{ op.statusLabel }}</span>
+              </div>
+              <button onClick="{{ opMott }}" style="min-height:76px;border:0;border-radius:18px;background:#1B6B3A;color:#fff;font-weight:800;font-size:22px;cursor:pointer" style-focus="outline:3px solid var(--ink);outline-offset:3px">✓ Møtt</button>
+              <button onClick="{{ opIkke }}" style="min-height:64px;border:2px solid #A3261D;border-radius:18px;background:var(--surface);color:#A3261D;font-weight:800;font-size:20px;cursor:pointer" style-focus="outline:3px solid var(--ink);outline-offset:3px">Ikke møtt</button>
+              <div style="display:flex;justify-content:space-between;margin-top:auto">
+                <button onClick="{{ opPrev }}" style="min-height:44px;padding:0 8px;border:0;background:none;color:var(--accent-ink);font-weight:700;font-size:16px;cursor:pointer">‹ Forrige</button>
+                <button onClick="{{ opNext }}" style="min-height:44px;padding:0 8px;border:0;background:none;color:var(--accent-ink);font-weight:700;font-size:16px;cursor:pointer">Hopp over ›</button>
+              </div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ opDoneAll }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:16px;flex:1">
+              <div style="display:flex;flex-direction:column;gap:6px;padding-top:12px"><h2 style="margin:0;font-size:38px;line-height:1;font-weight:900;letter-spacing:-.03em">Alle er registrert</h2><span style="font-size:17px;color:var(--muted)">{{ cMott }} møtt · {{ cIkke }} ikke møtt</span></div>
+              <button onClick="{{ opRestart }}" style="align-self:flex-start;min-height:44px;border:0;background:none;padding:0;color:var(--accent-ink);font-weight:700;text-decoration:underline;cursor:pointer">Gå gjennom på nytt</button>
+              <a href="#1g" onClick="{{ b7Reset }}" style="margin-top:auto;min-height:64px;border-radius:16px;background:var(--accent);color:var(--on-accent);font-weight:800;font-size:19px;display:flex;align-items:center;justify-content:center;text-decoration:none">Send fravær til {{ cMott }} som møtte</a>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2 style="margin:0 0 24px;font-size:28px;font-weight:800;letter-spacing:-.02em">B6 · Storskjerm og B7 · Bekreftelse før utsending</h2>
+  <div class="dv-opts" style="margin-bottom:80px">
+    <div class="dv-opt" id="1f">
+      <div class="dv-olabel"><a class="dv-oid" href="#1f">1f</a><strong style="color:#17191E">Storskjerm</strong> · 1600 × 900 · telleren oppdateres levende (klikk tallet for å spille av igjen)</div>
+      <div style="--accent:#1D3F8F;--on-accent:#FFFFFF;width:1600px;height:900px;background:var(--accent);color:var(--on-accent);border-radius:12px;overflow:hidden;box-shadow:0 20px 50px rgba(20,24,32,.25);display:grid;grid-template-columns:minmax(0,1fr) 720px;position:relative">
+        <div style="padding:72px 72px 64px;display:flex;flex-direction:column">
+          <div style="display:flex;align-items:center;gap:14px"><div style="width:56px;height:56px;border-radius:12px;background:var(--on-accent);color:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px">EU</div><span style="font-size:26px;font-weight:700">Eksempel Ungdomsorganisasjon</span></div>
+          <div style="margin-top:auto;display:flex;flex-direction:column;gap:22px">
+            <span style="font-size:30px;font-weight:700;opacity:.9">Skann og meld deg på for politisk fravær</span>
+            <h1 style="margin:0;font-size:104px;line-height:.92;font-weight:900;letter-spacing:-.04em;text-wrap:balance">Skolebesøk på Eksempel vgs</h1>
+            <span style="font-size:30px">Fredag 13. november · 09.00–14.30 · Aula</span>
+          </div>
+          <button onClick="{{ b6Replay }}" style="margin-top:64px;align-self:flex-start;display:flex;align-items:baseline;gap:20px;border:0;background:none;color:inherit;padding:0;cursor:pointer;text-align:left">
+            <strong style="font-size:160px;line-height:.8;font-weight:900;letter-spacing:-.05em;font-variant-numeric:tabular-nums">{{ b6Count }}</strong>
+            <span style="display:flex;flex-direction:column;gap:10px"><span style="font-size:48px;font-weight:800;line-height:1">påmeldt</span><span style="display:flex;align-items:center;gap:10px;font-size:20px;opacity:.9"><span style="width:12px;height:12px;border-radius:50%;background:#7FD1A0;animation:pulse 1.6s ease-in-out infinite"></span>Oppdateres automatisk</span></span>
+          </button>
+        </div>
+        <div style="background:#FFFFFF;color:#0E1A2B;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:48px">
+          <img src="{{ qrEU }}" alt="QR-kode til påmeldingen" style="width:580px;height:580px;display:block"></img>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><span style="font-size:22px;color:#46536A;font-weight:600">Eller gå til</span><strong style="font-size:30px;letter-spacing:-.01em">politiskfravaer.no/eksempel/a/k7m2x9pq</strong></div>
+        </div>
+        <span style="position:absolute;right:20px;top:16px;font-size:14px;color:#46536A">Esc for å lukke</span>
+      </div>
+      <a href="#1a" style="font-size:13px;color:rgba(0,0,0,.6)">Neste i flyten: eleven skanner → <span class="dv-oid">1a</span></a>
+    </div>
+
+    <div class="dv-opt" id="1g">
+      <div class="dv-olabel"><a class="dv-oid" href="#1g">1g</a><strong style="color:#17191E">Bekreft og send</strong> · desktop-dialog · mottakere hentes fra oppmøtelisten</div>
+      <sc-if value="{{ showPills }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-wrap:wrap;gap:6px">
+          <sc-for list="{{ sigPills }}" as="p" hint-placeholder-count="2"><button onClick="{{ p.onClick }}" style="min-height:32px;padding:0 12px;border-radius:999px;border:1px solid rgba(0,0,0,.15);font-size:13px;font-weight:600;cursor:pointer;background:{{ p.bg }};color:{{ p.fg }}">{{ p.label }}</button></sc-for>
+          <button onClick="{{ b7Reset }}" style="min-height:32px;padding:0 12px;border-radius:999px;border:1px solid rgba(0,0,0,.15);font-size:13px;font-weight:600;cursor:pointer;background:#fff">↺ Start på nytt</button>
+        </div>
+      </sc-if>
+      <div style="--bg:#E9EEF4;--surface:#FFFFFF;--ink:#0E1A2B;--muted:#46536A;--line:#C5D0DD;--accent:#1D3F8F;--on-accent:#FFFFFF;--accent-soft:#DCE5F4;--accent-ink:#1D3F8F;width:900px;height:900px;border-radius:12px;overflow:hidden;background:rgba(14,26,43,.55);display:flex;align-items:center;justify-content:center;color:var(--ink);box-shadow:0 20px 50px rgba(20,24,32,.18)">
+        <div role="dialog" aria-modal="true" aria-labelledby="b7-title" style="width:600px;max-height:820px;background:var(--surface);border-radius:22px;padding:32px;display:flex;flex-direction:column;gap:20px;box-shadow:0 30px 80px rgba(0,0,0,.3);box-sizing:border-box">
+          <sc-if value="{{ b7IsConfirm }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;flex-direction:column;gap:20px">
+              <h2 id="b7-title" style="margin:0;font-size:32px;line-height:1.05;font-weight:900;letter-spacing:-.02em">Send {{ cMott }} fraværserklæringer?</h2>
+              <p style="margin:0;font-size:18px;line-height:1.5">Du sender {{ cMott }} fraværserklæringer som <strong>Kari Nordmann, fylkesleder</strong>. Svar går til <strong>kari@eksempel.no</strong>.</p>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+                <div style="background:var(--bg);border-radius:14px;padding:14px 16px"><strong style="font-size:30px;line-height:1">{{ b7New }}</strong><div style="font-size:15px;color:var(--muted)">nye erklæringer</div></div>
+                <div style="background:var(--bg);border-radius:14px;padding:14px 16px"><strong style="font-size:30px;line-height:1">{{ b7Already }}</strong><div style="font-size:15px;color:var(--muted)">sendt før, sendes ikke på nytt</div></div>
+              </div>
+              <sc-if value="{{ noSig }}" hint-placeholder-val="{{ false }}">
+                <div role="alert" style="display:flex;gap:12px;background:#FBF0D9;color:#5C3B00;border-radius:14px;padding:14px 16px;font-size:16px;line-height:1.45"><span style="flex:none;width:24px;height:24px;border-radius:50%;background:#7A4F00;color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:14px">!</span><span><strong>Du har ikke lagt inn signatur.</strong> Erklæringene får navnet ditt i vanlig skrift. Skolene godtar det, men mange forventer en signatur. <a href="#" style="color:#5C3B00;font-weight:700">Legg inn signatur</a></span></div>
+              </sc-if>
+              <sc-if value="{{ hasSig }}" hint-placeholder-val="{{ true }}">
+                <div style="display:flex;align-items:center;gap:14px;border:1px solid var(--line);border-radius:14px;padding:12px 16px"><span style="font-family:Caveat,cursive;font-size:34px;line-height:1;color:#1A2A5C">Kari Nordmann</span><span style="font-size:14px;color:var(--muted)">Signaturen din settes inn i hver PDF.</span></div>
+              </sc-if>
+              <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:4px">
+                <a href="#1c" style="min-height:52px;padding:0 20px;border:2px solid var(--line);border-radius:12px;font-weight:700;display:flex;align-items:center;color:var(--ink);text-decoration:none">Avbryt</a>
+                <button onClick="{{ b7Start }}" style="min-height:52px;padding:0 24px;border:0;border-radius:12px;background:var(--accent);color:var(--on-accent);font-weight:800;font-size:17px;cursor:pointer" style-focus="outline:3px solid var(--ink);outline-offset:3px">{{ b7BtnLabel }}</button>
+              </div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ b7IsRun }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:16px;min-height:0">
+              <h2 style="margin:0;font-size:32px;line-height:1.05;font-weight:900;letter-spacing:-.02em">{{ b7Title }}</h2>
+              <div style="display:flex;flex-direction:column;gap:6px"><div role="progressbar" aria-valuenow="{{ b7Sent }}" aria-valuemax="{{ cMott }}" style="height:10px;border-radius:5px;background:var(--bg);overflow:hidden"><div style="height:100%;background:var(--accent);width:{{ b7Pct }};transition:width .2s"></div></div><span style="font-size:15px;color:var(--muted)" aria-live="polite">{{ b7Sent }} av {{ cMott }} behandlet</span></div>
+              <div style="max-height:440px;overflow-y:auto;border:1px solid var(--line);border-radius:14px">
+                <sc-for list="{{ b7Rows }}" as="r" hint-placeholder-count="8">
+                  <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;border-bottom:1px solid var(--line);font-size:16px"><span style="font-weight:600">{{ r.name }}</span><span style="font-size:14px;font-weight:700;padding:3px 10px;border-radius:999px;background:{{ r.bg }};color:{{ r.fg }}">{{ r.label }}</span></div>
+                </sc-for>
+              </div>
+              <sc-if value="{{ b7IsDone }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;gap:10px;justify-content:flex-end">
+                  <a href="#1c" style="min-height:52px;padding:0 20px;border:2px solid var(--line);border-radius:12px;font-weight:700;display:flex;align-items:center;color:var(--ink);text-decoration:none">Lukk</a>
+                  <a href="#1h" style="min-height:52px;padding:0 22px;border-radius:12px;background:var(--accent);color:var(--on-accent);font-weight:800;display:flex;align-items:center;text-decoration:none">Se Olas erklæring</a>
+                </div>
+              </sc-if>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2 style="margin:0 0 24px;font-size:28px;font-weight:800;letter-spacing:-.02em">F · Fraværserklæringen og D1 · Verifisering</h2>
+  <div class="dv-opts" style="margin-bottom:80px">
+    <div class="dv-opt" id="1h">
+      <div class="dv-olabel"><a class="dv-oid" href="#1h">1h</a><strong style="color:#17191E">PDF, A4</strong> · klikk QR-koden for å «skanne»</div>
+      <div style="width:794px;height:1123px;background:#FFFFFF;color:#111418;box-shadow:0 20px 50px rgba(20,24,32,.18);position:relative;box-sizing:border-box;padding:64px 76px;display:flex;flex-direction:column;gap:28px;font-size:16px;line-height:1.55">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start">
+          <div style="display:flex;align-items:center;gap:12px"><div style="width:52px;height:52px;border-radius:11px;background:#1D3F8F;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px">EU</div><strong style="font-size:17px;line-height:1.2">Eksempel<br>Ungdomsorganisasjon</strong></div>
+          <span style="font-size:15px">Oslo, 16. november 2026</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:20px">
+          <h1 style="margin:0;font-size:36px;line-height:1.05;font-weight:900;letter-spacing:-.025em">Dokumentasjon av politisk fravær</h1>
+          <span style="font-size:14px;line-height:1.5;color:#3C4250">Jf. forskrift til opplæringslova § 3-3 siste ledd og § 3-47 femte ledd bokstav c, og rundskriv Udir-3-2016.</span>
+        </div>
+        <div style="display:grid;grid-template-columns:150px 1fr;row-gap:6px;padding:18px 0;border-top:1.5px solid #111418;border-bottom:1px solid #C9CDD4;font-size:15px">
+          <span style="color:#3C4250">Elev</span><strong>Ola Nordmann</strong>
+          <span style="color:#3C4250">Skole</span><span>Eksempel vgs</span>
+          <span style="color:#3C4250">Arrangement</span><span>Skolebesøk på Eksempel vgs</span>
+          <span style="color:#3C4250">Tid</span><span>13. november 2026 kl. 09.00–14.30</span>
+          <span style="color:#3C4250">Sted</span><span>Eksempel vgs, aula</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px;text-wrap:pretty">
+          <p style="margin:0">Ola Nordmann deltok på Skolebesøk på Eksempel vgs den 13. november 2026 kl. 09.00–14.30 i regi av Oslo fylkeslag. Dette kan regnes som politisk arbeid. Fraværet skal derfor ikke regnes med i fraværsgrensen, jf. forskrift til opplæringslova § 3-3 siste ledd.</p>
+          <p style="margin:0">Eleven kan også be om at inntil 10 skoledager med slikt fravær ikke føres på vitnemålet, jf. § 3-47 femte ledd bokstav c og rundskriv Udir-3-2016.</p>
+          <p style="margin:0">Ola deltok som tillitsvalgt i Eksempel Ungdomsorganisasjon. Ta gjerne kontakt hvis skolen har spørsmål.</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:2px;margin-top:8px">
+          <span>Med vennlig hilsen</span>
+          <span style="font-family:Caveat,cursive;font-size:50px;line-height:1.1;color:#1A2A5C;margin:6px 0 2px">Kari Nordmann</span>
+          <strong>Kari Nordmann</strong>
+          <span>Fylkesleder, Oslo fylkeslag</span>
+          <span style="color:#3C4250">kari@eksempel.no · 900 00 000</span>
+        </div>
+        <div style="position:absolute;left:76px;right:76px;bottom:56px;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;padding-top:18px;border-top:1px solid #C9CDD4">
+          <span style="font-size:13px;line-height:1.5;color:#3C4250">Eksempel Ungdomsorganisasjon<br>Eksempelgata 1, 0150 Oslo<br>post@eksempel.no</span>
+          <a href="#1i" style="display:flex;align-items:center;gap:14px;text-decoration:none;color:#111418">
+            <span style="display:flex;flex-direction:column;align-items:flex-end;text-align:right;font-size:13px;line-height:1.45"><span>Sjekk at dokumentet er ekte:</span><strong style="font-size:14px">politiskfravaer.no/v/K7M2-X9PQ</strong><span style="font-family:ui-monospace,Menlo,monospace;font-size:13px;letter-spacing:.08em">Kode K7M2-X9PQ</span></span>
+            <img src="{{ qrV }}" alt="QR-kode for verifisering" style="width:96px;height:96px;display:block"></img>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="dv-opt" id="1i">
+      <div class="dv-olabel"><a class="dv-oid" href="#1i">1i</a><strong style="color:#17191E">Ekte</strong> · mobil · plattformprofil</div>
+      <div style="--bg:#F4F3F0;--surface:#FFFFFF;--ink:#17191E;--muted:#50566A;--line:#D6D4CE;--accent:#24466E;--on-accent:#FFFFFF;width:390px;height:844px;border-radius:44px;overflow:hidden;box-shadow:0 0 0 10px #16181D,0 30px 60px rgba(20,24,32,.25);margin:10px;display:flex;flex-direction:column;background:var(--bg);color:var(--ink)">
+        <div style="height:44px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 30px;font-weight:700;font-size:15px">08:15<span style="font-size:13px">5G ▮▮▮</span></div>
+        <div style="flex:none;margin:0 16px 4px;padding:6px 12px;border-radius:10px;background:rgba(0,0,0,.05);font-size:13px;color:var(--muted);text-align:center">politiskfravaer.no/v/K7M2-X9PQ</div>
+        <div style="flex:1;overflow-y:auto;padding:12px 20px 32px;display:flex;flex-direction:column;gap:18px">
+          <div style="display:flex;align-items:center;justify-content:space-between"><div style="display:flex;align-items:center;gap:8px"><div style="width:26px;height:26px;border-radius:6px;background:var(--ink)"></div><strong style="font-size:17px">Politisk fravær</strong></div><span style="font-size:14px;color:var(--muted)">Sjekk av dokument</span></div>
+          <div style="background:#E2F2E6;border:2px solid #1B6B3A;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:12px;color:#0F3D21">
+            <div style="width:52px;height:52px;border-radius:50%;background:#1B6B3A;color:#fff;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800">✓</div>
+            <h1 style="margin:0;font-size:36px;line-height:1;font-weight:900;letter-spacing:-.03em">Dokumentet er ekte</h1>
+            <span style="font-size:16px;line-height:1.45">Det er laget i Politisk fravær og ikke endret. Sjekket 20. november 2026 kl. 08.15.</span>
+          </div>
+          <div style="background:var(--surface);border-radius:16px;padding:6px 18px;display:flex;flex-direction:column">
+            <div style="padding:12px 0;border-bottom:1px solid var(--line)"><div style="font-size:14px;color:var(--muted)">Elev</div><strong style="font-size:20px">Ola Nordmann</strong></div>
+            <div style="padding:12px 0;border-bottom:1px solid var(--line)"><div style="font-size:14px;color:var(--muted)">Arrangement</div><strong style="font-size:17px">Skolebesøk på Eksempel vgs</strong></div>
+            <div style="padding:12px 0;border-bottom:1px solid var(--line)"><div style="font-size:14px;color:var(--muted)">Tid</div><strong style="font-size:17px">13. november 2026 kl. 09.00–14.30</strong></div>
+            <div style="padding:12px 0;border-bottom:1px solid var(--line)"><div style="font-size:14px;color:var(--muted)">Organisasjon</div><div style="display:flex;align-items:center;gap:8px"><span style="width:22px;height:22px;border-radius:5px;background:#1D3F8F;color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center">EU</span><strong style="font-size:17px">Eksempel Ungdomsorganisasjon</strong></div></div>
+            <div style="padding:12px 0"><div style="font-size:14px;color:var(--muted)">Bekreftet av</div><strong style="font-size:17px">Kari Nordmann, fylkesleder i Oslo fylkeslag</strong><div style="font-size:15px;color:var(--muted)">16. november 2026 kl. 10.42</div></div>
+          </div>
+          <p style="margin:0;font-size:15px;line-height:1.45;color:var(--muted)">Vi viser bare det som står på PDF-en. Sjekk at navnet stemmer med eleven.</p>
+          <div style="display:flex;flex-direction:column;gap:10px;padding-top:8px;border-top:1px solid var(--line)">
+            <h2 style="margin:8px 0 0;font-size:22px;font-weight:800;letter-spacing:-.01em">For skolen</h2>
+            <p style="margin:0;font-size:16px;line-height:1.5">Dokumentert fravær fra politisk arbeid teller ikke med i fraværsgrensen (forskrift til opplæringslova § 3-3).</p>
+            <p style="margin:0;font-size:16px;line-height:1.5">Eleven kan be om at inntil 10 dager ikke føres på vitnemålet (§ 3-47 femte ledd bokstav c).</p>
+            <a href="#" style="min-height:44px;display:flex;align-items:center;font-weight:700;color:var(--accent)">Les rundskriv Udir-3-2016</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dv-opt" id="1j">
+      <div class="dv-olabel"><a class="dv-oid" href="#1j">1j</a><strong style="color:#17191E">Trukket tilbake</strong> · mobil</div>
+      <div style="--bg:#F4F3F0;--surface:#FFFFFF;--ink:#17191E;--muted:#50566A;--line:#D6D4CE;--accent:#24466E;width:390px;height:844px;border-radius:44px;overflow:hidden;box-shadow:0 0 0 10px #16181D,0 30px 60px rgba(20,24,32,.25);margin:10px;display:flex;flex-direction:column;background:var(--bg);color:var(--ink)">
+        <div style="height:44px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 30px;font-weight:700;font-size:15px">08:17<span style="font-size:13px">5G ▮▮▮</span></div>
+        <div style="flex:none;margin:0 16px 4px;padding:6px 12px;border-radius:10px;background:rgba(0,0,0,.05);font-size:13px;color:var(--muted);text-align:center">politiskfravaer.no/v/R4TT-B2KL</div>
+        <div style="flex:1;overflow-y:auto;padding:12px 20px 32px;display:flex;flex-direction:column;gap:18px">
+          <div style="display:flex;align-items:center;justify-content:space-between"><div style="display:flex;align-items:center;gap:8px"><div style="width:26px;height:26px;border-radius:6px;background:var(--ink)"></div><strong style="font-size:17px">Politisk fravær</strong></div><span style="font-size:14px;color:var(--muted)">Sjekk av dokument</span></div>
+          <div style="background:#FBE4E1;border:2px solid #A3261D;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:12px;color:#5E140F">
+            <div style="width:52px;height:52px;border-radius:50%;background:#A3261D;color:#fff;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800">✕</div>
+            <h1 style="margin:0;font-size:34px;line-height:1;font-weight:900;letter-spacing:-.03em">Dokumentet er trukket tilbake</h1>
+            <span style="font-size:16px;line-height:1.45">Eksempel Ungdomsorganisasjon trakk det tilbake 18. november 2026. Det kan ikke brukes som dokumentasjon av fravær.</span>
+          </div>
+          <div style="background:var(--surface);border-radius:16px;padding:6px 18px">
+            <div style="padding:12px 0;border-bottom:1px solid var(--line)"><div style="font-size:14px;color:var(--muted)">Elev</div><strong style="font-size:18px">Jonas Berg</strong></div>
+            <div style="padding:12px 0;border-bottom:1px solid var(--line)"><div style="font-size:14px;color:var(--muted)">Arrangement</div><strong style="font-size:17px">Fylkesmøte i Oslo fylkeslag</strong></div>
+            <div style="padding:12px 0"><div style="font-size:14px;color:var(--muted)">Kode</div><strong style="font-size:17px;font-family:ui-monospace,Menlo,monospace;letter-spacing:.06em">R4TT-B2KL</strong></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px"><strong style="font-size:18px">Spørsmål?</strong><span style="font-size:16px;line-height:1.5">Kontakt organisasjonen. Eleven kan ha fått en ny erklæring med en annen kode.</span><a href="#" style="min-height:44px;display:flex;align-items:center;font-weight:700;color:var(--accent);font-size:17px">post@eksempel.no</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dv-opt" id="1k">
+      <div class="dv-olabel"><a class="dv-oid" href="#1k">1k</a><strong style="color:#17191E">Desktop</strong> · prøv en annen kode for «ikke funnet»</div>
+      <div style="--bg:#F4F3F0;--surface:#FFFFFF;--ink:#17191E;--muted:#50566A;--line:#D6D4CE;--accent:#24466E;--on-accent:#FFFFFF;width:1440px;min-height:900px;background:var(--bg);color:var(--ink);border-radius:12px;overflow:hidden;box-shadow:0 20px 50px rgba(20,24,32,.18)">
+        <div style="height:68px;background:var(--surface);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 48px"><div style="display:flex;align-items:center;gap:10px"><div style="width:30px;height:30px;border-radius:7px;background:var(--ink)"></div><strong style="font-size:19px">Politisk fravær</strong></div><span style="font-size:15px;color:var(--muted)">Sjekk av fraværserklæring</span></div>
+        <div style="max-width:1120px;margin:0 auto;padding:56px 48px;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:48px;align-items:start">
+          <sc-if value="{{ d1Valid }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;flex-direction:column;gap:20px">
+              <div style="background:#E2F2E6;border:2px solid #1B6B3A;border-radius:24px;padding:28px;display:flex;gap:20px;align-items:center;color:#0F3D21">
+                <div style="flex:none;width:72px;height:72px;border-radius:50%;background:#1B6B3A;color:#fff;display:flex;align-items:center;justify-content:center;font-size:38px;font-weight:800">✓</div>
+                <div style="display:flex;flex-direction:column;gap:6px"><h1 style="margin:0;font-size:48px;line-height:1;font-weight:900;letter-spacing:-.03em">Dokumentet er ekte</h1><span style="font-size:17px">Laget i Politisk fravær og ikke endret. Kode <strong style="font-family:ui-monospace,Menlo,monospace">{{ d1Checked }}</strong>.</span></div>
+              </div>
+              <div style="background:var(--surface);border-radius:20px;padding:8px 28px;display:grid;grid-template-columns:180px 1fr;font-size:17px">
+                <span style="padding:16px 0;border-bottom:1px solid var(--line);color:var(--muted)">Elev</span><strong style="padding:16px 0;border-bottom:1px solid var(--line);font-size:20px">Ola Nordmann</strong>
+                <span style="padding:16px 0;border-bottom:1px solid var(--line);color:var(--muted)">Arrangement</span><strong style="padding:16px 0;border-bottom:1px solid var(--line)">Skolebesøk på Eksempel vgs</strong>
+                <span style="padding:16px 0;border-bottom:1px solid var(--line);color:var(--muted)">Tid</span><strong style="padding:16px 0;border-bottom:1px solid var(--line)">13. november 2026 kl. 09.00–14.30</strong>
+                <span style="padding:16px 0;border-bottom:1px solid var(--line);color:var(--muted)">Organisasjon</span><strong style="padding:16px 0;border-bottom:1px solid var(--line)">Eksempel Ungdomsorganisasjon</strong>
+                <span style="padding:16px 0;color:var(--muted)">Bekreftet av</span><span style="padding:16px 0"><strong>Kari Nordmann, fylkesleder i Oslo fylkeslag</strong><br><span style="color:var(--muted)">16. november 2026 kl. 10.42</span></span>
+              </div>
+              <p style="margin:0;font-size:16px;color:var(--muted)">Vi viser bare det som står på PDF-en. Sjekk at navnet stemmer med eleven.</p>
+            </div>
+          </sc-if>
+          <sc-if value="{{ d1NotFound }}" hint-placeholder-val="{{ false }}">
+            <div style="background:var(--surface);border:2px solid var(--ink);border-radius:24px;padding:28px;display:flex;flex-direction:column;gap:12px">
+              <h1 style="margin:0;font-size:44px;line-height:1;font-weight:900;letter-spacing:-.03em">Vi fant ikke dokumentet</h1>
+              <span style="font-size:18px;line-height:1.5">Ingen erklæring har koden <strong style="font-family:ui-monospace,Menlo,monospace">{{ d1Checked }}</strong>. Sjekk at du har skrevet den riktig. Koden står nederst til høyre på PDF-en.</span>
+              <span style="font-size:18px;line-height:1.5">Stemmer koden? Da er dokumentet ikke laget i Politisk fravær, og bør ikke godtas.</span>
+              <button onClick="{{ d1Reset }}" style="align-self:flex-start;min-height:44px;border:0;background:none;padding:0;color:var(--accent);font-weight:700;font-size:17px;text-decoration:underline;cursor:pointer">Tilbake til K7M2-X9PQ</button>
+            </div>
+          </sc-if>
+          <div style="display:flex;flex-direction:column;gap:28px">
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <h2 style="margin:0;font-size:26px;font-weight:800;letter-spacing:-.02em">For skolen</h2>
+              <p style="margin:0;font-size:17px;line-height:1.55">Dokumentert fravær fra politisk arbeid teller ikke med i fraværsgrensen (forskrift til opplæringslova § 3-3).</p>
+              <p style="margin:0;font-size:17px;line-height:1.55">Eleven kan be om at inntil 10 dager ikke føres på vitnemålet (§ 3-47 femte ledd bokstav c).</p>
+              <p style="margin:0;font-size:17px;line-height:1.55">Dokumentasjonen må komme fra organisasjonen. Denne siden viser at den gjør det.</p>
+              <a href="#" style="font-weight:700;color:var(--accent);font-size:17px">Les rundskriv Udir-3-2016</a>
+            </div>
+            <form onSubmit="{{ d1Check }}" style="background:var(--surface);border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:10px">
+              <label for="d1-code" style="font-weight:700;font-size:18px">Sjekk en annen kode</label>
+              <div style="display:flex;gap:8px"><input id="d1-code" value="{{ d1Input }}" onChange="{{ onD1Input }}" placeholder="XXXX-XXXX" style="flex:1;min-width:0;min-height:52px;padding:0 14px;border:2px solid var(--line);border-radius:10px;font-family:ui-monospace,Menlo,monospace;font-size:18px;letter-spacing:.08em;text-transform:uppercase" style-focus="outline:3px solid var(--accent);outline-offset:2px"></input><button type="submit" style="min-height:52px;padding:0 22px;border:0;border-radius:10px;background:var(--accent);color:var(--on-accent);font-weight:700;font-size:17px;cursor:pointer">Sjekk</button></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2 style="margin:0 0 8px;font-size:28px;font-weight:800;letter-spacing:-.02em">Komponenter med to org-profiler</h2>
+  <p style="margin:0 0 24px;font-size:15px;color:#3E4350;max-width:720px">Samme komponenter, bare fargevariablene byttes. Tredje kolonne er en test med lys aksent: knappeteksten blir mørk, og lenkefargen mørknes automatisk. Bytt aksentfargen under Tweaks.</p>
+  <div class="dv-opts">
+    <div class="dv-opt" id="1l">
+      <div class="dv-olabel"><a class="dv-oid" href="#1l">1l</a><strong style="color:#17191E">Komponentoversikt</strong></div>
+      <div style="display:flex;gap:28px;align-items:flex-start">
+        <div style="--bg:#E9EEF4;--surface:#FFFFFF;--ink:#0E1A2B;--muted:#46536A;--line:#C5D0DD;--accent:#1D3F8F;--on-accent:#FFFFFF;--accent-soft:#DCE5F4;--accent-ink:#1D3F8F;"><dc-import name="Komponenter" org-name="Eksempel Ungdomsorganisasjon" initials="EU" info="{{ euInfo }}" hint-size="460px,1500px"></dc-import></div>
+        <div style="--bg:#F6F2E9;--surface:#FFFDF8;--ink:#1F2A1F;--muted:#535E4D;--line:#D9D0BD;--accent:#1E6B3C;--on-accent:#FFFFFF;--accent-soft:#E0EDDD;--accent-ink:#1E6B3C;"><dc-import name="Komponenter" org-name="Grønn Fremtid Ungdom" initials="GF" info="{{ gfInfo }}" hint-size="460px,1500px"></dc-import></div>
+        <div style="--bg:#FAFAF7;--surface:#FFFFFF;--ink:#1A1A1A;--muted:#55585E;--line:#DEDDD6;--accent:{{ demoAccent }};--on-accent:{{ demoOn }};--accent-soft:{{ demoSoft }};--accent-ink:{{ demoInk }};"><dc-import name="Komponenter" org-name="Test: lys aksent" initials="LA" info="{{ demoInfo }}" hint-size="460px,1500px"></dc-import></div>
+      </div>
+    </div>
+  </div>
+
+  <p class="dv-next">Prøv neste: «bygg runde 2 med søknadsflyten (A2 → B1 → B2)» · «mer som <a class="dv-oid" href="#1b">1b</a> for A1, men med feltene fra <a class="dv-oid" href="#1a">1a</a>» · «gjør opprop-varianten <a class="dv-oid" href="#1e">1e</a> til standard på mobil»</p>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;demoAccent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#F4C430&quot;,&quot;options&quot;:[&quot;#F4C430&quot;,&quot;#7FD1AE&quot;,&quot;#FF9E7A&quot;,&quot;#C9B8FF&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Kontrast&quot;},&quot;visTilstandsvelgere&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Prototype&quot;},&quot;signaturMangler&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Prototype&quot;}}">
+const PEOPLE=[["Ola Nordmann","Eksempel vgs","08.41"],["Sara Ahmed","Fjordbyen vgs","08.43"],["Jonas Berg","Eksempel vgs","08.44"],["Ingrid Haugen","Eksempel vgs","08.47"],["Mohammed Ali","Fjordbyen vgs","08.48"],["Emma Johansen","Eksempel vgs","08.50"],["Lukas Larsen","Eksempel vgs","08.52"],["Nora Pedersen","Fjordbyen vgs","08.52"],["Elias Kristiansen","Eksempel vgs","08.55"],["Maja Olsen","Eksempel vgs","08.56"],["Filip Andersen","Fjordbyen vgs","08.58"],["Aisha Hussain","Eksempel vgs","09.01"],["Henrik Dahl","Eksempel vgs","09.03"],["Thea Solberg","Fjordbyen vgs","09.04"],["Oskar Lie","Eksempel vgs","09.06"],["Sofie Nilsen","Eksempel vgs","09.09"],["Adrian Moen","Fjordbyen vgs","09.11"],["Leah Bakken","Eksempel vgs","09.12"],["Isak Strand","Eksempel vgs","09.15"],["Mathilde Eriksen","Fjordbyen vgs","09.18"],["Ella Halvorsen","Eksempel vgs","09.20"],["Yusuf Demir","Fjordbyen vgs","09.24"],["Tobias Sæther","Eksempel vgs","09.31"]];
+const initPeople=()=>PEOPLE.map(([name,school,time],i)=>({id:i,name,school,time,src:'QR',status:i>=21?'pending':(name==='Henrik Dahl'||name==='Isak Strand')?'ikke':'mott',already:name==='Ingrid Haugen'||name==='Emma Johansen'}));
+const PREFILL={name:'Ola Nordmann',school:'Eksempel vgs',email:'ola.nordmann@elev.no',phone:'',schoolEmail:''};
+const rgb=h=>{h=h.replace('#','');if(h.length===3)h=h.split('').map(c=>c+c).join('');const n=parseInt(h,16);return[n>>16&255,n>>8&255,n&255];};
+const lum=h=>rgb(h).map(v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4);}).reduce((a,v,i)=>a+v*[.2126,.7152,.0722][i],0);
+const ratio=(a,b)=>{const x=lum(a),y=lum(b);return(Math.max(x,y)+.05)/(Math.min(x,y)+.05);};
+const mix=(h,t,p)=>{const a=rgb(h),b=rgb(t);return'#'+a.map((v,i)=>Math.round(v+(b[i]-v)*p).toString(16).padStart(2,'0')).join('');};
+const onColor=bg=>ratio(bg,'#FFFFFF')>=4.5?'#FFFFFF':'#141414';
+const inkOn=(c,bg)=>{let o=c,p=0;while(ratio(o,bg)<4.5&&p<1){p+=.05;o=mix(c,'#000000',p);}return o;};
+const fmt=r=>r.toFixed(1).replace('.',',');
+function qr(seed,dark){const n=29;let s=0;for(const ch of seed)s=(s*31+ch.charCodeAt(0))>>>0;const rnd=()=>{s=(s*1664525+1013904223)>>>0;return s/4294967296;};let d='';
+  for(let r=0;r<n;r++)for(let c=0;c<n;c++){let on;const zones=[[0,0],[0,n-7],[n-7,0]];let z=null;for(const[zr,zc]of zones){if(r>=zr-1&&r<=zr+7&&c>=zc-1&&c<=zc+7)z=[r-zr,c-zc];}
+    if(z){const[a,b]=z;on=a>=0&&a<=6&&b>=0&&b<=6&&(a===0||a===6||b===0||b===6||(a>=2&&a<=4&&b>=2&&b<=4));}
+    else if(r===6||c===6)on=(r+c)%2===0;else on=rnd()<.5;
+    if(on)d+=`M${c} ${r}h1v1h-1z`;}
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 ${n+4} ${n+4}" shape-rendering="crispEdges"><rect x="-2" y="-2" width="${n+4}" height="${n+4}" fill="#fff"/><path d="${d}" fill="${dark}"/></svg>`;
+  return'data:image/svg+xml;utf8,'+encodeURIComponent(svg);}
+const QR_EU=qr('k7m2x9pq','#0E1A2B'),QR_V=qr('K7M2-X9PQ','#111418');
+const ini=n=>n.split(' ').map(w=>w[0]).slice(0,2).join('');
+
+class Component extends DCLogic {
+  state={a1:'form',f:{...PREFILL},a1Prefilled:true,a1Copy:false,a1Tried:false,a1b:'confirm',
+    people:initPeople(),filter:'alle',q:'',copied:false,addOpen:false,addName:'',addSchool:'',endMail:true,ended:false,mTab:'delt',
+    opIdx:21,b6Count:17,b7:'confirm',b7Sent:0,b7NoSig:null,d1Input:'',d1Checked:'K7M2-X9PQ'};
+  componentDidMount(){this.b6=setInterval(()=>this.setState(s=>s.b6Count<23?{b6Count:s.b6Count+1}:null),2600);}
+  componentWillUnmount(){clearInterval(this.b6);clearInterval(this.b7t);clearTimeout(this.a1t);clearTimeout(this.cpt);}
+  errs(){const f=this.state.f,e={};if(!f.name.trim())e.name='Skriv inn navnet ditt.';if(!f.school.trim())e.school='Skriv inn hvilken skole du går på.';
+    if(!f.email.trim())e.email='Skriv inn e-postadressen din. Dit sender vi erklæringen.';else if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(f.email.trim()))e.email='E-postadressen mangler noe. Eksempel: navn@skole.no';
+    if(this.state.a1Copy&&f.schoolEmail.trim()&&!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(f.schoolEmail.trim()))e.schoolEmail='Skolens e-post ser ikke riktig ut. Eksempel: post@skole.no';return e;}
+  setStatus(id,st,toggle=true){this.setState(s=>({people:s.people.map(p=>p.id===id?{...p,status:toggle&&p.status===st?'pending':st}:p)}));}
+  setA1(k){clearTimeout(this.a1t);if(k==='error')this.setState({a1:'form',f:{...PREFILL,school:'',email:'ola.nordmann@elev'},a1Prefilled:false,a1Tried:true});
+    else if(k==='form')this.setState({a1:'form',f:{...PREFILL},a1Prefilled:true,a1Tried:false});else this.setState({a1:k});}
+  opMark(st){const s=this.state,cur=s.people[s.opIdx];const people=s.people.map(p=>p.id===cur.id?{...p,status:st}:p);
+    let next=s.opIdx;for(let k=1;k<=people.length;k++){const j=(s.opIdx+k)%people.length;if(people[j].status==='pending'){next=j;break;}}
+    this.setState({people,opIdx:next});}
+  renderVals(){
+    const s=this.state,f=s.f,P=this.props;
+    const pill=(list,cur,set)=>list.map(([k,l])=>({label:l,onClick:()=>set(k),bg:cur===k?'#17191E':'#FFFFFF',fg:cur===k?'#FFFFFF':'#17191E'}));
+    const e=s.a1Tried?this.errs():{};const ec=Object.keys(e).length;const bd=k=>e[k]?'#B3261E':'var(--line)';
+    const a1View=s.a1Tried&&ec&&s.a1==='form'?'error':s.a1;
+    const fld=k=>ev=>{const v=ev.target.value;this.setState(st=>({f:{...st.f,[k]:v}}));};
+    const people=s.people,cMott=people.filter(p=>p.status==='mott').length,cIkke=people.filter(p=>p.status==='ikke').length,cPending=people.filter(p=>p.status==='pending').length,cTotal=people.length;
+    const btn=(on,c)=>on?{bg:c,fg:'#FFFFFF',bd:c}:{bg:'var(--surface)',fg:'var(--ink)',bd:'var(--line)'};
+    const row=p=>{const m=btn(p.status==='mott','#1B6B3A'),k=btn(p.status==='ikke','#A3261D');return{...p,initials:ini(p.name),isMott:p.status==='mott',isIkke:p.status==='ikke',
+      mBg:m.bg,mFg:m.fg,mBd:m.bd,kBg:k.bg,kFg:k.fg,kBd:k.bd,rowBg:p.status==='pending'?'#FFF8E8':'transparent',
+      srcText:p.src==='QR'?`Påmeldt ${p.time} via QR`:'Lagt til manuelt',onMott:()=>this.setStatus(p.id,'mott'),onIkke:()=>this.setStatus(p.id,'ikke')};};
+    const rows=people.map(row);const q=s.q.trim().toLowerCase();
+    const rowsFiltered=rows.filter(r=>(s.filter==='alle'||r.status===s.filter)&&(!q||r.name.toLowerCase().includes(q)));
+    const fdefs=[['alle',`Alle (${cTotal})`],['pending',`Ikke registrert (${cPending})`],['mott',`Møtt (${cMott})`],['ikke',`Ikke møtt (${cIkke})`]];
+    const filters=fdefs.map(([k,l])=>({label:l,on:s.filter===k,onClick:()=>this.setState({filter:k}),bg:s.filter===k?'var(--ink)':'var(--surface)',fg:s.filter===k?'var(--surface)':'var(--ink)',bd:s.filter===k?'var(--ink)':'var(--line)'}));
+    const mott=people.filter(p=>p.status==='mott'),already=mott.filter(p=>p.already).length;
+    const op=people[s.opIdx]||people[0];const opSt={mott:['Møtt','#E2F2E6','#17602F'],ikke:['Ikke møtt','#FBE4E1','#9A231B'],pending:['Ikke registrert','#FBF0D9','#7A4F00']}[op.status];
+    const noSig=s.b7NoSig??!!P.signaturMangler;
+    const b7Rows=mott.map((p,i)=>{const done=i<s.b7Sent;const [label,bg,fg]=done?(p.already?['Allerede sendt (ikke sendt på nytt)','#ECEEF2','#3A4150']:['✓ Sendt','#E2F2E6','#17602F']):i===s.b7Sent&&s.b7==='run'?['Sender …','#DCE5F4','#1D3F8F']:['Venter','transparent','#46536A'];return{name:p.name,label,bg,fg};});
+    const notReg=cIkke+cPending;
+    const da=P.demoAccent||'#F4C430',dOn=onColor(da),dInk=inkOn(da,'#FFFFFF');
+    const tabs=[['delt','Deltakere'],['del','Del'],['end','Avslutt']];
+    return{
+      showPills:P.visTilstandsvelgere??true,
+      a1Pills:pill([['form','Standard'],['error','Feil i felt'],['slow','Dårlig nett'],['already','Allerede påmeldt'],['closed','Stengt'],['done','Kvittering']],a1View,k=>this.setA1(k)),
+      f,a1Prefilled:s.a1Prefilled&&s.a1==='form',a1Copy:s.a1Copy,
+      a1IsForm:s.a1==='form'||s.a1==='slow',a1IsSlow:s.a1==='slow',a1IsDone:s.a1==='done',a1IsClosed:s.a1==='closed',a1IsAlready:s.a1==='already',a1ShowEvent:s.a1!=='done',
+      a1ErrCount:ec>0,a1ErrText:ec===1?'1 felt':`${ec} felt`,eName:e.name,eSchool:e.school,eEmail:e.email,eSchoolEmail:e.schoolEmail,
+      bName:bd('name'),bSchool:bd('school'),bEmail:bd('email'),bSchoolEmail:bd('schoolEmail'),
+      a1BtnLabel:s.a1==='slow'?'Sender …':'Meld meg på',a1BtnBg:s.a1==='slow'?'var(--line)':'var(--accent)',a1BtnFg:s.a1==='slow'?'var(--muted)':'var(--on-accent)',
+      onName:fld('name'),onSchool:fld('school'),onEmail:fld('email'),onPhone:fld('phone'),onSchoolEmail:fld('schoolEmail'),
+      a1ToggleCopy:()=>this.setState(st=>({a1Copy:!st.a1Copy})),
+      a1Clear:()=>this.setState({f:{name:'',school:'',email:'',phone:'',schoolEmail:''},a1Prefilled:false,a1Tried:false}),
+      a1Another:()=>this.setState({a1:'form',f:{name:'',school:'',email:'',phone:'',schoolEmail:''},a1Prefilled:false,a1Tried:false}),
+      a1Submit:ev=>{ev.preventDefault();if(s.a1==='slow')return;this.setState({a1Tried:true},()=>{if(Object.keys(this.errs()).length)return;this.setState({a1:'slow'});this.a1t=setTimeout(()=>this.setState({a1:'done'}),2400);});},
+      a1bPills:pill([['confirm','Gjenkjent'],['edit','Ny elev'],['done','Kvittering']],s.a1b,k=>this.setState({a1b:k})),
+      a1bConfirm:s.a1b==='confirm',a1bIsEdit:s.a1b==='edit',a1bIsDone:s.a1b==='done',a1bEdit:()=>this.setState({a1b:'edit'}),a1bDone:()=>this.setState({a1b:'done'}),
+      qrEU:QR_EU,qrV:QR_V,copyLabel:s.copied?'Kopiert ✓':'Kopier',
+      copyLink:()=>{try{navigator.clipboard&&navigator.clipboard.writeText('https://politiskfravaer.no/eksempel/a/k7m2x9pq').catch(()=>{});}catch(err){}this.setState({copied:true});clearTimeout(this.cpt);this.cpt=setTimeout(()=>this.setState({copied:false}),1800);},
+      cTotal,cMott,cIkke,cPending,cDone:cTotal-cPending,pMott:(cMott/cTotal*100)+'%',pIkke:(cIkke/cTotal*100)+'%',pReg:((cTotal-cPending)/cTotal*100)+'%',
+      filters,rowsFiltered,noRows:rowsFiltered.length===0,q:s.q,onQ:ev=>this.setState({q:ev.target.value}),
+      rowsPending:rows.filter(r=>r.status==='pending'),rowsDone:rows.filter(r=>r.status!=='pending'),
+      markAll:()=>this.setState(st=>({people:st.people.map(p=>({...p,status:'mott'}))})),
+      addOpen:s.addOpen,toggleAdd:()=>this.setState(st=>({addOpen:!st.addOpen})),addName:s.addName,addSchool:s.addSchool,
+      onAddName:ev=>this.setState({addName:ev.target.value}),onAddSchool:ev=>this.setState({addSchool:ev.target.value}),
+      addPerson:()=>{const n=s.addName.trim()||'Ny deltaker';this.setState(st=>({people:[...st.people,{id:st.people.length,name:n,school:st.addSchool.trim()||'Eksempel vgs',time:'',src:'manuelt',status:'mott',already:false}],addOpen:false,addName:'',addSchool:''}));},
+      quickAdd:()=>this.setState(st=>({people:[...st.people,{id:st.people.length,name:'Vilde Aasen',school:'Fjordbyen vgs',time:'',src:'manuelt',status:'mott',already:false}]})),
+      alreadyText:already?`${already} av dem har fått erklæring før og får ikke en ny.`:'',
+      endText:notReg===0?'Ingen':`De som ikke møtte (${cIkke}) og de som ikke er registrert (${cPending})`,
+      endedText:`${notReg} søknader er avslått${s.endMail?', og de har fått e-post.':'. Ingen e-post er sendt.'}`,
+      notEnded:!s.ended,ended:s.ended,endMail:s.endMail,toggleEndMail:()=>this.setState(st=>({endMail:!st.endMail})),
+      endEvent:()=>this.setState({ended:true}),undoEnd:()=>this.setState({ended:false}),
+      mTabs:tabs.map(([k,l])=>({label:l,on:s.mTab===k,onClick:()=>this.setState({mTab:k}),fg:s.mTab===k?'var(--accent-ink)':'var(--muted)',line:s.mTab===k?'var(--accent)':'transparent'})),
+      mTabDelt:s.mTab==='delt',mTabDel:s.mTab==='del',mTabEnd:s.mTab==='end',
+      op:{...op,initials:ini(op.name),srcText:op.src==='QR'?`Påmeldt ${op.time} via QR`:'Lagt til manuelt',statusLabel:opSt[0],badgeBg:opSt[1],badgeFg:opSt[2]},
+      opHas:cPending>0,opDoneAll:cPending===0,opMott:()=>this.opMark('mott'),opIkke:()=>this.opMark('ikke'),
+      opPrev:()=>this.setState(st=>({opIdx:(st.opIdx-1+st.people.length)%st.people.length})),opNext:()=>this.setState(st=>({opIdx:(st.opIdx+1)%st.people.length})),
+      opRestart:()=>this.setState(st=>({people:st.people.map(p=>({...p,status:'pending'})),opIdx:0})),
+      b6Count:s.b6Count,b6Replay:()=>this.setState({b6Count:17}),
+      sigPills:pill([['sig','Med signatur'],['nosig','Uten signatur']],noSig?'nosig':'sig',k=>this.setState({b7NoSig:k==='nosig'})),
+      noSig,hasSig:!noSig,b7New:mott.length-already,b7Already:already,b7BtnLabel:`Send ${cMott} erklæringer`,
+      b7IsConfirm:s.b7==='confirm',b7IsRun:s.b7!=='confirm',b7IsDone:s.b7==='done',b7Sent:s.b7Sent,b7Pct:(mott.length?s.b7Sent/mott.length*100:0)+'%',b7Rows,
+      b7Title:s.b7==='done'?`${mott.length-already} sendt · ${already} allerede sendt`:'Sender …',
+      b7Reset:()=>{clearInterval(this.b7t);this.setState({b7:'confirm',b7Sent:0});},
+      b7Start:()=>{clearInterval(this.b7t);this.setState({b7:'run',b7Sent:0});this.b7t=setInterval(()=>{this.setState(st=>{const tot=st.people.filter(p=>p.status==='mott').length;const n=st.b7Sent+1;if(n>=tot){clearInterval(this.b7t);return{b7Sent:tot,b7:'done'};}return{b7Sent:n};});},200);},
+      d1Valid:s.d1Checked==='K7M2-X9PQ',d1NotFound:s.d1Checked!=='K7M2-X9PQ',d1Checked:s.d1Checked,d1Input:s.d1Input,onD1Input:ev=>this.setState({d1Input:ev.target.value}),
+      d1Check:ev=>{ev.preventDefault();const c=s.d1Input.trim().toUpperCase();if(c)this.setState({d1Checked:c});},d1Reset:()=>this.setState({d1Checked:'K7M2-X9PQ',d1Input:''}),
+      euInfo:`Aksent #1D3F8F · hvit knappetekst ${fmt(ratio('#1D3F8F','#FFFFFF'))}:1`,
+      gfInfo:`Aksent #1E6B3C · hvit knappetekst ${fmt(ratio('#1E6B3C','#FFFFFF'))}:1`,
+      demoAccent:da,demoOn:dOn,demoSoft:mix(da,'#FFFFFF',.75),demoInk:dInk,
+      demoInfo:`Aksent ${da.toUpperCase()} · ${dOn==='#FFFFFF'?'hvit':'mørk'} knappetekst ${fmt(ratio(da,dOn))}:1 · lenke ${dInk.toUpperCase()} ${fmt(ratio(dInk,'#FFFFFF'))}:1`,
+    };
+  }
+}
+</script>
+</body>
+</html>
